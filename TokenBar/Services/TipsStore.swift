@@ -149,7 +149,7 @@ final class TipsStore {
             return
         }
         featuredID = tips.first?.id
-        if let id = featuredID, !DemoMode.isEnabled {
+        if let id = featuredID, !AppEnvironment.isIsolated {
             UserDefaults.standard.set(["id": id, "day": today], forKey: Self.featuredKey)
         }
     }

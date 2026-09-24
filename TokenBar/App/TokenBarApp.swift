@@ -36,6 +36,8 @@ struct TokenBarApp: App {
         let remoteSources = RemoteSourcesManager(container: container)
         _remoteSources = State(initialValue: remoteSources)
 
+        // Em testes o app só serve de host: não lê logs, APIs nem o plano.
+        if AppEnvironment.isRunningTests { return }
         #if DEBUG
         if DemoMode.isEnabled {
             DemoMode.seed(container: container, planUsage: planUsage, localSources: localSources)

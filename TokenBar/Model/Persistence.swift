@@ -7,6 +7,9 @@ enum Persistence {
 
     /// `~/Library/Application Support/TokenBar`
     static var directory: URL {
+        if AppEnvironment.isRunningTests {
+            return FileManager.default.temporaryDirectory.appending(path: "TokenBar-Tests", directoryHint: .isDirectory)
+        }
         #if DEBUG
         if DemoMode.isEnabled {
             return URL.applicationSupportDirectory.appending(path: "TokenBar-Demo", directoryHint: .isDirectory)
@@ -20,6 +23,10 @@ enum Persistence {
     }
 
     static func makeContainer() -> ModelContainer {
+        if AppEnvironment.isRunningTests {
+            // Testes nunca tocam o banco real.
+            return try! ModelContainer(for: UsageEvent.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        }
         if DemoMode.isEnabled {
             // A demonstração sempre começa de um banco limpo.
             try? FileManager.default.removeItem(at: directory)

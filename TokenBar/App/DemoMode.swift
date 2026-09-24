@@ -1,6 +1,15 @@
 import Foundation
 import SwiftData
 
+/// Ambiente em que o app roda. Em testes e na demonstração ele fica isolado: não lê logs nem
+/// APIs, não publica o widget e não grava preferências do usuário.
+enum AppEnvironment {
+    /// Testes rodam dentro do app (host); o Xcode define esta variável nesse caso.
+    static let isRunningTests = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+
+    static var isIsolated: Bool { isRunningTests || DemoMode.isEnabled }
+}
+
 /// Modo de demonstração para capturas de tela (só em builds de desenvolvimento).
 /// Abre com `-demo YES`: usa um banco separado com dados fictícios, não lê logs nem APIs,
 /// não publica o widget e abre o painel e uma prévia do popover como janelas.

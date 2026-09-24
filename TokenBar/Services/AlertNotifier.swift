@@ -12,7 +12,7 @@ final class AlertNotifier {
     }
 
     func evaluate(_ limits: [LimitStatus]) {
-        guard UserDefaults.standard.bool(forKey: BudgetKey.alertsEnabled) else { return }
+        guard !AppEnvironment.isIsolated, UserDefaults.standard.bool(forKey: BudgetKey.alertsEnabled) else { return }
         var fired = Set(UserDefaults.standard.stringArray(forKey: firedKey) ?? [])
         let before = fired.count
 

@@ -12,16 +12,20 @@ struct CodexParser: JSONLLogParser {
     }
 
     let prices: PriceTable
+    let roots: [URL]
     private let decoder = JSONDecoder()
     private let markers = ["\"token_count\"", "\"turn_context\"", "\"session_meta\""].map { Data($0.utf8) }
 
-    static var roots: [URL] {
+    init(prices: PriceTable, roots: [URL] = CodexParser.defaultRoots) {
+        self.prices = prices
+        self.roots = roots
+    }
+
+    static var defaultRoots: [URL] {
         let home = FileManager.default.homeDirectoryForCurrentUser
         return [home.appending(path: ".codex/sessions", directoryHint: .isDirectory)]
             .filter { FileManager.default.fileExists(atPath: $0.path()) }
     }
-
-    var roots: [URL] { Self.roots }
 
     func initialState() -> FileState { FileState() }
 

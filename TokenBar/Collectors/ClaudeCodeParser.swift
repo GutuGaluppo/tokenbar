@@ -6,19 +6,23 @@ struct ClaudeCodeParser: JSONLLogParser {
     struct FileState: Codable {}
 
     let prices: PriceTable
+    let roots: [URL]
     private let decoder = JSONDecoder()
     private let usageMarker = Data("\"usage\"".utf8)
     private let assistantMarker = Data("\"assistant\"".utf8)
 
-    static var roots: [URL] {
+    init(prices: PriceTable, roots: [URL] = ClaudeCodeParser.defaultRoots) {
+        self.prices = prices
+        self.roots = roots
+    }
+
+    static var defaultRoots: [URL] {
         let home = FileManager.default.homeDirectoryForCurrentUser
         return [
             home.appending(path: ".claude/projects", directoryHint: .isDirectory),
             home.appending(path: ".config/claude/projects", directoryHint: .isDirectory),
         ].filter { FileManager.default.fileExists(atPath: $0.path()) }
     }
-
-    var roots: [URL] { Self.roots }
 
     func initialState() -> FileState { FileState() }
 
