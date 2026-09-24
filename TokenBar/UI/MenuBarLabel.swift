@@ -3,6 +3,8 @@ import SwiftUI
 struct MenuBarLabel: View {
     let store: UsageStore
     @AppStorage(PreferenceKey.menuBarDisplay) private var display: MenuBarDisplay = .tokensToday
+    @AppStorage(PreferenceKey.showDockIconWhenWindowOpen) private var showDockIcon = false
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         let nearest = store.nearestLimit
@@ -34,5 +36,12 @@ struct MenuBarLabel: View {
             }
         }
         .accessibilityLabel("TokenBar: \(TokenFormat.compact(store.today.tokens)) tokens hoje")
+        .task {
+            // O rótulo da barra existe o tempo todo: daqui o atalho global consegue abrir o painel.
+            GlobalHotKey.shared.action = {
+                openWindow(id: WindowID.dashboard)
+                NSApp.bringToFront(showInDock: showDockIcon)
+            }
+        }
     }
 }

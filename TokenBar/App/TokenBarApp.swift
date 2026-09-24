@@ -57,6 +57,7 @@ struct TokenBarApp: App {
         // Preços novos: relê os logs locais para recalcular os custos.
         priceUpdater.onChange = { table in localSources.all.forEach { $0.reprice(table) } }
         priceUpdater.start()
+        GlobalHotKey.shared.start()
     }
 
     var body: some Scene {

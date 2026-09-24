@@ -20,6 +20,9 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @AppStorage(PreferenceKey.menuBarDisplay) private var menuBarDisplay: MenuBarDisplay = .tokensToday
     @AppStorage(PreferenceKey.showDockIconWhenWindowOpen) private var showDockIcon = false
+    @AppStorage(GlobalHotKey.enabledKey) private var hotKeyEnabled = false
+    @State private var exportRange: CSVExporter.Range = .last30
+    @State private var exportMessage: String?
 
     var body: some View {
         Form {
@@ -58,6 +61,7 @@ struct SettingsView: View {
                 }
 
                 Toggle("Mostrar ícone no Dock com a janela aberta", isOn: $showDockIcon)
+                Toggle("Atalho global \(GlobalHotKey.displayName) abre o painel", isOn: $hotKeyEnabled)
                 LabeledContent("Primeiro uso") {
                     Button("Mostrar boas-vindas") { openWindow(id: Onboarding.windowID) }
                 }
@@ -128,6 +132,27 @@ struct SettingsView: View {
                     Button("Mostrar no Finder") {
                         NSWorkspace.shared.activateFileViewerSelecting([Persistence.storeURL])
                     }
+                }
+                LabeledContent("Exportar CSV") {
+                    HStack {
+                        Picker("Período", selection: $exportRange) {
+                            ForEach(CSVExporter.Range.allCases) { Text($0.title).tag($0) }
+                        }
+                        .labelsHidden()
+                        .fixedSize()
+                        Button("Exportar…") {
+                            do {
+                                if let count = try CSVExporter.export(range: exportRange, container: modelContext.container) {
+                                    exportMessage = "\(count.formatted()) linhas exportadas."
+                                }
+                            } catch {
+                                exportMessage = "Erro: \(error.localizedDescription)"
+                            }
+                        }
+                    }
+                }
+                if let exportMessage {
+                    Text(exportMessage).font(.caption).foregroundStyle(.secondary)
                 }
             }
 

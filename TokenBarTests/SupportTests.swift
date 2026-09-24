@@ -122,3 +122,35 @@ struct PriceSelectionTests {
         #expect(!table.isValid)
     }
 }
+
+@Suite("Exportação CSV")
+struct CSVExporterTests {
+    private func row(_ id: String, project: String? = "loja", cost: Double = 0.017) -> CSVExporter.Row {
+        CSVExporter.Row(timestamp: Date(timeIntervalSince1970: 1_790_000_000), externalID: id, provider: "Anthropic",
+                        model: "claude-sonnet-5", project: project, tool: "Claude Code (CLI)", session: "s1",
+                        input: 1_000, output: 500, cacheWrite: 2_000, cacheRead: 10_000, costUSD: cost)
+    }
+
+    @Test("Cabeçalho e uma linha com ponto decimal e data ISO")
+    func formatsRow() {
+        let lines = CSVExporter.csv([row("cc:msg_1:req_1")]).split(separator: "\n").map(String.init)
+        #expect(lines[0] == CSVExporter.header.joined(separator: ","))
+        #expect(lines[1] == "2026-09-21T14:13:20Z,Claude Code,Anthropic,claude-sonnet-5,loja,Claude Code (CLI),s1,1000,500,2000,10000,0.017000")
+    }
+
+    @Test("Campos com vírgula ou aspas vêm entre aspas")
+    func escapesFields() {
+        #expect(CSVExporter.escape("simples") == "simples")
+        #expect(CSVExporter.escape("a,b") == "\"a,b\"")
+        #expect(CSVExporter.escape("diz \"oi\"") == "\"diz \"\"oi\"\"\"")
+        let line = CSVExporter.csv([row("cc:x:y", project: "Retiro, 2026")]).split(separator: "\n")[1]
+        #expect(line.contains(",\"Retiro, 2026\","))
+    }
+
+    @Test("Fonte pelo prefixo do identificador", arguments: [
+        ("cc:a:b", "Claude Code"), ("cx:s:1", "Codex"), ("ant:u:x", "API Anthropic"), ("oai:c:1", "API OpenAI"), ("local:1", "Outro"),
+    ])
+    func sources(id: String, expected: String) {
+        #expect(CSVExporter.source(for: id) == expected)
+    }
+}

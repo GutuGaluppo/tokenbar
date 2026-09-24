@@ -54,6 +54,7 @@ TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do
 | **Dicas** | Recomendações de economia com valor estimado por mês, passos para aplicar e **economia realizada** depois de aplicadas. |
 | **Orçamentos** | Limites de custo diário/mensal, estimativa dos limites do Claude Code e alertas nativos em 50/80/95%. |
 | **Widget** | Anel com o que resta da sessão do plano, outros limites e o consumo de hoje (pequeno e médio). |
+| **Extras** | Exportação do histórico em CSV (Ajustes → Dados) e atalho global ⌥⌘T para abrir o painel (desligado por padrão). |
 
 ### Fontes de dados
 
