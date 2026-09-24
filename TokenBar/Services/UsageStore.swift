@@ -61,6 +61,7 @@ final class UsageStore {
     @ObservationIgnored var planUsage: ClaudePlanUsage?
     /// Fontes locais; o Codex traz os limites do plano nos próprios logs.
     @ObservationIgnored var localSources: LocalSources?
+    @ObservationIgnored var remoteSources: RemoteSourcesManager?
 
     init(container: ModelContainer) {
         self.container = container
@@ -209,6 +210,11 @@ final class UsageStore {
                                           resetsAt: expired ? nil : window.resetsAt,
                                           periodID: window.resetsAt.map { String(Int($0.timeIntervalSince1970)) } ?? dayID))
             }
+        }
+        if let credits = remoteSources?.openRouterCredits, credits.total > 0 {
+            // Alertas voltam a valer a cada recarga de créditos.
+            limits.append(LimitStatus(kind: .openRouterCredits, used: credits.used, limit: credits.total,
+                                      resetsAt: nil, periodID: "credits-\(Int(credits.total * 100))"))
         }
         self.limits = limits
         lastBudgets = settings

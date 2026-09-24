@@ -8,6 +8,7 @@ struct SettingsView: View {
     @Environment(AppNavigation.self) private var navigation
     @Environment(ClaudePlanUsage.self) private var planUsage
     @Environment(PriceUpdater.self) private var priceUpdater
+    @Environment(LocalProxyManager.self) private var proxy
     @Environment(\.openWindow) private var openWindow
 
     private var priceSourceText: String {
@@ -103,6 +104,36 @@ struct SettingsView: View {
                 ForEach(localSources.all) { source in
                     LocalSourceSettings(source: source)
                 }
+            }
+
+            Section {
+                Toggle("Ligar o proxy local", isOn: Binding(get: { proxy.isEnabled }, set: { proxy.setEnabled($0) }))
+                LabeledContent("Porta") {
+                    TextField("Porta", value: Binding(get: { Int(proxy.port) }, set: { proxy.setPort($0) }),
+                              format: .number.grouping(.never))
+                        .labelsHidden()
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 80)
+                }
+                if proxy.isEnabled {
+                    ProxyStatusRow()
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Ollama — no terminal, antes de usar o ollama ou apps que o chamam:")
+                        Text(verbatim: "export OLLAMA_HOST=127.0.0.1:\(proxy.port)")
+                            .font(.callout.monospaced())
+                            .textSelection(.enabled)
+                        Text("Gemini — no SDK, use este endereço base no lugar de generativelanguage.googleapis.com:")
+                        Text(verbatim: "http://127.0.0.1:\(proxy.port)/gemini")
+                            .font(.callout.monospaced())
+                            .textSelection(.enabled)
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                }
+            } header: {
+                Text("Proxy local (Ollama e Gemini)")
+            } footer: {
+                Text("O Ollama não registra tokens e o Gemini não tem API de histórico de uso: o proxy fica entre seus apps e esses serviços e anota só as contagens das respostas. Escuta apenas neste Mac; o conteúdo passa direto e não é guardado.")
             }
 
             Section {
@@ -251,5 +282,36 @@ struct LocalSourceSettings: View {
             }
         }
         .padding(.vertical, 2)
+    }
+}
+
+/// Status do proxy local (Ajustes).
+struct ProxyStatusRow: View {
+    @Environment(LocalProxyManager.self) private var proxy
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Circle().fill(color).frame(width: 8, height: 8)
+            Text(detail).font(.callout).foregroundStyle(.secondary)
+        }
+    }
+
+    private var color: Color {
+        switch proxy.phase {
+        case .listening: .green
+        case .off: .gray
+        case .failed: .red
+        }
+    }
+
+    private var detail: String {
+        switch proxy.phase {
+        case .off: return String(localized: "Desligado")
+        case .failed(let message): return String(localized: "Erro: \(message)")
+        case .listening:
+            let count = String(localized: "Escutando em 127.0.0.1:\(String(proxy.port)) · \(proxy.recordedCount.formatted()) requisições registradas")
+            guard let last = proxy.lastRecorded else { return count }
+            return count + " · " + last.formatted(.relative(presentation: .named))
+        }
     }
 }

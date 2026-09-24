@@ -1211,6 +1211,16 @@
         }
       }
     },
+    "Escutando em 127.0.0.1:%@ · %@ requisições registradas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listening on 127.0.0.1:%@ · %@ requests recorded"
+          }
+        }
+      }
+    },
     "Esta dica não tem uma medida de economia.": {
       "localizations": {
         "en": {
@@ -1287,6 +1297,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sources found"
+          }
+        }
+      }
+    },
+    "Gemini — no SDK, use este endereço base no lugar de generativelanguage.googleapis.com:": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemini — in the SDK, use this base URL instead of generativelanguage.googleapis.com:"
           }
         }
       }
@@ -1411,6 +1431,16 @@
         }
       }
     },
+    "Ligar o proxy local": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on the local proxy"
+          }
+        }
+      }
+    },
     "Limite diário": {
       "localizations": {
         "en": {
@@ -1467,6 +1497,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude Code login rejected (HTTP %lld). Open Claude Code to renew it."
+          }
+        }
+      }
+    },
+    "Management key (Settings → Management Keys). O dia atual aparece depois que o dia UTC fecha.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Management key (Settings → Management Keys). The current day appears after the UTC day closes."
           }
         }
       }
@@ -1791,6 +1831,16 @@
         }
       }
     },
+    "O Ollama não registra tokens e o Gemini não tem API de histórico de uso: o proxy fica entre seus apps e esses serviços e anota só as contagens das respostas. Escuta apenas neste Mac; o conteúdo passa direto e não é guardado.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama doesn't log tokens and Gemini has no usage history API: the proxy sits between your apps and these services and records only the counts in the responses. It listens only on this Mac; content passes straight through and is not stored."
+          }
+        }
+      }
+    },
     "O Opus 5.5 tem esforço padrão medium (o Opus 5 usa high): ajuste o effort se sentir diferença de qualidade.": {
       "localizations": {
         "en": {
@@ -1851,12 +1901,42 @@
         }
       }
     },
+    "Ollama — no terminal, antes de usar o ollama ou apps que o chamam:": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama — in the terminal, before using ollama or apps that call it:"
+          }
+        }
+      }
+    },
     "Opcional. Os valores são equivalentes a preços de API; 0 desliga.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Optional. Values are API-price equivalents; 0 turns a limit off."
+          }
+        }
+      }
+    },
+    "OpenRouter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenRouter"
+          }
+        }
+      }
+    },
+    "OpenRouter · créditos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenRouter · credits"
           }
         }
       }
@@ -2081,6 +2161,16 @@
         }
       }
     },
+    "Porta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Port"
+          }
+        }
+      }
+    },
     "Preferências": {
       "localizations": {
         "en": {
@@ -2147,6 +2237,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Provider"
+          }
+        }
+      }
+    },
+    "Proxy local": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local proxy"
+          }
+        }
+      }
+    },
+    "Proxy local (Ollama e Gemini)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local proxy (Ollama and Gemini)"
           }
         }
       }

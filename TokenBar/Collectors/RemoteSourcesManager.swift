@@ -22,6 +22,10 @@ final class RemoteSourcesManager {
     }
 
     private(set) var states: [RemoteProviderKind: SourceState] = [:]
+    /// Créditos do OpenRouter (usado e total comprado), para o limite de saldo.
+    private(set) var openRouterCredits: (used: Double, total: Double)?
+    /// Chamado quando os créditos mudam (o UsageStore recalcula os limites).
+    @ObservationIgnored var onCreditsChange: (() -> Void)?
 
     @ObservationIgnored private let ingestor: UsageIngestor
     @ObservationIgnored private var timer: Timer?
@@ -83,6 +87,10 @@ final class RemoteSourcesManager {
         KeychainStore.delete(kind.keychainAccount)
         UserDefaults.standard.removeObject(forKey: Self.lastSyncKey(kind))
         states[kind] = SourceState()
+        if kind == .openrouter {
+            openRouterCredits = nil
+            onCreditsChange?()
+        }
         Task { try? await ingestor.deleteAll(externalIDPrefix: kind.externalIDPrefix) }
     }
 
@@ -106,6 +114,10 @@ final class RemoteSourcesManager {
         let start = calendar.dateInterval(of: .hour, for: since)?.start ?? since
         let events = try await kind.makeConnector(prices: .load()).fetch(from: start, to: .now, apiKey: apiKey)
         try await ingestor.upsert(events)
+        if kind == .openrouter, let credits = try? await OpenRouterUsageConnector.credits(apiKey: apiKey) {
+            openRouterCredits = (credits.total_usage, credits.total_credits)
+            onCreditsChange?()
+        }
 
         let now = Date.now
         UserDefaults.standard.set(now, forKey: Self.lastSyncKey(kind))

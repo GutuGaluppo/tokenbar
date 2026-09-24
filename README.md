@@ -14,7 +14,7 @@
 
 ---
 
-TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do **Claude Code**, do **Codex** e, opcionalmente, das **APIs da Anthropic e da OpenAI**, e mostra tudo num só lugar — a um clique, sem abrir painéis de cada provedor. Fechar a janela não encerra o app: o ícone continua ativo.
+TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do **Claude Code**, do **Codex** e, opcionalmente, das **APIs da Anthropic, da OpenAI e do OpenRouter** e de **Ollama e Gemini** (via proxy local), e mostra tudo num só lugar — a um clique, sem abrir painéis de cada provedor. Fechar a janela não encerra o app: o ícone continua ativo.
 
 ## Capturas de tela
 
@@ -66,6 +66,9 @@ TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do
 | Plano Claude (Pro/Max) | Sessão atual e limites semanais — os mesmos números de *Settings → Usage* | Opcional, em Ajustes |
 | API Anthropic | Admin API (`usage_report/messages`) | Chave de admin, opcional |
 | API OpenAI | Usage API + Costs API da organização | Chave de admin, opcional |
+| OpenRouter | `/api/v1/activity` (tokens e custo por dia e modelo) e `/api/v1/credits` (saldo, como limite) | Management key, opcional. O dia atual aparece depois que o dia UTC fecha |
+| Ollama | Proxy local: o TokenBar repassa as chamadas e lê `prompt_eval_count`/`eval_count` | Opcional: ligar o proxy e usar `OLLAMA_HOST=127.0.0.1:11435` |
+| Gemini API | Proxy local, lendo o `usageMetadata` das respostas (o Google não tem API de histórico de uso) | Opcional: ligar o proxy e usar `http://127.0.0.1:11435/gemini` como endereço base no SDK |
 
 ## Privacidade
 
@@ -170,6 +173,8 @@ flowchart LR
 
 ## Limitações conhecidas
 
+- Ollama e Gemini só são medidos quando as chamadas passam pelo proxy local (desligado por padrão); apps que falam direto com eles não aparecem.
+
 - O endpoint do plano Claude é o mesmo que o `/usage` do Claude Code consulta; não é documentado e pode mudar sem aviso.
 - Os limites de Pro/Max estimados a partir dos logs são aproximações; a leitura do plano traz os números reais.
 - A Admin API da Anthropic não existe para contas individuais, só para organizações.
@@ -177,7 +182,6 @@ flowchart LR
 
 ## Roadmap
 
-- [ ] OpenRouter, Gemini e modelos locais (Ollama)
 - [ ] Distribuição com atualização automática (Sparkle) e notarização
 
 ## Licença

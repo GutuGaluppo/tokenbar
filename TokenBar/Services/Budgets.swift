@@ -16,6 +16,8 @@ struct LimitStatus: Identifiable, Equatable {
         case planSession, planWeek, planWeekSonnet, planWeekOpus
         // Limites do plano do Codex, lidos dos logs locais.
         case codexSession, codexWeek
+        // Saldo de créditos do OpenRouter (usado de total comprado).
+        case openRouterCredits
 
         var isPercent: Bool {
             [.planSession, .planWeek, .planWeekSonnet, .planWeekOpus, .codexSession, .codexWeek].contains(self)
@@ -49,6 +51,7 @@ struct LimitStatus: Identifiable, Equatable {
         case .planWeekOpus: String(localized: "Plano · semana (Opus)")
         case .codexSession: String(localized: "Codex · 5 h")
         case .codexWeek: String(localized: "Codex · semana")
+        case .openRouterCredits: String(localized: "OpenRouter · créditos")
         }
     }
 
@@ -65,12 +68,13 @@ struct LimitStatus: Identifiable, Equatable {
         case .planWeekOpus: String(localized: "Semana Opus")
         case .codexSession: String(localized: "Codex 5 h")
         case .codexWeek: String(localized: "Codex semana")
+        case .openRouterCredits: String(localized: "OpenRouter")
         }
     }
 
     var usageText: String {
         switch kind {
-        case .dailyCost, .monthlyCost:
+        case .dailyCost, .monthlyCost, .openRouterCredits:
             String(localized: "\(TokenFormat.usd(used)) de \(TokenFormat.usd(limit))")
         case .fiveHourTokens, .weeklyTokens:
             String(localized: "\(TokenFormat.compact(Int(used))) de \(TokenFormat.compact(Int(limit)))")

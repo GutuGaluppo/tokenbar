@@ -4,6 +4,7 @@ import Foundation
 enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
     case anthropic
     case openai
+    case openrouter
 
     var id: String { rawValue }
 
@@ -11,6 +12,7 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .anthropic: "API Anthropic"
         case .openai: "API OpenAI"
+        case .openrouter: "OpenRouter"
         }
     }
 
@@ -18,6 +20,7 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .anthropic: .anthropic
         case .openai: .openai
+        case .openrouter: .openrouter
         }
     }
 
@@ -25,6 +28,7 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .anthropic: "sk-ant-admin01-…"
         case .openai: "sk-admin-…"
+        case .openrouter: "sk-or-v1-…"
         }
     }
 
@@ -34,6 +38,8 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
             String(localized: "Chave de Admin API (Console → Settings → Admin keys). Contas individuais não têm Admin API.")
         case .openai:
             String(localized: "Admin key da organização (Settings → Organization → Admin keys).")
+        case .openrouter:
+            String(localized: "Management key (Settings → Management Keys). O dia atual aparece depois que o dia UTC fecha.")
         }
     }
 
@@ -42,6 +48,7 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .anthropic: "ant:"
         case .openai: "oai:"
+        case .openrouter: "or:"
         }
     }
 
@@ -51,6 +58,7 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .anthropic: AnthropicUsageConnector(prices: prices)
         case .openai: OpenAIUsageConnector()
+        case .openrouter: OpenRouterUsageConnector()
         }
     }
 }
@@ -302,5 +310,81 @@ struct OpenAIUsageConnector: UsageConnector {
             page = response.has_more ? response.next_page : nil
         } while page != nil
         return buckets
+    }
+}
+
+// MARK: - OpenRouter
+
+/// `GET /api/v1/activity` (Management key): tokens, custo e requisições por dia UTC e modelo, nos
+/// últimos 30 dias encerrados. `GET /api/v1/credits`: créditos comprados e usados.
+struct OpenRouterUsageConnector: UsageConnector {
+    struct Activity: Decodable {
+        let data: [Item]
+        struct Item: Decodable {
+            let date: String
+            let model: String
+            let endpoint_id: String?
+            let provider_name: String?
+            let usage: Double?
+            let requests: Int?
+            let prompt_tokens: Int?
+            let completion_tokens: Int?
+            let reasoning_tokens: Int?
+        }
+    }
+
+    struct Credits: Decodable, Equatable {
+        struct Data: Decodable, Equatable {
+            let total_credits: Double
+            let total_usage: Double
+        }
+        let data: Data
+    }
+
+    private static let base = "https://openrouter.ai/api/v1"
+
+    func fetch(from start: Date, to end: Date, apiKey: String) async throws -> [ParsedUsage] {
+        let activity = try await HTTPGet.json(URL(string: "\(Self.base)/activity")!, apiKey: apiKey, as: Activity.self)
+        return Self.parse(activity).filter { $0.timestamp >= start.addingTimeInterval(-86_400) }
+    }
+
+    static func credits(apiKey: String) async throws -> Credits.Data {
+        try await HTTPGet.json(URL(string: "\(base)/credits")!, apiKey: apiKey, as: Credits.self).data
+    }
+
+    /// Cada linha é um dia UTC encerrado: o evento fica ao meio-dia UTC, para cair no dia local certo.
+    static func parse(_ activity: Activity) -> [ParsedUsage] {
+        let day = Date.ISO8601FormatStyle().year().month().day()
+        return activity.data.compactMap { item in
+            guard let date = try? day.parse(item.date) else { return nil }
+            let tokens = TokenCounts(input: item.prompt_tokens ?? 0, output: item.completion_tokens ?? 0)
+            return ParsedUsage(
+                externalID: "or:\(item.date):\(item.endpoint_id ?? item.model)",
+                timestamp: date.addingTimeInterval(12 * 3_600),
+                provider: .openrouter,
+                model: item.model,
+                project: nil,
+                tool: "OpenRouter",
+                session: nil,
+                tokens: tokens,
+                costUSD: item.usage ?? 0
+            )
+        }
+    }
+}
+
+/// GET autenticado com Bearer, compartilhado pelo OpenRouter.
+enum HTTPGet {
+    static func json<T: Decodable>(_ url: URL, apiKey: String, as type: T.Type) async throws -> T {
+        var request = URLRequest(url: url, timeoutInterval: 30)
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("TokenBar (macOS)", forHTTPHeaderField: "User-Agent")
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        switch status {
+        case 200..<300: return try JSONDecoder().decode(T.self, from: data)
+        case 401, 403: throw ConnectorError.unauthorized
+        default: throw ConnectorError.http(status, String(decoding: data, as: UTF8.self))
+        }
     }
 }

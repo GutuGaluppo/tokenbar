@@ -17,6 +17,7 @@ struct TokenBarApp: App {
     @State private var tips: TipsStore
     @State private var planUsage: ClaudePlanUsage
     @State private var priceUpdater: PriceUpdater
+    @State private var proxy: LocalProxyManager
 
     init() {
         let container = Persistence.makeContainer()
@@ -38,10 +39,15 @@ struct TokenBarApp: App {
         _localSources = State(initialValue: localSources)
 
         let remoteSources = RemoteSourcesManager(container: container)
+        store.remoteSources = remoteSources
+        remoteSources.onCreditsChange = { [weak store] in store?.refresh() }
         _remoteSources = State(initialValue: remoteSources)
 
         let priceUpdater = PriceUpdater()
         _priceUpdater = State(initialValue: priceUpdater)
+
+        let proxy = LocalProxyManager(container: container)
+        _proxy = State(initialValue: proxy)
 
         // Em testes o app só serve de host: não lê logs, APIs nem o plano.
         if AppEnvironment.isRunningTests { return }
@@ -58,6 +64,7 @@ struct TokenBarApp: App {
         priceUpdater.onChange = { table in localSources.all.forEach { $0.reprice(table) } }
         priceUpdater.start()
         GlobalHotKey.shared.start()
+        proxy.start()
     }
 
     var body: some Scene {
@@ -71,6 +78,7 @@ struct TokenBarApp: App {
                 .environment(tips)
                 .environment(planUsage)
                 .environment(priceUpdater)
+                .environment(proxy)
         } label: {
             MenuBarLabel(store: store)
         }
@@ -88,6 +96,7 @@ struct TokenBarApp: App {
                 .environment(tips)
                 .environment(planUsage)
                 .environment(priceUpdater)
+                .environment(proxy)
         }
         .modelContainer(container)
         .defaultSize(width: DemoMode.isEnabled ? 1180 : 960, height: DemoMode.isEnabled ? 880 : 640)
@@ -118,6 +127,7 @@ struct TokenBarApp: App {
                 .environment(tips)
                 .environment(planUsage)
                 .environment(priceUpdater)
+                .environment(proxy)
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)

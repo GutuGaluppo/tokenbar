@@ -35,6 +35,8 @@ enum CSVExporter {
         case "cx:": "Codex"
         case "ant": "API Anthropic"
         case "oai": "API OpenAI"
+        case "or:": "OpenRouter"
+        case "px:": String(localized: "Proxy local")
         default: String(localized: "Outro")
         }
     }
