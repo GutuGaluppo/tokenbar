@@ -12,6 +12,31 @@
 
 TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do **Claude Code**, do **Codex** e, opcionalmente, das **APIs da Anthropic e da OpenAI**, e mostra tudo num só lugar — a um clique, sem abrir painéis de cada provedor. Fechar a janela não encerra o app: o ícone continua ativo.
 
+## Capturas de tela
+
+<p align="center">
+  <img src="docs/screenshots/popover.png" width="260" alt="Popover da barra de menus">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/overview.png" width="540" alt="Overview do painel">
+</p>
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/models.png" alt="Modelos"><p align="center"><b>Modelos</b></p></td>
+    <td><img src="docs/screenshots/projects.png" alt="Projetos"><p align="center"><b>Projetos</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/activity.png" alt="Atividade"><p align="center"><b>Atividade</b></p></td>
+    <td><img src="docs/screenshots/tips.png" alt="Dicas"><p align="center"><b>Dicas</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/budgets.png" alt="Orçamentos"><p align="center"><b>Orçamentos</b></p></td>
+    <td></td>
+  </tr>
+</table>
+
+<sub>Dados fictícios, gerados pelo modo de demonstração.</sub>
+
 ## Funcionalidades
 
 | Área | O que mostra |
@@ -63,6 +88,17 @@ scripts/install.sh
 ```
 
 O script compila em Release, substitui `/Applications/TokenBar.app` e abre o app. Rode de novo sempre que atualizar o código.
+
+### Modo de demonstração
+
+Builds de desenvolvimento têm um modo com dados fictícios, usado para as capturas acima. Ele usa um banco separado (`~/Library/Application Support/TokenBar-Demo`), não lê logs nem APIs e não altera o widget nem as preferências:
+
+```bash
+open -n build/DerivedData/Build/Products/Debug/TokenBar.app --args -demo YES \
+  -budget.dailyUSD 30 -budget.monthlyUSD 450 -planUsage.enabled YES
+```
+
+O painel e uma prévia do popover abrem como janelas.
 
 ## Primeiros passos
 
