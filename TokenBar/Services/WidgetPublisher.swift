@@ -11,6 +11,8 @@ final class WidgetPublisher {
     private static let log = Logger(subsystem: "dev.galuppo.TokenBar", category: "Widget")
 
     func publish(todayTokens: Int, todayCostUSD: Double, limits: [LimitStatus]) {
+        // A demonstração não pode sobrescrever o widget real.
+        guard !DemoMode.isEnabled else { return }
         // Destaque: sessão do plano Claude; depois os demais limites do mais usado ao menos usado.
         let ordered = limits.filter { $0.kind == .planSession }
             + limits.filter { $0.kind != .planSession }.sorted { $0.fraction > $1.fraction }

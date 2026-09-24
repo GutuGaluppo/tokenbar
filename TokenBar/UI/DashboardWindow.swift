@@ -34,6 +34,14 @@ struct DashboardWindow: View {
             // Janela fechada: volta a ser só um ícone na barra de menus.
             NSApp.setActivationPolicy(.accessory)
         }
+        .onReceive(DistributedNotificationCenter.default().publisher(for: DemoMode.showSectionNotification)) { note in
+            // Modo de demonstração: troca de seção para capturas de tela.
+            guard DemoMode.isEnabled, let raw = note.object as? String else { return }
+            NSApp.activate()
+            let target = raw == "popover" ? DemoMode.popoverWindowID : WindowID.dashboard
+            NSApp.windows.first { $0.identifier?.rawValue.hasPrefix(target) == true }?.makeKeyAndOrderFront(nil)
+            if let section = SidebarSection(rawValue: raw) { navigation.section = section }
+        }
         .onChange(of: showDockIcon) { _, show in
             NSApp.setActivationPolicy(show ? .regular : .accessory)
         }

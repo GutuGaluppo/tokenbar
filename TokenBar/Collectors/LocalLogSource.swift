@@ -131,6 +131,17 @@ final class LocalLogSource: Identifiable {
         }
     }
 
+    #if DEBUG
+    /// Estado fictício para o modo de demonstração (sem ler logs).
+    func setDemo(eventCount: Int, planLimits: LocalPlanLimits?) {
+        self.eventCount = eventCount
+        self.planLimits = planLimits
+        lastScan = .now
+        phase = .idle
+        onPlanLimitsChange?()
+    }
+    #endif
+
     /// Apaga os eventos desta fonte e lê todo o histórico de novo.
     func reimport() {
         Task {

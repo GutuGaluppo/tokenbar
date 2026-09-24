@@ -7,7 +7,12 @@ enum Persistence {
 
     /// `~/Library/Application Support/TokenBar`
     static var directory: URL {
-        URL.applicationSupportDirectory.appending(path: "TokenBar", directoryHint: .isDirectory)
+        #if DEBUG
+        if DemoMode.isEnabled {
+            return URL.applicationSupportDirectory.appending(path: "TokenBar-Demo", directoryHint: .isDirectory)
+        }
+        #endif
+        return URL.applicationSupportDirectory.appending(path: "TokenBar", directoryHint: .isDirectory)
     }
 
     static var storeURL: URL {
@@ -15,6 +20,10 @@ enum Persistence {
     }
 
     static func makeContainer() -> ModelContainer {
+        if DemoMode.isEnabled {
+            // A demonstração sempre começa de um banco limpo.
+            try? FileManager.default.removeItem(at: directory)
+        }
         do {
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             return try openContainer()

@@ -65,6 +65,7 @@ final class ClaudePlanUsage {
 
     /// Atualiza se a última leitura tem mais de 1 min (ou sempre, com `force`).
     func refresh(force: Bool = false) {
+        guard !DemoMode.isEnabled else { return }   // demonstração usa valores fictícios
         guard isEnabled else {
             phase = .disabled
             return
@@ -120,6 +121,17 @@ final class ClaudePlanUsage {
             phase = .failed(error.localizedDescription)
         }
     }
+
+    #if DEBUG
+    /// Valores fictícios para o modo de demonstração.
+    func setDemo(session: Window, week: Window) {
+        self.session = session
+        self.week = week
+        lastUpdate = .now
+        phase = .ok
+        onUpdate?()
+    }
+    #endif
 
     // MARK: - Keychain
 

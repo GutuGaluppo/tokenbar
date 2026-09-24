@@ -24,7 +24,6 @@ struct TokenBarApp: App {
         let planUsage = ClaudePlanUsage()
         store.planUsage = planUsage
         planUsage.onUpdate = { [weak store] in store?.refresh() }
-        planUsage.start()
         _planUsage = State(initialValue: planUsage)
         _tips = State(initialValue: TipsStore(container: container, store: store))
         _analytics = State(initialValue: AnalyticsStore(container: container))
@@ -32,12 +31,20 @@ struct TokenBarApp: App {
         let localSources = LocalSources(container: container)
         localSources.codex.onPlanLimitsChange = { [weak store] in store?.refresh() }
         store.localSources = localSources
-        localSources.start()
         _localSources = State(initialValue: localSources)
 
         let remoteSources = RemoteSourcesManager(container: container)
-        remoteSources.start()
         _remoteSources = State(initialValue: remoteSources)
+
+        #if DEBUG
+        if DemoMode.isEnabled {
+            DemoMode.seed(container: container, planUsage: planUsage, localSources: localSources)
+            return
+        }
+        #endif
+        planUsage.start()
+        localSources.start()
+        remoteSources.start()
     }
 
     var body: some Scene {
@@ -68,9 +75,24 @@ struct TokenBarApp: App {
                 .environment(planUsage)
         }
         .modelContainer(container)
-        .defaultSize(width: 960, height: 640)
+        .defaultSize(width: DemoMode.isEnabled ? 1180 : 960, height: DemoMode.isEnabled ? 880 : 640)
         .windowToolbarStyle(.unified)
-        .defaultLaunchBehavior(.suppressed)
+        .defaultLaunchBehavior(DemoMode.isEnabled ? .presented : .suppressed)
+        .restorationBehavior(.disabled)
+
+        // Prévia do popover numa janela, só para capturas no modo de demonstração.
+        Window("TokenBar — popover", id: DemoMode.popoverWindowID) {
+            OverviewPopover()
+                .environment(store)
+                .environment(navigation)
+                .environment(localSources)
+                .environment(remoteSources)
+                .environment(tips)
+                .environment(planUsage)
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultLaunchBehavior(DemoMode.isEnabled ? .presented : .suppressed)
         .restorationBehavior(.disabled)
     }
 }
