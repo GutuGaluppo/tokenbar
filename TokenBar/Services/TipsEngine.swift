@@ -14,7 +14,7 @@ struct Tip: Identifiable, Equatable {
     let steps: [String]
 
     var savingsText: String? {
-        monthlySavingsUSD.map { "≈ \(TokenFormat.usd($0))/mês" }
+        monthlySavingsUSD.map { String(localized: "≈ \(TokenFormat.usd($0))/mês") }
     }
 }
 
@@ -97,13 +97,13 @@ struct TipsEngine {
         return Tip(
             id: "opus5-to-opus55",
             kind: .saving,
-            title: "Trocar Claude Opus 5 por Opus 5.5",
-            evidence: "\(matches.count) respostas no Opus 5 em \(Self.windowDays) dias (\(usd(spent))). O Opus 5.5 é o sucessor na mesma linha e custa 20% menos por token.",
+            title: String(localized: "Trocar Claude Opus 5 por Opus 5.5"),
+            evidence: String(localized: "\(matches.count) respostas no Opus 5 em \(Self.windowDays) dias (\(usd(spent))). O Opus 5.5 é o sucessor na mesma linha: 20% menos na entrada e na saída e 60% menos na leitura de cache."),
             monthlySavingsUSD: saved * monthFactor,
             steps: [
-                "No Claude Code: digite /model e escolha Opus 5.5, ou defina \"model\": \"claude-opus-5-5\" em ~/.claude/settings.json.",
-                "Na API: troque o id do modelo para claude-opus-5-5.",
-                "O Opus 5.5 tem esforço padrão medium (o Opus 5 usa high): ajuste o effort se sentir diferença de qualidade.",
+                String(localized: "No Claude Code: digite /model e escolha Opus 5.5, ou defina \"model\": \"claude-opus-5-5\" em ~/.claude/settings.json."),
+                String(localized: "Na API: troque o id do modelo para claude-opus-5-5."),
+                String(localized: "O Opus 5.5 tem esforço padrão medium (o Opus 5 usa high): ajuste o effort se sentir diferença de qualidade."),
             ]
         )
     }
@@ -121,13 +121,13 @@ struct TipsEngine {
         return Tip(
             id: "opus-short-steps",
             kind: .saving,
-            title: "Deixar passos simples para o Sonnet",
-            evidence: "\(share.formatted(.percent.precision(.fractionLength(0)))) das respostas do Opus têm menos de 1k tokens de saída (\(short.count) respostas, \(usd(spent))). Estimativa supõe que metade poderia rodar no Sonnet 5.",
+            title: String(localized: "Deixar passos simples para o Sonnet"),
+            evidence: String(localized: "\(share.formatted(.percent.precision(.fractionLength(0)))) das respostas do Opus têm menos de 1k tokens de saída (\(short.count) respostas, \(usd(spent))). Estimativa supõe que metade poderia rodar no Sonnet 5."),
             monthlySavingsUSD: saved * monthFactor,
             steps: [
-                "Use o Opus para planejar e decidir, e o Sonnet para executar: /model sonnet durante tarefas mecânicas.",
-                "Configure sub-agentes de exploração com model: sonnet (ou haiku) em .claude/agents/.",
-                "Em tarefas rotineiras, reduza o esforço (effort low/medium) antes de trocar de modelo.",
+                String(localized: "Use o Opus para planejar e decidir, e o Sonnet para executar: /model sonnet durante tarefas mecânicas."),
+                String(localized: "Configure sub-agentes de exploração com model: sonnet (ou haiku) em .claude/agents/."),
+                String(localized: "Em tarefas rotineiras, reduza o esforço (effort low/medium) antes de trocar de modelo."),
             ]
         )
     }
@@ -146,13 +146,13 @@ struct TipsEngine {
         return Tip(
             id: "long-context",
             kind: .saving,
-            title: "Compactar ou recomeçar conversas longas",
-            evidence: "\(heavy.count) respostas em \(sessions) sessões rodaram com mais de 200k tokens de contexto. A parte acima de 100k custou \(usd(excess)) em \(Self.windowDays) dias.",
+            title: String(localized: "Compactar ou recomeçar conversas longas"),
+            evidence: String(localized: "\(heavy.count) respostas em \(sessions) sessões rodaram com mais de 200k tokens de contexto. A parte acima de 100k custou \(usd(excess)) em \(Self.windowDays) dias."),
             monthlySavingsUSD: excess * 0.5 * monthFactor,
             steps: [
-                "Use /compact quando terminar uma etapa (ex.: \"/compact mantenha só as decisões e arquivos alterados\").",
-                "Use /clear ao mudar de tarefa — cada tarefa numa sessão nova.",
-                "Peça trechos de arquivos em vez de arquivos inteiros; evite colar logs longos.",
+                String(localized: "Use /compact quando terminar uma etapa (ex.: \"/compact mantenha só as decisões e arquivos alterados\")."),
+                String(localized: "Use /clear ao mudar de tarefa — cada tarefa numa sessão nova."),
+                String(localized: "Peça trechos de arquivos em vez de arquivos inteiros; evite colar logs longos."),
             ]
         )
     }
@@ -178,13 +178,13 @@ struct TipsEngine {
         return Tip(
             id: "heavy-session-start",
             kind: .saving,
-            title: "Enxugar o contexto inicial das sessões",
-            evidence: "\(heavySessions) sessões começaram com \(TokenFormat.compact(average)) tokens em média antes da primeira pergunta — prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Estimativa para reduzir a ~25k.",
+            title: String(localized: "Enxugar o contexto inicial das sessões"),
+            evidence: String(localized: "\(heavySessions) sessões começaram com \(TokenFormat.compact(average)) tokens em média antes da primeira pergunta — prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Estimativa para reduzir a ~25k."),
             monthlySavingsUSD: saved * 0.5 * monthFactor,
             steps: [
-                "Rode /context numa sessão nova para ver o que ocupa espaço.",
-                "Desative servidores MCP e plugins que o projeto não usa (/mcp e /plugin).",
-                "Mantenha o CLAUDE.md curto: regras e comandos, não documentação — link para o resto.",
+                String(localized: "Rode /context numa sessão nova para ver o que ocupa espaço."),
+                String(localized: "Desative servidores MCP e plugins que o projeto não usa (/mcp e /plugin)."),
+                String(localized: "Mantenha o CLAUDE.md curto: regras e comandos, não documentação — link para o resto."),
             ]
         )
     }
@@ -205,14 +205,14 @@ struct TipsEngine {
         return Tip(
             id: "api-caching",
             kind: .saving,
-            title: "Ativar prompt caching na API",
-            evidence: "Só \(hitRate.formatted(.percent.precision(.fractionLength(0)))) da entrada na API Anthropic veio do cache (\(TokenFormat.compact(input)) tokens sem cache em \(Self.windowDays) dias). Estimativa supõe metade da entrada reaproveitável.",
+            title: String(localized: "Ativar prompt caching na API"),
+            evidence: String(localized: "Só \(hitRate.formatted(.percent.precision(.fractionLength(0)))) da entrada na API Anthropic veio do cache (\(TokenFormat.compact(input)) tokens sem cache em \(Self.windowDays) dias). Estimativa supõe metade da entrada reaproveitável."),
             monthlySavingsUSD: saved * monthFactor,
             steps: [
-                "Coloque o conteúdo fixo primeiro (tools → system → mensagens) e o variável no fim.",
-                "Adicione cache_control: {type: \"ephemeral\"} ao último bloco fixo.",
-                "Nada de data/hora ou IDs no prompt de sistema — qualquer byte diferente invalida o cache.",
-                "Confira em usage.cache_read_input_tokens que o cache está sendo lido.",
+                String(localized: "Coloque o conteúdo fixo primeiro (tools → system → mensagens) e o variável no fim."),
+                String(localized: "Adicione cache_control: {type: \"ephemeral\"} ao último bloco fixo."),
+                String(localized: "Nada de data/hora ou IDs no prompt de sistema — qualquer byte diferente invalida o cache."),
+                String(localized: "Confira em usage.cache_read_input_tokens que o cache está sendo lido."),
             ]
         )
     }
@@ -225,13 +225,13 @@ struct TipsEngine {
         return Tip(
             id: "api-batch",
             kind: .saving,
-            title: "Mandar trabalho sem pressa para a Batch API",
-            evidence: "\(usd(spent)) em \(Self.windowDays) dias na API Anthropic sem batch. A Batch API custa 50% menos; estimativa supõe que 25% do volume pode esperar até 24 h.",
+            title: String(localized: "Mandar trabalho sem pressa para a Batch API"),
+            evidence: String(localized: "\(usd(spent)) em \(Self.windowDays) dias na API Anthropic sem batch. A Batch API custa 50% menos; estimativa supõe que 25% do volume pode esperar até 24 h."),
             monthlySavingsUSD: spent * 0.25 * 0.5 * monthFactor,
             steps: [
-                "Candidatos: classificação em massa, resumos, avaliações, geração de dados.",
-                "Envie com POST /v1/messages/batches e busque os resultados quando terminar.",
-                "Os resultados chegam fora de ordem: use custom_id para casar cada resposta.",
+                String(localized: "Candidatos: classificação em massa, resumos, avaliações, geração de dados."),
+                String(localized: "Envie com POST /v1/messages/batches e busque os resultados quando terminar."),
+                String(localized: "Os resultados chegam fora de ordem: use custom_id para casar cada resposta."),
             ]
         )
     }
@@ -244,13 +244,13 @@ struct TipsEngine {
         return Tip(
             id: "long-outputs",
             kind: .saving,
-            title: "Pedir respostas mais enxutas",
-            evidence: "\(long.count) respostas passaram de 8k tokens de saída (\(usd(cost)) só em saída). Estimativa de 30% a menos.",
+            title: String(localized: "Pedir respostas mais enxutas"),
+            evidence: String(localized: "\(long.count) respostas passaram de 8k tokens de saída (\(usd(cost)) só em saída). Estimativa de 30% a menos."),
             monthlySavingsUSD: cost * 0.3 * monthFactor,
             steps: [
-                "Peça o formato e o tamanho: \"responda em até 5 tópicos\", \"só o diff\".",
-                "Peça edições pontuais em vez de reescrever arquivos inteiros.",
-                "Na API, limite max_tokens e reduza o effort em tarefas simples.",
+                String(localized: "Peça o formato e o tamanho: \"responda em até 5 tópicos\", \"só o diff\"."),
+                String(localized: "Peça edições pontuais em vez de reescrever arquivos inteiros."),
+                String(localized: "Na API, limite max_tokens e reduza o effort em tarefas simples."),
             ]
         )
     }
@@ -269,12 +269,12 @@ struct TipsEngine {
         return Tip(
             id: "monthly-pace",
             kind: .warning,
-            title: "No ritmo atual, o orçamento do mês estoura",
-            evidence: "Projeção de \(usd(projected)) para um limite de \(usd(budgets.monthlyUSD)) (gasto até agora: \(usd(monthCostUSD))). Para fechar no limite, gaste até \(usd(dailyAllowance)) por dia.",
+            title: String(localized: "No ritmo atual, o orçamento do mês estoura"),
+            evidence: String(localized: "Projeção de \(usd(projected)) para um limite de \(usd(budgets.monthlyUSD)) (gasto até agora: \(usd(monthCostUSD))). Para fechar no limite, gaste até \(usd(dailyAllowance)) por dia."),
             monthlySavingsUSD: nil,
             steps: [
-                "Aplique primeiro as dicas de economia desta lista, da maior para a menor.",
-                "Defina um limite diário em Orçamentos para ser avisado antes.",
+                String(localized: "Aplique primeiro as dicas de economia desta lista, da maior para a menor."),
+                String(localized: "Defina um limite diário em Orçamentos para ser avisado antes."),
             ]
         )
     }

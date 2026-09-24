@@ -6,7 +6,7 @@ struct ProjectsView: View {
     enum Grouping: String, CaseIterable, Identifiable {
         case project, tool
         var id: String { rawValue }
-        var title: String { self == .project ? "Projeto" : "Ferramenta" }
+        var title: String { self == .project ? String(localized: "Projeto") : String(localized: "Ferramenta") }
     }
 
     @Environment(AnalyticsStore.self) private var analytics
@@ -30,7 +30,7 @@ struct ProjectsView: View {
             if rows.isEmpty {
                 ContentUnavailableView("Sem uso no período", systemImage: "folder")
             } else {
-                Card(title: analytics.metric.shortTitle) {
+                Card(verbatimTitle: analytics.metric.shortTitle) {
                     RankingChart(rows: rows)
                 }
                 UsageTable(rows: rows, nameTitle: grouping.title, sortOrder: $sortOrder, selection: $selection)

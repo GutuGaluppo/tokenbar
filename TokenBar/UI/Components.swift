@@ -3,13 +3,25 @@ import Charts
 
 /// Cartão com material translúcido e cantos de 12 pt, base de todo bloco do Overview.
 struct Card<Content: View>: View {
-    var title: String?
-    @ViewBuilder var content: Content
+    private let title: Text?
+    private let content: Content
+
+    /// Título traduzível (literal no código).
+    init(title: LocalizedStringKey? = nil, @ViewBuilder content: () -> Content) {
+        self.title = title.map { Text($0) }
+        self.content = content()
+    }
+
+    /// Título já pronto (ex.: nome de métrica traduzido em outro lugar).
+    init(verbatimTitle: String, @ViewBuilder content: () -> Content) {
+        self.title = Text(verbatim: verbatimTitle)
+        self.content = content()
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let title {
-                Text(title)
+                title
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.secondary)
             }
@@ -49,7 +61,7 @@ struct TodayHeader: View {
                     .foregroundStyle(.tertiary)
                 if let change = store.changeVersusAverage {
                     Label(
-                        change.formatted(.percent.precision(.fractionLength(0)).sign(strategy: .always())) + " vs. média 7d",
+                        String(localized: "\(change.formatted(.percent.precision(.fractionLength(0)).sign(strategy: .always()))) vs. média 7d"),
                         systemImage: change >= 0 ? "arrow.up.right" : "arrow.down.right"
                     )
                     .foregroundStyle(change > 0.2 ? .orange : .secondary)
@@ -171,13 +183,13 @@ struct LocalSourceStatusRow: View {
     private var detail: String {
         switch source.phase {
         case .unavailable:
-            return "Não encontrado nesta máquina"
+            return String(localized: "Não encontrado nesta máquina")
         case .failed(let message):
-            return "Erro: \(message)"
+            return String(localized: "Erro: \(message)")
         case .scanning(let progress):
-            return "Importando histórico… \(progress.formatted(.percent.precision(.fractionLength(0))))"
+            return String(localized: "Importando histórico… \(progress.formatted(.percent.precision(.fractionLength(0))))")
         case .idle:
-            let events = "\(source.eventCount.formatted()) respostas"
+            let events = String(localized: "\(source.eventCount.formatted()) respostas")
             guard let lastScan = source.lastScan else { return events }
             return events + " · " + lastScan.formatted(.relative(presentation: .named))
         }

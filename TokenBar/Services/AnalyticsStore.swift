@@ -9,11 +9,11 @@ enum PeriodPreset: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .today: "Hoje"
-        case .last7: "7 dias"
-        case .last30: "30 dias"
-        case .last90: "90 dias"
-        case .custom: "Personalizado"
+        case .today: String(localized: "Hoje")
+        case .last7: String(localized: "7 dias")
+        case .last30: String(localized: "30 dias")
+        case .last90: String(localized: "90 dias")
+        case .custom: String(localized: "Personalizado")
         }
     }
 }
@@ -27,17 +27,17 @@ enum UsageMetric: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .cost: "Custo"
-        case .tokensNoCacheRead: "Tokens (sem leitura de cache)"
-        case .tokensTotal: "Tokens (total)"
+        case .cost: String(localized: "Custo")
+        case .tokensNoCacheRead: String(localized: "Tokens (sem leitura de cache)")
+        case .tokensTotal: String(localized: "Tokens (total)")
         }
     }
 
     var shortTitle: String {
         switch self {
-        case .cost: "Custo"
-        case .tokensNoCacheRead: "Tokens"
-        case .tokensTotal: "Tokens + cache"
+        case .cost: String(localized: "Custo")
+        case .tokensNoCacheRead: String(localized: "Tokens")
+        case .tokensTotal: String(localized: "Tokens + cache")
         }
     }
 
@@ -75,7 +75,7 @@ struct GroupRow: Identifiable, Equatable {
     var tokens: Int { totals.tokens }
     /// Mais de um provedor na mesma linha (ex.: projeto usado com Claude e Codex).
     var mixedProviders = false
-    var providerName: String { mixedProviders ? "Vários" : provider?.displayName ?? "—" }
+    var providerName: String { mixedProviders ? String(localized: "Vários") : provider?.displayName ?? "—" }
 
     mutating func add(_ event: UsageEvent) {
         totals.add(event)
@@ -141,7 +141,7 @@ final class AnalyticsStore {
     /// Últimas 26 semanas, dia a dia, independente do período (gráfico de "contribuições").
     private(set) var calendar: [CalendarDay] = []
 
-    static let noProject = "Sem projeto (API)"
+    static let noProject = String(localized: "Sem projeto (API)")
     static let calendarWeeks = 26
 
     @ObservationIgnored private let container: ModelContainer

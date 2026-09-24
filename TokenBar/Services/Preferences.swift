@@ -18,13 +18,13 @@ enum MenuBarDisplay: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .iconOnly: "Somente ícone"
-        case .tokensToday: "Tokens de hoje"
-        case .costToday: "Custo de hoje"
-        case .nearestLimit: "% restante do limite mais próximo"
-        case .nearestLimitUsed: "% usado do limite mais próximo"
-        case .planSessionUsed: "Sessão atual do plano Claude (% usado)"
-        case .planSessionRemaining: "Sessão atual do plano Claude (% restante)"
+        case .iconOnly: String(localized: "Somente ícone")
+        case .tokensToday: String(localized: "Tokens de hoje")
+        case .costToday: String(localized: "Custo de hoje")
+        case .nearestLimit: String(localized: "% restante do limite mais próximo")
+        case .nearestLimitUsed: String(localized: "% usado do limite mais próximo")
+        case .planSessionUsed: String(localized: "Sessão atual do plano Claude (% usado)")
+        case .planSessionRemaining: String(localized: "Sessão atual do plano Claude (% restante)")
         }
     }
 }

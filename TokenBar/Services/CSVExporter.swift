@@ -9,9 +9,9 @@ enum CSVExporter {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .last30: "Últimos 30 dias"
-            case .last90: "Últimos 90 dias"
-            case .all: "Todo o histórico"
+            case .last30: String(localized: "Últimos 30 dias")
+            case .last90: String(localized: "Últimos 90 dias")
+            case .all: String(localized: "Todo o histórico")
             }
         }
         var start: Date {
@@ -23,8 +23,11 @@ enum CSVExporter {
         }
     }
 
-    static let header = ["data", "fonte", "provedor", "modelo", "projeto", "ferramenta", "sessao",
-                         "entrada", "saida", "escrita_cache", "leitura_cache", "custo_usd"]
+    static var header: [String] {
+        [String(localized: "data"), String(localized: "fonte"), String(localized: "provedor"), String(localized: "modelo"),
+         String(localized: "projeto"), String(localized: "ferramenta"), String(localized: "sessao"), String(localized: "entrada"),
+         String(localized: "saida"), String(localized: "escrita_cache"), String(localized: "leitura_cache"), String(localized: "custo_usd")]
+    }
 
     static func source(for externalID: String) -> String {
         switch externalID.prefix(3) {
@@ -32,7 +35,7 @@ enum CSVExporter {
         case "cx:": "Codex"
         case "ant": "API Anthropic"
         case "oai": "API OpenAI"
-        default: "Outro"
+        default: String(localized: "Outro")
         }
     }
 

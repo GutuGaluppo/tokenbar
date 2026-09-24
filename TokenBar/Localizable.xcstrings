@@ -1,0 +1,2996 @@
+{
+  "sourceLanguage": "pt-BR",
+  "strings": {
+    "% restante do limite mais próximo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "% left of the nearest limit"
+          }
+        }
+      }
+    },
+    "% usado do limite mais próximo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "% used of the nearest limit"
+          }
+        }
+      }
+    },
+    "%% %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%% %@"
+          }
+        }
+      }
+    },
+    "%@ das respostas do Opus têm menos de 1k tokens de saída (%lld respostas, %@). Estimativa supõe que metade poderia rodar no Sonnet 5.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ of Opus responses have under 1k output tokens (%lld responses, %@). Estimate assumes half could run on Sonnet 5."
+          }
+        }
+      }
+    },
+    "%@ de %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ of %@"
+          }
+        }
+      }
+    },
+    "%@ em %lld dias na API Anthropic sem batch. A Batch API custa 50%% menos; estimativa supõe que 25%% do volume pode esperar até 24 h.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in %lld days on the Anthropic API without batching. The Batch API costs 50%% less; estimate assumes 25%% of the volume can wait up to 24 h."
+          }
+        }
+      }
+    },
+    "%@ linhas exportadas.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ rows exported."
+          }
+        }
+      }
+    },
+    "%@ por dia": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ per day"
+          }
+        }
+      }
+    },
+    "%@ por hora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ per hour"
+          }
+        }
+      }
+    },
+    "%@ registros": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ records"
+          }
+        }
+      }
+    },
+    "%@ respostas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ responses"
+          }
+        }
+      }
+    },
+    "%@ respostas importadas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ responses imported"
+          }
+        }
+      }
+    },
+    "%@ usado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ used"
+          }
+        }
+      }
+    },
+    "%@ vs. média 7d": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ vs. 7-day avg"
+          }
+        }
+      }
+    },
+    "%lld dias com uso · total %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld active days · total %@"
+          }
+        }
+      }
+    },
+    "%lld modelos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld models"
+          }
+        }
+      }
+    },
+    "%lld respostas de modelos sem preço na tabela (custo contado como US$ 0).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld responses from models without a price in the table (cost counted as US$ 0)."
+          }
+        }
+      }
+    },
+    "%lld respostas em %lld sessões rodaram com mais de 200k tokens de contexto. A parte acima de 100k custou %@ em %lld dias.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld responses in %lld sessions ran with more than 200k tokens of context. The part above 100k cost %@ in %lld days."
+          }
+        }
+      }
+    },
+    "%lld respostas no Opus 5 em %lld dias (%@). O Opus 5.5 é o sucessor na mesma linha: 20%% menos na entrada e na saída e 60%% menos na leitura de cache.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld responses on Opus 5 in %lld days (%@). Opus 5.5 is its successor in the same line: 20%% cheaper for input and output and 60%% cheaper for cache reads."
+          }
+        }
+      }
+    },
+    "%lld respostas passaram de 8k tokens de saída (%@ só em saída). Estimativa de 30%% a menos.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld responses exceeded 8k output tokens (%@ in output alone). Estimate: 30%% less."
+          }
+        }
+      }
+    },
+    "%lld sessões começaram com %@ tokens em média antes da primeira pergunta — prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Estimativa para reduzir a ~25k.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld sessions started with %@ tokens on average before the first question — system prompt, CLAUDE.md, MCP tools, skills and plugins. Estimate for trimming to ~25k."
+          }
+        }
+      }
+    },
+    "%lld.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld."
+          }
+        }
+      }
+    },
+    "%lldh": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lldh"
+          }
+        }
+      }
+    },
+    "0 desliga o limite. Pressione Enter para confirmar o valor. Soma todas as fontes: Claude Code, API Anthropic e API OpenAI.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "0 turns the limit off. Press Return to confirm the value. Adds up all sources: Claude Code, Anthropic API and OpenAI API."
+          }
+        }
+      }
+    },
+    "30 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 days"
+          }
+        }
+      }
+    },
+    "7 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 days"
+          }
+        }
+      }
+    },
+    "90 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "90 days"
+          }
+        }
+      }
+    },
+    "APIs da Anthropic e da OpenAI (chave de admin da organização) podem ser conectadas depois, em Ajustes.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Anthropic and OpenAI APIs (organization admin key) can be connected later in Settings."
+          }
+        }
+      }
+    },
+    "APIs de uso da organização": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Organization usage APIs"
+          }
+        }
+      }
+    },
+    "Abrir": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open"
+          }
+        }
+      }
+    },
+    "Abrir ao iniciar sessão": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open at login"
+          }
+        }
+      }
+    },
+    "Abrir painel": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open dashboard"
+          }
+        }
+      }
+    },
+    "Adicione cache_control: {type: \"ephemeral\"} ao último bloco fixo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add cache_control: {type: \"ephemeral\"} to the last fixed block."
+          }
+        }
+      }
+    },
+    "Admin key da organização (Settings → Organization → Admin keys).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Organization admin key (Settings → Organization → Admin keys)."
+          }
+        }
+      }
+    },
+    "Agora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Now"
+          }
+        }
+      }
+    },
+    "Agrupar por": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Group by"
+          }
+        }
+      }
+    },
+    "Aguardando aprovação em Ajustes do Sistema": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for approval in System Settings"
+          }
+        }
+      }
+    },
+    "Ainda sem uso suficiente para comparar com os 14 dias anteriores à aplicação.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not enough usage yet to compare with the 14 days before applying."
+          }
+        }
+      }
+    },
+    "Ajustes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settings"
+          }
+        }
+      }
+    },
+    "Alertas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alerts"
+          }
+        }
+      }
+    },
+    "Apagar dados de exemplo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete sample data"
+          }
+        }
+      }
+    },
+    "Aplicada em %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applied on %@"
+          }
+        }
+      }
+    },
+    "Aplicadas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applied"
+          }
+        }
+      }
+    },
+    "Aplique primeiro as dicas de economia desta lista, da maior para a menor.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apply the savings tips in this list first, from largest to smallest."
+          }
+        }
+      }
+    },
+    "Apliquei": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applied it"
+          }
+        }
+      }
+    },
+    "As chaves ficam no Keychain e só são usadas para ler relatórios de uso (a cada 5 min). Se o Claude Code usa uma chave de API da mesma organização, esse consumo aparece nos logs e na API Anthropic — conecte só uma das fontes para não contar em dobro.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keys are stored in the Keychain and only used to read usage reports (every 5 min). If Claude Code uses an API key from the same organization, that usage shows up in both the logs and the Anthropic API — connect only one of the sources to avoid double counting."
+          }
+        }
+      }
+    },
+    "Atalho global %@ abre o painel": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Global shortcut %@ opens the dashboard"
+          }
+        }
+      }
+    },
+    "Ativar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on"
+          }
+        }
+      }
+    },
+    "Ativar prompt caching na API": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on prompt caching in the API"
+          }
+        }
+      }
+    },
+    "Ative a leitura do plano Claude abaixo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on Claude plan reading below."
+          }
+        }
+      }
+    },
+    "Atividade": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activity"
+          }
+        }
+      }
+    },
+    "Atualizada do repositório, de %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updated from the repository, as of %@"
+          }
+        }
+      }
+    },
+    "Atualizar agora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh now"
+          }
+        }
+      }
+    },
+    "Atualização": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updates"
+          }
+        }
+      }
+    },
+    "Até": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To"
+          }
+        }
+      }
+    },
+    "Avisar em 50%, 80% e 95%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alert at 50%, 80% and 95%"
+          }
+        }
+      }
+    },
+    "Banco local": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local database"
+          }
+        }
+      }
+    },
+    "Bloco de 5 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5-hour block"
+          }
+        }
+      }
+    },
+    "Boas-vindas ao TokenBar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome to TokenBar"
+          }
+        }
+      }
+    },
+    "Candidatos: classificação em massa, resumos, avaliações, geração de dados.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good candidates: bulk classification, summaries, evaluations, data generation."
+          }
+        }
+      }
+    },
+    "Carregando…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading…"
+          }
+        }
+      }
+    },
+    "Chave de Admin API (Console → Settings → Admin keys). Contas individuais não têm Admin API.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Admin API key (Console → Settings → Admin keys). Individual accounts don't have the Admin API."
+          }
+        }
+      }
+    },
+    "Chave inválida ou sem permissão de admin.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invalid key or missing admin permission."
+          }
+        }
+      }
+    },
+    "Claude Code (estimativa dos limites do plano)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code (plan limit estimate)"
+          }
+        }
+      }
+    },
+    "Claude Code 5 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code 5 h"
+          }
+        }
+      }
+    },
+    "Claude Code 7 d": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code 7 d"
+          }
+        }
+      }
+    },
+    "Claude Code · 5 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code · 5 h"
+          }
+        }
+      }
+    },
+    "Claude Code · 7 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code · 7 days"
+          }
+        }
+      }
+    },
+    "Codex 5 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 5 h"
+          }
+        }
+      }
+    },
+    "Codex semana": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex week"
+          }
+        }
+      }
+    },
+    "Codex · 5 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · 5 h"
+          }
+        }
+      }
+    },
+    "Codex · semana": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · week"
+          }
+        }
+      }
+    },
+    "Coloque o conteúdo fixo primeiro (tools → system → mensagens) e o variável no fim.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put fixed content first (tools → system → messages) and variable content last."
+          }
+        }
+      }
+    },
+    "Começar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get started"
+          }
+        }
+      }
+    },
+    "Como aplicar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How to apply"
+          }
+        }
+      }
+    },
+    "Compactar ou recomeçar conversas longas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compact or restart long conversations"
+          }
+        }
+      }
+    },
+    "Conectar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect"
+          }
+        }
+      }
+    },
+    "Conectar API…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect API…"
+          }
+        }
+      }
+    },
+    "Configure sub-agentes de exploração com model: sonnet (ou haiku) em .claude/agents/.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configure exploration subagents with model: sonnet (or haiku) in .claude/agents/."
+          }
+        }
+      }
+    },
+    "Confira em usage.cache_read_input_tokens que o cache está sendo lido.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check usage.cache_read_input_tokens to confirm the cache is being read."
+          }
+        }
+      }
+    },
+    "Consumo e custo em tempo real, a um clique": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Real-time usage and cost, one click away"
+          }
+        }
+      }
+    },
+    "Continuar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "Custo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost"
+          }
+        }
+      }
+    },
+    "Custo (equiv. API)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost (API equiv.)"
+          }
+        }
+      }
+    },
+    "Custo (equivalente em API)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost (API equivalent)"
+          }
+        }
+      }
+    },
+    "Custo de hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today's cost"
+          }
+        }
+      }
+    },
+    "Custo do mês": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This month's cost"
+          }
+        }
+      }
+    },
+    "Custo estimado a preços da API. Em planos de assinatura (Pro/Max) esse valor não é cobrado.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated at API prices. On subscription plans (Pro/Max) this amount is not billed."
+          }
+        }
+      }
+    },
+    "Custo hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost today"
+          }
+        }
+      }
+    },
+    "Custo mês": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost month"
+          }
+        }
+      }
+    },
+    "Dados": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        }
+      }
+    },
+    "Data": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        }
+      }
+    },
+    "De": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From"
+          }
+        }
+      }
+    },
+    "Defina um limite diário em Orçamentos para ser avisado antes.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set a daily limit in Budgets to be warned earlier."
+          }
+        }
+      }
+    },
+    "Definir": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set"
+          }
+        }
+      }
+    },
+    "Definir limites": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set limits"
+          }
+        }
+      }
+    },
+    "Deixar passos simples para o Sonnet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave simple steps to Sonnet"
+          }
+        }
+      }
+    },
+    "Desative servidores MCP e plugins que o projeto não usa (/mcp e /plugin).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn off MCP servers and plugins the project doesn't use (/mcp and /plugin)."
+          }
+        }
+      }
+    },
+    "Desconectar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnect"
+          }
+        }
+      }
+    },
+    "Desenvolvimento": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Development"
+          }
+        }
+      }
+    },
+    "Desfazer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo"
+          }
+        }
+      }
+    },
+    "Desligado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        }
+      }
+    },
+    "Dia da semana × hora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day of week × hour"
+          }
+        }
+      }
+    },
+    "Dica do dia": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tip of the day"
+          }
+        }
+      }
+    },
+    "Dicas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tips"
+          }
+        }
+      }
+    },
+    "Dicas de economia com o valor estimado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savings tips with estimated value"
+          }
+        }
+      }
+    },
+    "Diário": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily"
+          }
+        }
+      }
+    },
+    "Dá para mudar tudo depois em Ajustes.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can change everything later in Settings."
+          }
+        }
+      }
+    },
+    "Economia possível: %@/mês": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Possible savings: %@/month"
+          }
+        }
+      }
+    },
+    "Economia realizada até agora: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savings achieved so far: %@"
+          }
+        }
+      }
+    },
+    "Economia realizada: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savings achieved: %@"
+          }
+        }
+      }
+    },
+    "Em tarefas rotineiras, reduza o esforço (effort low/medium) antes de trocar de modelo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For routine tasks, lower the effort (low/medium) before switching models."
+          }
+        }
+      }
+    },
+    "Embutida no app, de %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Built into the app, as of %@"
+          }
+        }
+      }
+    },
+    "Encerrar TokenBar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quit TokenBar"
+          }
+        }
+      }
+    },
+    "Encerrar TokenBar (⌘Q)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quit TokenBar (⌘Q)"
+          }
+        }
+      }
+    },
+    "Entrada": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Input"
+          }
+        }
+      }
+    },
+    "Envie com POST /v1/messages/batches e busque os resultados quando terminar.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Submit with POST /v1/messages/batches and fetch the results when it finishes."
+          }
+        }
+      }
+    },
+    "Enxugar o contexto inicial das sessões": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trim the starting context of sessions"
+          }
+        }
+      }
+    },
+    "Erro no Keychain": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keychain error"
+          }
+        }
+      }
+    },
+    "Erro: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Error: %@"
+          }
+        }
+      }
+    },
+    "Escrita cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache write"
+          }
+        }
+      }
+    },
+    "Esta dica não tem uma medida de economia.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This tip has no savings measurement."
+          }
+        }
+      }
+    },
+    "Estimativas a partir dos últimos %lld dias, projetadas para 30, a preços de API.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimates from the last %lld days, projected to 30, at API prices."
+          }
+        }
+      }
+    },
+    "Exportar CSV": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export CSV"
+          }
+        }
+      }
+    },
+    "Exportar…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export…"
+          }
+        }
+      }
+    },
+    "Ferramenta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tool"
+          }
+        }
+      }
+    },
+    "Ferramentas locais": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local tools"
+          }
+        }
+      }
+    },
+    "Fontes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sources"
+          }
+        }
+      }
+    },
+    "Fontes encontradas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sources found"
+          }
+        }
+      }
+    },
+    "Geral": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "General"
+          }
+        }
+      }
+    },
+    "Gerar dados de exemplo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Generate sample data"
+          }
+        }
+      }
+    },
+    "Hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        }
+      }
+    },
+    "Hora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hour"
+          }
+        }
+      }
+    },
+    "Idioma": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Language"
+          }
+        }
+      }
+    },
+    "Ignoradas (%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismissed (%lld)"
+          }
+        }
+      }
+    },
+    "Ignorar por 30 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss for 30 days"
+          }
+        }
+      }
+    },
+    "Importando histórico…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importing history…"
+          }
+        }
+      }
+    },
+    "Importando histórico… %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importing history… %@"
+          }
+        }
+      }
+    },
+    "Leitura cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache read"
+          }
+        }
+      }
+    },
+    "Leitura de cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache reads"
+          }
+        }
+      }
+    },
+    "Ler o uso do plano pela conta do Claude Code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read plan usage through the Claude Code account"
+          }
+        }
+      }
+    },
+    "Limite diário": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily limit"
+          }
+        }
+      }
+    },
+    "Limite mensal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly limit"
+          }
+        }
+      }
+    },
+    "Limites": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limits"
+          }
+        }
+      }
+    },
+    "Limites de custo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost limits"
+          }
+        }
+      }
+    },
+    "Login do Claude Code não encontrado no Keychain. Entre no Claude Code com sua conta Pro/Max.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code login not found in the Keychain. Sign in to Claude Code with your Pro/Max account."
+          }
+        }
+      }
+    },
+    "Login do Claude Code recusado (HTTP %lld). Abra o Claude Code para renovar.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code login rejected (HTTP %lld). Open Claude Code to renew it."
+          }
+        }
+      }
+    },
+    "Mandar trabalho sem pressa para a Batch API": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send non-urgent work to the Batch API"
+          }
+        }
+      }
+    },
+    "Mantenha o CLAUDE.md curto: regras e comandos, não documentação — link para o resto.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep CLAUDE.md short: rules and commands, not documentation — link to the rest."
+          }
+        }
+      }
+    },
+    "Marca a dica como aplicada e passa a medir a economia real a partir de hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marks the tip as applied and starts measuring real savings from today"
+          }
+        }
+      }
+    },
+    "Medindo… o primeiro resultado sai %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Measuring… the first result arrives %@."
+          }
+        }
+      }
+    },
+    "Mensal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly"
+          }
+        }
+      }
+    },
+    "Modelo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model"
+          }
+        }
+      }
+    },
+    "Modelos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models"
+          }
+        }
+      }
+    },
+    "Modelos em %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Models in %@"
+          }
+        }
+      }
+    },
+    "Mostra os mesmos números de Settings → Usage e do /usage do Claude Code: sessão atual (5 h) e limites semanais. Usa o login do Claude Code guardado no Keychain — o macOS vai pedir permissão; escolha \"Sempre permitir\". O token só é lido e enviado à Anthropic. Endpoint não documentado: pode parar de funcionar sem aviso.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows the same numbers as Settings → Usage and Claude Code's /usage: current session (5 h) and weekly limits. Uses the Claude Code login stored in the Keychain — macOS will ask for permission; choose \"Always Allow\". The token is only read and sent to Anthropic. Undocumented endpoint: it may stop working without notice."
+          }
+        }
+      }
+    },
+    "Mostrar boas-vindas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show welcome"
+          }
+        }
+      }
+    },
+    "Mostrar na barra de menus": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show in menu bar"
+          }
+        }
+      }
+    },
+    "Mostrar no Finder": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show in Finder"
+          }
+        }
+      }
+    },
+    "Mostrar os limites do plano Claude (Pro/Max)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show Claude plan limits (Pro/Max)"
+          }
+        }
+      }
+    },
+    "Mostrar pasta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show folder"
+          }
+        }
+      }
+    },
+    "Mostrar ícone no Dock com a janela aberta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show Dock icon while the window is open"
+          }
+        }
+      }
+    },
+    "Métrica": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metric"
+          }
+        }
+      }
+    },
+    "Na API, limite max_tokens e reduza o effort em tarefas simples.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In the API, cap max_tokens and lower the effort on simple tasks."
+          }
+        }
+      }
+    },
+    "Na API: troque o id do modelo para claude-opus-5-5.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In the API: change the model id to claude-opus-5-5."
+          }
+        }
+      }
+    },
+    "Na barra de menus": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In the menu bar"
+          }
+        }
+      }
+    },
+    "Nada de data/hora ou IDs no prompt de sistema — qualquer byte diferente invalida o cache.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No dates, times or IDs in the system prompt — any byte change invalidates the cache."
+          }
+        }
+      }
+    },
+    "Nenhum limite definido": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No limits set"
+          }
+        }
+      }
+    },
+    "Nenhum limite definido: a barra mostra \"—%\".": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No limits set: the menu bar shows \"—%\"."
+          }
+        }
+      }
+    },
+    "Nenhum modelo usado hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No models used today"
+          }
+        }
+      }
+    },
+    "Nenhuma dica agora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No tips right now"
+          }
+        }
+      }
+    },
+    "No Claude Code: digite /model e escolha Opus 5.5, ou defina \"model\": \"claude-opus-5-5\" em ~/.claude/settings.json.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Claude Code: type /model and choose Opus 5.5, or set \"model\": \"claude-opus-5-5\" in ~/.claude/settings.json."
+          }
+        }
+      }
+    },
+    "No ritmo atual, o orçamento do mês estoura": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At the current pace, the monthly budget will be exceeded"
+          }
+        }
+      }
+    },
+    "Nome": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
+        }
+      }
+    },
+    "Notificar ao atingir 50%, 80% e 95%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notify at 50%, 80% and 95%"
+          }
+        }
+      }
+    },
+    "Notificações bloqueadas. Ative em Ajustes do Sistema → Notificações → TokenBar.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are blocked. Turn them on in System Settings → Notifications → TokenBar."
+          }
+        }
+      }
+    },
+    "Não conectada": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not connected"
+          }
+        }
+      }
+    },
+    "Não encontrado nesta máquina": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not found on this Mac"
+          }
+        }
+      }
+    },
+    "Não encontrado neste Mac": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not found on this Mac"
+          }
+        }
+      }
+    },
+    "O Opus 5.5 tem esforço padrão medium (o Opus 5 usa high): ajuste o effort se sentir diferença de qualidade.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opus 5.5 defaults to medium effort (Opus 5 uses high): adjust the effort if you notice a quality difference."
+          }
+        }
+      }
+    },
+    "O TokenBar lê os registros que as ferramentas já gravam no seu Mac. Nada precisa ser configurado.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TokenBar reads the logs these tools already write on your Mac. Nothing needs to be configured."
+          }
+        }
+      }
+    },
+    "O app baixa a tabela publicada no repositório uma vez por dia e recalcula os custos quando ela muda. Um prices.json seu nessa pasta sempre prevalece (depois, use Reimportar histórico).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The app downloads the table published in the repository once a day and recalculates costs when it changes. Your own prices.json in this folder always takes precedence (then use Reimport history)."
+          }
+        }
+      }
+    },
+    "O desperdício que esta dica ataca caiu %@ por unidade de uso. Projeção: %@/mês.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The waste this tip targets dropped %@ per unit of usage. Projection: %@/month."
+          }
+        }
+      }
+    },
+    "O login do Claude Code expirou. Abra o Claude Code (ele renova sozinho) e tente de novo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Claude Code login expired. Open Claude Code (it renews automatically) and try again."
+          }
+        }
+      }
+    },
+    "O que os gráficos e rankings medem": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What the charts and rankings measure"
+          }
+        }
+      }
+    },
+    "Opcional. Os valores são equivalentes a preços de API; 0 desliga.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional. Values are API-price equivalents; 0 turns a limit off."
+          }
+        }
+      }
+    },
+    "Orçamentos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budgets"
+          }
+        }
+      }
+    },
+    "Os limites de Pro/Max não são públicos. Conta entrada + saída + escrita de cache (sem leituras de cache). Para calibrar: quando o Claude avisar que você chegou ao limite, use o valor do bloco atual como referência.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro/Max limits aren't public. Counts input + output + cache writes (no cache reads). To calibrate: when Claude tells you you've hit the limit, use the current block value as a reference."
+          }
+        }
+      }
+    },
+    "Os resultados chegam fora de ordem: use custom_id para casar cada resposta.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Results arrive out of order: use custom_id to match each response."
+          }
+        }
+      }
+    },
+    "Outro": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other"
+          }
+        }
+      }
+    },
+    "Outros": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other"
+          }
+        }
+      }
+    },
+    "Overview": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overview"
+          }
+        }
+      }
+    },
+    "Painel por modelo, projeto e horário": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dashboard by model, project and time of day"
+          }
+        }
+      }
+    },
+    "Pedir respostas mais enxutas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask for leaner responses"
+          }
+        }
+      }
+    },
+    "Personalizada (prices.json), de %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom (prices.json), as of %@"
+          }
+        }
+      }
+    },
+    "Personalizado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custom"
+          }
+        }
+      }
+    },
+    "Personalizar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Customize"
+          }
+        }
+      }
+    },
+    "Período": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period"
+          }
+        }
+      }
+    },
+    "Peça edições pontuais em vez de reescrever arquivos inteiros.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask for targeted edits instead of rewriting whole files."
+          }
+        }
+      }
+    },
+    "Peça o formato e o tamanho: \"responda em até 5 tópicos\", \"só o diff\".": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Specify format and length: \"answer in at most 5 bullets\", \"just the diff\"."
+          }
+        }
+      }
+    },
+    "Peça trechos de arquivos em vez de arquivos inteiros; evite colar logs longos.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ask for file excerpts instead of whole files; avoid pasting long logs."
+          }
+        }
+      }
+    },
+    "Pico: %@ %lldh": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peak: %@ %lldh"
+          }
+        }
+      }
+    },
+    "Plano Claude (Pro/Max)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude plan (Pro/Max)"
+          }
+        }
+      }
+    },
+    "Plano · semana (Opus)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan · week (Opus)"
+          }
+        }
+      }
+    },
+    "Plano · semana (Sonnet)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan · week (Sonnet)"
+          }
+        }
+      }
+    },
+    "Plano · semana (todos os modelos)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan · week (all models)"
+          }
+        }
+      }
+    },
+    "Plano · sessão atual": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan · current session"
+          }
+        }
+      }
+    },
+    "Por hora do dia": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By hour of day"
+          }
+        }
+      }
+    },
+    "Preferências": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preferences"
+          }
+        }
+      }
+    },
+    "Preços": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prices"
+          }
+        }
+      }
+    },
+    "Primeiro uso": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First run"
+          }
+        }
+      }
+    },
+    "Projeto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Project"
+          }
+        }
+      }
+    },
+    "Projetos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Projects"
+          }
+        }
+      }
+    },
+    "Projeção de %@ para um limite de %@ (gasto até agora: %@). Para fechar no limite, gaste até %@ por dia.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Projected %@ against a %@ limit (spent so far: %@). To stay within the limit, spend at most %@ per day."
+          }
+        }
+      }
+    },
+    "Provedor": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provider"
+          }
+        }
+      }
+    },
+    "Reimportar histórico": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reimport history"
+          }
+        }
+      }
+    },
+    "Reiniciar agora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restart now"
+          }
+        }
+      }
+    },
+    "Reinicie o TokenBar para aplicar o idioma.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restart TokenBar to apply the language."
+          }
+        }
+      }
+    },
+    "Respostas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Responses"
+          }
+        }
+      }
+    },
+    "Restaurar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore"
+          }
+        }
+      }
+    },
+    "Rode /context numa sessão nova para ver o que ocupa espaço.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run /context in a new session to see what takes up space."
+          }
+        }
+      }
+    },
+    "Saída": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Output"
+          }
+        }
+      }
+    },
+    "Selecione uma linha para ver os modelos usados nela.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select a row to see the models used in it."
+          }
+        }
+      }
+    },
+    "Sem consumo nas últimas 24 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No usage in the last 24 h"
+          }
+        }
+      }
+    },
+    "Sem economia até agora: o desperdício por unidade de uso subiu %@ em relação aos 14 dias anteriores.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No savings so far: waste per unit of usage rose %@ compared with the previous 14 days."
+          }
+        }
+      }
+    },
+    "Sem mudança até agora em relação aos 14 dias anteriores.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No change so far compared with the previous 14 days."
+          }
+        }
+      }
+    },
+    "Sem projeto (API)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No project (API)"
+          }
+        }
+      }
+    },
+    "Sem uso no período": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No usage in this period"
+          }
+        }
+      }
+    },
+    "Semana Claude": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude week"
+          }
+        }
+      }
+    },
+    "Semana Opus": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opus week"
+          }
+        }
+      }
+    },
+    "Semana Sonnet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonnet week"
+          }
+        }
+      }
+    },
+    "Sessão Claude": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude session"
+          }
+        }
+      }
+    },
+    "Sessão atual do plano Claude (% restante)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude plan current session (% left)"
+          }
+        }
+      }
+    },
+    "Sessão atual do plano Claude (% usado)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude plan current session (% used)"
+          }
+        }
+      }
+    },
+    "Seu consumo de IA na barra de menus: quanto você usou hoje, quanto resta dos seus limites e onde dá para economizar.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your AI usage in the menu bar: how much you used today, how much of your limits is left and where you can save."
+          }
+        }
+      }
+    },
+    "Seu uso dos últimos %lld dias não mostrou nenhum padrão com economia relevante.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your usage over the last %lld days showed no pattern with meaningful savings."
+          }
+        }
+      }
+    },
+    "Sincronizando…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Syncing…"
+          }
+        }
+      }
+    },
+    "Sincronizar agora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync now"
+          }
+        }
+      }
+    },
+    "Sistema": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
+          }
+        }
+      }
+    },
+    "Somente ícone": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Icon only"
+          }
+        }
+      }
+    },
+    "Só %@ da entrada na API Anthropic veio do cache (%@ tokens sem cache em %lld dias). Estimativa supõe metade da entrada reaproveitável.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only %@ of Anthropic API input came from the cache (%@ uncached tokens in %lld days). Estimate assumes half of the input is reusable."
+          }
+        }
+      }
+    },
+    "Tabela em uso": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Table in use"
+          }
+        }
+      }
+    },
+    "Tentar de novo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try again"
+          }
+        }
+      }
+    },
+    "Todo o histórico": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Full history"
+          }
+        }
+      }
+    },
+    "TokenBar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TokenBar"
+          }
+        }
+      }
+    },
+    "TokenBar — popover": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TokenBar — popover"
+          }
+        }
+      }
+    },
+    "TokenBar: %@ tokens hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TokenBar: %@ tokens today"
+          }
+        }
+      }
+    },
+    "Tokens": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tokens"
+          }
+        }
+      }
+    },
+    "Tokens (sem leitura de cache)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tokens (excl. cache reads)"
+          }
+        }
+      }
+    },
+    "Tokens (total)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tokens (total)"
+          }
+        }
+      }
+    },
+    "Tokens + cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tokens + cache"
+          }
+        }
+      }
+    },
+    "Tokens de hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today's tokens"
+          }
+        }
+      }
+    },
+    "Top modelos hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top models today"
+          }
+        }
+      }
+    },
+    "Trocar Claude Opus 5 por Opus 5.5": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch Claude Opus 5 to Opus 5.5"
+          }
+        }
+      }
+    },
+    "Tudo fica no seu Mac — nada de conversa é lido": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everything stays on your Mac — no conversation content is stored"
+          }
+        }
+      }
+    },
+    "US$": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "US$"
+          }
+        }
+      }
+    },
+    "Usa o login do Claude Code; o macOS vai pedir acesso ao Keychain. Recurso experimental.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uses the Claude Code login; macOS will ask for Keychain access. Experimental feature."
+          }
+        }
+      }
+    },
+    "Use /clear ao mudar de tarefa — cada tarefa numa sessão nova.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use /clear when switching tasks — one task per session."
+          }
+        }
+      }
+    },
+    "Use /compact quando terminar uma etapa (ex.: \"/compact mantenha só as decisões e arquivos alterados\").": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use /compact when you finish a step (e.g. \"/compact keep only decisions and changed files\")."
+          }
+        }
+      }
+    },
+    "Use o Opus para planejar e decidir, e o Sonnet para executar: /model sonnet durante tarefas mecânicas.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use Opus to plan and decide, and Sonnet to execute: /model sonnet during mechanical tasks."
+          }
+        }
+      }
+    },
+    "Ver todas as dicas (%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See all tips (%lld)"
+          }
+        }
+      }
+    },
+    "Verificando…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking…"
+          }
+        }
+      }
+    },
+    "Verificar agora": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check now"
+          }
+        }
+      }
+    },
+    "Voltar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        }
+      }
+    },
+    "Vários": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Multiple"
+          }
+        }
+      }
+    },
+    "atual %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "current %@"
+          }
+        }
+      }
+    },
+    "custo_usd": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cost_usd"
+          }
+        }
+      }
+    },
+    "data": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "date"
+          }
+        }
+      }
+    },
+    "entrada": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "input"
+          }
+        }
+      }
+    },
+    "equiv. API": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API equiv."
+          }
+        }
+      }
+    },
+    "escrita_cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cache_write"
+          }
+        }
+      }
+    },
+    "ferramenta": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tool"
+          }
+        }
+      }
+    },
+    "fonte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "source"
+          }
+        }
+      }
+    },
+    "leitura_cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cache_read"
+          }
+        }
+      }
+    },
+    "modelo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "model"
+          }
+        }
+      }
+    },
+    "pico 7d %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7-day peak %@"
+          }
+        }
+      }
+    },
+    "projeto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "project"
+          }
+        }
+      }
+    },
+    "provedor": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "provider"
+          }
+        }
+      }
+    },
+    "reinicia %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "resets %@"
+          }
+        }
+      }
+    },
+    "restam %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ left"
+          }
+        }
+      }
+    },
+    "saida": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "output"
+          }
+        }
+      }
+    },
+    "semana %lld%%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "week %lld%%"
+          }
+        }
+      }
+    },
+    "semana —": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "week —"
+          }
+        }
+      }
+    },
+    "sessao": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "session"
+          }
+        }
+      }
+    },
+    "sessão %lld%%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "session %lld%%"
+          }
+        }
+      }
+    },
+    "sessão —": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "session —"
+          }
+        }
+      }
+    },
+    "tokens": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tokens"
+          }
+        }
+      }
+    },
+    "x0": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "x0"
+          }
+        }
+      }
+    },
+    "x1": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "x1"
+          }
+        }
+      }
+    },
+    "y0": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "y0"
+          }
+        }
+      }
+    },
+    "y1": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "y1"
+          }
+        }
+      }
+    },
+    "Últimas %lld semanas · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last %lld weeks · %@"
+          }
+        }
+      }
+    },
+    "Últimas 24 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 24 h"
+          }
+        }
+      }
+    },
+    "Último uso": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last used"
+          }
+        }
+      }
+    },
+    "Últimos 30 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 30 days"
+          }
+        }
+      }
+    },
+    "Últimos 7 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 7 days"
+          }
+        }
+      }
+    },
+    "Últimos 90 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 90 days"
+          }
+        }
+      }
+    },
+    "—%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "—%"
+          }
+        }
+      }
+    },
+    "≈ %@/mês": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≈ %@/month"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

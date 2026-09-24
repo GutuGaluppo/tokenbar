@@ -151,6 +151,7 @@ struct CSVExporterTests {
         ("cc:a:b", "Claude Code"), ("cx:s:1", "Codex"), ("ant:u:x", "API Anthropic"), ("oai:c:1", "API OpenAI"), ("local:1", "Outro"),
     ])
     func sources(id: String, expected: String) {
-        #expect(CSVExporter.source(for: id) == expected)
+        // "Outro" é traduzido; os nomes de ferramenta não.
+        #expect(CSVExporter.source(for: id) == (expected == "Outro" ? String(localized: "Outro") : expected))
     }
 }

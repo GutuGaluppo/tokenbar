@@ -83,12 +83,12 @@ final class ClaudePlanUsage {
 
     private func load() async {
         guard let token = token() else {
-            phase = .needsLogin("Login do Claude Code não encontrado no Keychain. Entre no Claude Code com sua conta Pro/Max.")
+            phase = .needsLogin(String(localized: "Login do Claude Code não encontrado no Keychain. Entre no Claude Code com sua conta Pro/Max."))
             return
         }
         if let expiresAt = token.expiresAt, expiresAt < .now {
             cachedToken = nil
-            phase = .needsLogin("O login do Claude Code expirou. Abra o Claude Code (ele renova sozinho) e tente de novo.")
+            phase = .needsLogin(String(localized: "O login do Claude Code expirou. Abra o Claude Code (ele renova sozinho) e tente de novo."))
             return
         }
 
@@ -113,7 +113,7 @@ final class ClaudePlanUsage {
                 Self.log.notice("sessão \(self.session?.utilization ?? -1, privacy: .public)% · semana \(self.week?.utilization ?? -1, privacy: .public)%")
             case 401, 403:
                 cachedToken = nil   // relê do Keychain na próxima vez (o Claude Code pode ter renovado)
-                phase = .needsLogin("Login do Claude Code recusado (HTTP \(status)). Abra o Claude Code para renovar.")
+                phase = .needsLogin(String(localized: "Login do Claude Code recusado (HTTP \(status)). Abra o Claude Code para renovar."))
             default:
                 phase = .failed("HTTP \(status)")
             }

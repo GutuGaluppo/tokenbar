@@ -22,7 +22,8 @@ final class WidgetPublisher {
             todayCostUSD: todayCostUSD,
             limits: ordered.map {
                 .init(id: $0.id, title: $0.shortTitle, fraction: $0.fraction, resetsAt: $0.resetsAt)
-            }
+            },
+            language: AppLanguage.active
         )
 
         // Ignora a data ao comparar: só republica se os números mudaram.

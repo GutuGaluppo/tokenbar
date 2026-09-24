@@ -32,7 +32,8 @@ struct OverviewView: View {
                     }
                 }
 
-                Card(title: "\(metric.shortTitle) por \(analytics.hourly ? "hora" : "dia")") {
+                Card(verbatimTitle: analytics.hourly ? String(localized: "\(metric.shortTitle) por hora")
+                                                     : String(localized: "\(metric.shortTitle) por dia")) {
                     PeriodSeriesChart()
                 }
 

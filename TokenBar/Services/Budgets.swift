@@ -34,54 +34,54 @@ struct LimitStatus: Identifiable, Equatable {
     var remainingFraction: Double { max(1 - fraction, 0) }
 
     var remainingText: String {
-        "restam " + remainingFraction.formatted(.percent.precision(.fractionLength(0)))
+        String(localized: "restam \(remainingFraction.formatted(.percent.precision(.fractionLength(0))))")
     }
 
     var title: String {
         switch kind {
-        case .dailyCost: "Custo de hoje"
-        case .monthlyCost: "Custo do mês"
-        case .fiveHourTokens: "Claude Code · 5 h"
-        case .weeklyTokens: "Claude Code · 7 dias"
-        case .planSession: "Plano · sessão atual"
-        case .planWeek: "Plano · semana (todos os modelos)"
-        case .planWeekSonnet: "Plano · semana (Sonnet)"
-        case .planWeekOpus: "Plano · semana (Opus)"
-        case .codexSession: "Codex · 5 h"
-        case .codexWeek: "Codex · semana"
+        case .dailyCost: String(localized: "Custo de hoje")
+        case .monthlyCost: String(localized: "Custo do mês")
+        case .fiveHourTokens: String(localized: "Claude Code · 5 h")
+        case .weeklyTokens: String(localized: "Claude Code · 7 dias")
+        case .planSession: String(localized: "Plano · sessão atual")
+        case .planWeek: String(localized: "Plano · semana (todos os modelos)")
+        case .planWeekSonnet: String(localized: "Plano · semana (Sonnet)")
+        case .planWeekOpus: String(localized: "Plano · semana (Opus)")
+        case .codexSession: String(localized: "Codex · 5 h")
+        case .codexWeek: String(localized: "Codex · semana")
         }
     }
 
     /// Título curto para o widget.
     var shortTitle: String {
         switch kind {
-        case .dailyCost: "Custo hoje"
-        case .monthlyCost: "Custo mês"
-        case .fiveHourTokens: "Claude Code 5 h"
-        case .weeklyTokens: "Claude Code 7 d"
-        case .planSession: "Sessão Claude"
-        case .planWeek: "Semana Claude"
-        case .planWeekSonnet: "Semana Sonnet"
-        case .planWeekOpus: "Semana Opus"
-        case .codexSession: "Codex 5 h"
-        case .codexWeek: "Codex semana"
+        case .dailyCost: String(localized: "Custo hoje")
+        case .monthlyCost: String(localized: "Custo mês")
+        case .fiveHourTokens: String(localized: "Claude Code 5 h")
+        case .weeklyTokens: String(localized: "Claude Code 7 d")
+        case .planSession: String(localized: "Sessão Claude")
+        case .planWeek: String(localized: "Semana Claude")
+        case .planWeekSonnet: String(localized: "Semana Sonnet")
+        case .planWeekOpus: String(localized: "Semana Opus")
+        case .codexSession: String(localized: "Codex 5 h")
+        case .codexWeek: String(localized: "Codex semana")
         }
     }
 
     var usageText: String {
         switch kind {
         case .dailyCost, .monthlyCost:
-            "\(TokenFormat.usd(used)) de \(TokenFormat.usd(limit))"
+            String(localized: "\(TokenFormat.usd(used)) de \(TokenFormat.usd(limit))")
         case .fiveHourTokens, .weeklyTokens:
-            "\(TokenFormat.compact(Int(used))) de \(TokenFormat.compact(Int(limit)))"
+            String(localized: "\(TokenFormat.compact(Int(used))) de \(TokenFormat.compact(Int(limit)))")
         case .planSession, .planWeek, .planWeekSonnet, .planWeekOpus, .codexSession, .codexWeek:
-            "\((used / 100).formatted(.percent.precision(.fractionLength(0)))) usado"
+            String(localized: "\((used / 100).formatted(.percent.precision(.fractionLength(0)))) usado")
         }
     }
 
     var resetText: String? {
         guard let resetsAt else { return nil }
-        return "reinicia " + resetsAt.formatted(.relative(presentation: .named))
+        return String(localized: "reinicia \(resetsAt.formatted(.relative(presentation: .named)))")
     }
 }
 

@@ -16,10 +16,10 @@ struct ModelsView: View {
             if rows.isEmpty {
                 ContentUnavailableView("Sem uso no período", systemImage: "cpu")
             } else {
-                Card(title: analytics.metric.shortTitle) {
+                Card(verbatimTitle: analytics.metric.shortTitle) {
                     RankingChart(rows: rows)
                 }
-                UsageTable(rows: rows, nameTitle: "Modelo", sortOrder: $sortOrder)
+                UsageTable(rows: rows, nameTitle: String(localized: "Modelo"), sortOrder: $sortOrder)
             }
         }
         .padding(20)

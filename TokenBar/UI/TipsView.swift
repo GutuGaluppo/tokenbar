@@ -187,17 +187,17 @@ struct AppliedTipCard: View {
         let percent = FloatingPointFormatStyle<Double>.Percent.percent.precision(.fractionLength(0))
         switch item.status {
         case .measuring(let until):
-            return "Medindo… o primeiro resultado sai \(until.formatted(.relative(presentation: .named)))."
+            return String(localized: "Medindo… o primeiro resultado sai \(until.formatted(.relative(presentation: .named))).")
         case .insufficientData:
-            return "Ainda sem uso suficiente para comparar com os 14 dias anteriores à aplicação."
+            return String(localized: "Ainda sem uso suficiente para comparar com os 14 dias anteriores à aplicação.")
         case .saved(_, let monthly, let reduction):
-            return "O desperdício que esta dica ataca caiu \(reduction.formatted(percent)) por unidade de uso. Projeção: \(TokenFormat.usd(monthly))/mês."
+            return String(localized: "O desperdício que esta dica ataca caiu \(reduction.formatted(percent)) por unidade de uso. Projeção: \(TokenFormat.usd(monthly))/mês.")
         case .noSavings(let change):
             return change > 0.005
-                ? "Sem economia até agora: o desperdício por unidade de uso subiu \(change.formatted(percent)) em relação aos 14 dias anteriores."
-                : "Sem mudança até agora em relação aos 14 dias anteriores."
+                ? String(localized: "Sem economia até agora: o desperdício por unidade de uso subiu \(change.formatted(percent)) em relação aos 14 dias anteriores.")
+                : String(localized: "Sem mudança até agora em relação aos 14 dias anteriores.")
         case .notMeasurable:
-            return "Esta dica não tem uma medida de economia."
+            return String(localized: "Esta dica não tem uma medida de economia.")
         }
     }
 }

@@ -34,6 +34,7 @@ struct UsageWidget: Widget {
         StaticConfiguration(kind: WidgetSnapshot.widgetKind, provider: UsageProvider()) { entry in
             UsageWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
+                .environment(\.locale, entry.snapshot?.language.map(Locale.init(identifier:)) ?? .current)
         }
         .configurationDisplayName("TokenBar")
         .description("Quanto resta da sessão do plano e o consumo de hoje.")

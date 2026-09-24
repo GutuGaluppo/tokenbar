@@ -17,7 +17,7 @@ enum Provider: String, CaseIterable, Identifiable, Codable {
         case .google: "Google"
         case .openrouter: "OpenRouter"
         case .local: "Local"
-        case .other: "Outros"
+        case .other: String(localized: "Outros")
         }
     }
 

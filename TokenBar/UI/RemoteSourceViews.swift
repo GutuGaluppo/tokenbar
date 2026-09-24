@@ -37,11 +37,11 @@ struct RemoteSourceStatusRow: View {
 
     private func detail(_ state: RemoteSourcesManager.SourceState) -> String {
         switch state.phase {
-        case .notConfigured: return "Não conectada"
-        case .syncing: return "Sincronizando…"
-        case .failed(let message): return "Erro: \(message)"
+        case .notConfigured: return String(localized: "Não conectada")
+        case .syncing: return String(localized: "Sincronizando…")
+        case .failed(let message): return String(localized: "Erro: \(message)")
         case .ok:
-            let items = "\(state.eventCount.formatted()) registros"
+            let items = String(localized: "\(state.eventCount.formatted()) registros")
             guard let lastSync = state.lastSync else { return items }
             return items + " · " + lastSync.formatted(.relative(presentation: .named))
         }
@@ -61,7 +61,7 @@ struct RemoteSourceSettings: View {
             RemoteSourceStatusRow(kind: kind)
             if state.hasKey {
                 HStack {
-                    Button(isFailed(state) ? "Tentar de novo" : "Sincronizar agora") {
+                    Button(isFailed(state) ? String(localized: "Tentar de novo") : String(localized: "Sincronizar agora")) {
                         Task { await manager.sync(kind) }
                     }
                     Button("Desconectar", role: .destructive) { manager.disconnect(kind) }

@@ -31,9 +31,9 @@ enum RemoteProviderKind: String, CaseIterable, Identifiable, Sendable {
     var keyHelp: String {
         switch self {
         case .anthropic:
-            "Chave de Admin API (Console → Settings → Admin keys). Contas individuais não têm Admin API."
+            String(localized: "Chave de Admin API (Console → Settings → Admin keys). Contas individuais não têm Admin API.")
         case .openai:
-            "Admin key da organização (Settings → Organization → Admin keys)."
+            String(localized: "Admin key da organização (Settings → Organization → Admin keys).")
         }
     }
 
@@ -66,7 +66,7 @@ enum ConnectorError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .unauthorized:
-            "Chave inválida ou sem permissão de admin."
+            String(localized: "Chave inválida ou sem permissão de admin.")
         case .http(let status, let body):
             "HTTP \(status): \(body.prefix(160))"
         }

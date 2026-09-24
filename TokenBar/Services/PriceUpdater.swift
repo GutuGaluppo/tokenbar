@@ -59,7 +59,7 @@ final class PriceUpdater {
             }
             let remote = try JSONDecoder().decode(PriceTable.self, from: data)
             guard remote.isValid else {
-                throw NSError(domain: "TokenBar", code: 1, userInfo: [NSLocalizedDescriptionKey: "Tabela remota inválida"])
+                throw NSError(domain: String(localized: "TokenBar"), code: 1, userInfo: [NSLocalizedDescriptionKey: "Tabela remota inválida"])
             }
             let before = PriceTable.load()
             if PriceTable.read(PriceTable.remoteCacheURL) != remote {

@@ -7,13 +7,13 @@ enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
 
     var title: String {
         switch self {
-        case .overview: "Overview"
-        case .models: "Modelos"
-        case .projects: "Projetos"
-        case .activity: "Atividade"
-        case .tips: "Dicas"
-        case .budgets: "Orçamentos"
-        case .settings: "Ajustes"
+        case .overview: String(localized: "Overview")
+        case .models: String(localized: "Modelos")
+        case .projects: String(localized: "Projetos")
+        case .activity: String(localized: "Atividade")
+        case .tips: String(localized: "Dicas")
+        case .budgets: String(localized: "Orçamentos")
+        case .settings: String(localized: "Ajustes")
         }
     }
 

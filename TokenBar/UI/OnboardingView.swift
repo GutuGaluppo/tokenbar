@@ -220,7 +220,7 @@ struct OnboardingView: View {
         dismissWindow(id: Onboarding.windowID)
     }
 
-    private func header(_ title: String, _ subtitle: String) -> some View {
+    private func header(_ title: LocalizedStringKey, _ subtitle: LocalizedStringKey) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title).font(.title.weight(.semibold))
             Text(subtitle)
@@ -229,7 +229,7 @@ struct OnboardingView: View {
         }
     }
 
-    private func bullet(_ symbol: String, _ text: String) -> some View {
+    private func bullet(_ symbol: String, _ text: LocalizedStringKey) -> some View {
         Label {
             Text(text)
         } icon: {
@@ -240,10 +240,10 @@ struct OnboardingView: View {
 
     private func sourceDetail(_ source: LocalLogSource) -> String {
         switch source.phase {
-        case .unavailable: "Não encontrado neste Mac"
-        case .scanning: "Importando histórico…"
-        case .failed(let message): "Erro: \(message)"
-        case .idle: "\(source.eventCount.formatted()) respostas importadas"
+        case .unavailable: String(localized: "Não encontrado neste Mac")
+        case .scanning: String(localized: "Importando histórico…")
+        case .failed(let message): String(localized: "Erro: \(message)")
+        case .idle: String(localized: "\(source.eventCount.formatted()) respostas importadas")
         }
     }
 }

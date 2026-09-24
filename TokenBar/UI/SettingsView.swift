@@ -12,20 +12,37 @@ struct SettingsView: View {
 
     private var priceSourceText: String {
         switch priceUpdater.source {
-        case .user: "Personalizada (prices.json), de \(priceUpdater.asOf)"
-        case .remote: "Atualizada do repositório, de \(priceUpdater.asOf)"
-        case .bundled: "Embutida no app, de \(priceUpdater.asOf)"
+        case .user: String(localized: "Personalizada (prices.json), de \(priceUpdater.asOf)")
+        case .remote: String(localized: "Atualizada do repositório, de \(priceUpdater.asOf)")
+        case .bundled: String(localized: "Embutida no app, de \(priceUpdater.asOf)")
         }
     }
     @Environment(\.modelContext) private var modelContext
     @AppStorage(PreferenceKey.menuBarDisplay) private var menuBarDisplay: MenuBarDisplay = .tokensToday
     @AppStorage(PreferenceKey.showDockIconWhenWindowOpen) private var showDockIcon = false
     @AppStorage(GlobalHotKey.enabledKey) private var hotKeyEnabled = false
+    @State private var language = AppLanguage.current
+    private let initialLanguage = AppLanguage.current
     @State private var exportRange: CSVExporter.Range = .last30
     @State private var exportMessage: String?
 
     var body: some View {
         Form {
+            Section {
+                Picker("Idioma", selection: $language) {
+                    ForEach(AppLanguage.allCases) { Text(verbatim: $0.title).tag($0) }
+                }
+                .onChange(of: language) { _, newValue in newValue.apply() }
+                if language != initialLanguage {
+                    LabeledContent("Reinicie o TokenBar para aplicar o idioma.") {
+                        Button("Reiniciar agora") { AppLanguage.relaunch() }
+                    }
+                    .font(.callout)
+                }
+            } header: {
+                Text("Idioma")
+            }
+
             Section("Geral") {
                 Toggle("Abrir ao iniciar sessão", isOn: Binding(
                     get: { loginItem.isEnabled },
@@ -108,7 +125,7 @@ struct SettingsView: View {
                             Text("verificada " + lastCheck.formatted(.relative(presentation: .named)))
                                 .foregroundStyle(.secondary)
                         }
-                        Button(priceUpdater.isChecking ? "Verificando…" : "Verificar agora") {
+                        Button(priceUpdater.isChecking ? String(localized: "Verificando…") : String(localized: "Verificar agora")) {
                             Task { await priceUpdater.check() }
                         }
                         .disabled(priceUpdater.isChecking)
@@ -143,10 +160,10 @@ struct SettingsView: View {
                         Button("Exportar…") {
                             do {
                                 if let count = try CSVExporter.export(range: exportRange, container: modelContext.container) {
-                                    exportMessage = "\(count.formatted()) linhas exportadas."
+                                    exportMessage = String(localized: "\(count.formatted()) linhas exportadas.")
                                 }
                             } catch {
-                                exportMessage = "Erro: \(error.localizedDescription)"
+                                exportMessage = String(localized: "Erro: \(error.localizedDescription)")
                             }
                         }
                     }
@@ -195,13 +212,13 @@ struct PlanUsageStatusRow: View {
 
     private var detail: String {
         switch planUsage.phase {
-        case .disabled: return "Desligado"
-        case .loading: return "Carregando…"
+        case .disabled: return String(localized: "Desligado")
+        case .loading: return String(localized: "Carregando…")
         case .needsLogin(let message): return message
-        case .failed(let message): return "Erro: \(message)"
+        case .failed(let message): return String(localized: "Erro: \(message)")
         case .ok:
-            let session = planUsage.session.map { "sessão \(Int($0.utilization.rounded()))%" } ?? "sessão —"
-            let week = planUsage.week.map { "semana \(Int($0.utilization.rounded()))%" } ?? "semana —"
+            let session = planUsage.session.map { String(localized: "sessão \(Int($0.utilization.rounded()))%") } ?? String(localized: "sessão —")
+            let week = planUsage.week.map { String(localized: "semana \(Int($0.utilization.rounded()))%") } ?? String(localized: "semana —")
             let updated = planUsage.lastUpdate.map { " · " + $0.formatted(.relative(presentation: .named)) } ?? ""
             return "\(session) · \(week)\(updated)"
         }

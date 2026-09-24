@@ -1,0 +1,116 @@
+{
+  "sourceLanguage": "pt-BR",
+  "strings": {
+    "Abra o TokenBar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open TokenBar"
+          }
+        }
+      }
+    },
+    "Codex 5 h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 5 h"
+          }
+        }
+      }
+    },
+    "Defina limites no TokenBar para vê-los aqui.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set limits in TokenBar to see them here."
+          }
+        }
+      }
+    },
+    "Hoje": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        }
+      }
+    },
+    "Hoje %@ · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today %@ · %@"
+          }
+        }
+      }
+    },
+    "Quanto resta da sessão do plano e o consumo de hoje.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's left of your plan session and today's usage."
+          }
+        }
+      }
+    },
+    "Semana Claude": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude week"
+          }
+        }
+      }
+    },
+    "Sessão Claude": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude session"
+          }
+        }
+      }
+    },
+    "TokenBar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TokenBar"
+          }
+        }
+      }
+    },
+    "restam": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "left"
+          }
+        }
+      }
+    },
+    "restam %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ left"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -19,8 +19,8 @@ struct BudgetsView: View {
             }
 
             Section {
-                currencyField("Limite diário", value: $dailyUSD, current: store.today.costUSD)
-                currencyField("Limite mensal", value: $monthlyUSD, current: store.monthCostUSD)
+                currencyField(String(localized: "Limite diário"), value: $dailyUSD, current: store.today.costUSD)
+                currencyField(String(localized: "Limite mensal"), value: $monthlyUSD, current: store.monthCostUSD)
             } header: {
                 Text("Custo (equivalente em API)")
             } footer: {
@@ -28,9 +28,9 @@ struct BudgetsView: View {
             }
 
             Section {
-                tokenField("Bloco de 5 h", value: $fiveHourTokens,
+                tokenField(String(localized: "Bloco de 5 h"), value: $fiveHourTokens,
                            current: store.claudeCodeLast5h, peak: store.claudeCodePeak5hLast7d)
-                tokenField("Últimos 7 dias", value: $weeklyTokens,
+                tokenField(String(localized: "Últimos 7 dias"), value: $weeklyTokens,
                            current: store.claudeCodeLast7d, peak: nil)
             } header: {
                 Text("Claude Code (estimativa dos limites do plano)")
