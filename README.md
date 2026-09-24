@@ -120,3 +120,7 @@ flowchart LR
 
 - [ ] OpenRouter, Gemini e modelos locais (Ollama)
 - [ ] Distribuição com atualização automática (Sparkle) e notarização
+
+## Licença
+
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE).
