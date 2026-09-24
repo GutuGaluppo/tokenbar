@@ -71,7 +71,8 @@ TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do
 - Tudo roda e fica na sua máquina: banco SwiftData em `~/Library/Application Support/TokenBar`.
 - Chaves de API ficam no **Keychain** e só são usadas para ler relatórios de uso.
 - A leitura do plano Claude usa o login que o Claude Code já guarda no Keychain; o token só é lido (nunca renovado) e só é enviado para `api.anthropic.com`.
-- Nenhum conteúdo de conversa é lido ou armazenado — só contagens de tokens, modelo, horário, projeto e ferramenta.
+- Nenhum conteúdo de conversa é armazenado ou enviado — os logs são lidos linha a linha, mas só as contagens de tokens, modelo, horário, projeto e ferramenta são guardados.
+- Sem telemetria. A única conexão automática é a tabela de preços pública, uma vez por dia. Detalhes em [PRIVACY.md](PRIVACY.md).
 
 ## Requisitos
 
