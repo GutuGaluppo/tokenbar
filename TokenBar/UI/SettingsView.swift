@@ -8,6 +8,7 @@ struct SettingsView: View {
     @Environment(AppNavigation.self) private var navigation
     @Environment(ClaudePlanUsage.self) private var planUsage
     @Environment(PriceUpdater.self) private var priceUpdater
+    @Environment(\.openWindow) private var openWindow
 
     private var priceSourceText: String {
         switch priceUpdater.source {
@@ -57,6 +58,9 @@ struct SettingsView: View {
                 }
 
                 Toggle("Mostrar ícone no Dock com a janela aberta", isOn: $showDockIcon)
+                LabeledContent("Primeiro uso") {
+                    Button("Mostrar boas-vindas") { openWindow(id: Onboarding.windowID) }
+                }
             }
 
             Section {

@@ -114,6 +114,8 @@ O painel e uma prévia do popover abrem como janelas.
 
 ## Primeiros passos
 
+Na primeira abertura, uma tela de boas-vindas mostra as fontes encontradas e ajuda a escolher preferências e limites (dá para revê-la em **Ajustes → Mostrar boas-vindas**). Depois:
+
 1. Clique no ícone de medidor na barra de menus.
 2. Em **Ajustes**:
    - ligue **Abrir ao iniciar sessão**;

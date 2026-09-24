@@ -6,6 +6,8 @@ struct TokenBarApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     private let container: ModelContainer
+    /// Instalação nova: abre a tela de primeiro uso.
+    private let showOnboarding: Bool
     @State private var store: UsageStore
     @State private var navigation = AppNavigation()
     @State private var loginItem = LoginItemManager()
@@ -19,6 +21,7 @@ struct TokenBarApp: App {
     init() {
         let container = Persistence.makeContainer()
         self.container = container
+        showOnboarding = Onboarding.shouldPresent(container: container)
         let store = UsageStore(container: container)
         _store = State(initialValue: store)
 
@@ -89,6 +92,19 @@ struct TokenBarApp: App {
         .defaultSize(width: DemoMode.isEnabled ? 1180 : 960, height: DemoMode.isEnabled ? 880 : 640)
         .windowToolbarStyle(.unified)
         .defaultLaunchBehavior(DemoMode.isEnabled ? .presented : .suppressed)
+        .restorationBehavior(.disabled)
+
+        // Primeiro uso (só em instalação nova).
+        Window("Boas-vindas ao TokenBar", id: Onboarding.windowID) {
+            OnboardingView()
+                .environment(localSources)
+                .environment(planUsage)
+                .environment(loginItem)
+                .environment(navigation)
+        }
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
+        .defaultLaunchBehavior(showOnboarding ? .presented : .suppressed)
         .restorationBehavior(.disabled)
 
         // Prévia do popover numa janela, só para capturas no modo de demonstração.
