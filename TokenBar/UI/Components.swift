@@ -85,6 +85,12 @@ struct Last24HoursChart: View {
                 domain: Provider.allCases.map(\.displayName),
                 range: Provider.allCases.map(\.tint)
             )
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .hour, count: 6)) { _ in
+                    AxisGridLine()
+                    AxisValueLabel(format: .dateTime.hour())
+                }
+            }
             .chartYAxis {
                 AxisMarks { value in
                     AxisGridLine()

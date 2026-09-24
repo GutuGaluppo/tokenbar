@@ -102,7 +102,7 @@ struct RankingChart: View {
                 x: .value(metric.shortTitle, metric.value(row.totals)),
                 y: .value("Nome", row.label)
             )
-            .foregroundStyle(row.provider?.tint ?? .gray)
+            .foregroundStyle(row.provider?.tint ?? .accentColor)
             .annotation(position: .trailing, alignment: .leading) {
                 Text(metric.format(metric.value(row.totals)))
                     .font(.caption)

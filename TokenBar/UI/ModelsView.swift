@@ -41,7 +41,7 @@ struct UsageTable: View {
         Table(rows, selection: selection ?? .constant(nil), sortOrder: $sortOrder) {
             TableColumn(nameTitle, value: \.label) { row in
                 HStack(spacing: 6) {
-                    Circle().fill(row.provider?.tint ?? .gray).frame(width: 8, height: 8)
+                    Circle().fill(row.provider?.tint ?? .accentColor).frame(width: 8, height: 8)
                     Text(row.label).lineLimit(1)
                 }
             }

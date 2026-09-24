@@ -73,13 +73,20 @@ struct GroupRow: Identifiable, Equatable {
     var cacheWrite: Int { totals.cacheWrite }
     var cacheRead: Int { totals.cacheRead }
     var tokens: Int { totals.tokens }
-    var providerName: String { provider?.displayName ?? "—" }
+    /// Mais de um provedor na mesma linha (ex.: projeto usado com Claude e Codex).
+    var mixedProviders = false
+    var providerName: String { mixedProviders ? "Vários" : provider?.displayName ?? "—" }
 
     mutating func add(_ event: UsageEvent) {
         totals.add(event)
         if event.totalTokens > 0 { responses += 1 }
         lastUsed = max(lastUsed, event.timestamp)
-        if provider == nil { provider = event.provider }
+        if provider == nil && !mixedProviders {
+            provider = event.provider
+        } else if let current = provider, current != event.provider {
+            provider = nil
+            mixedProviders = true
+        }
     }
 }
 
