@@ -155,3 +155,32 @@ struct CSVExporterTests {
         #expect(CSVExporter.source(for: id) == (expected == "Outro" ? String(localized: "Outro") : expected))
     }
 }
+
+@Suite("Aviso no ícone da barra")
+struct MenuBarWarningTests {
+    let limits = [
+        LimitStatus(kind: .planSession, used: 57, limit: 100, resetsAt: nil, periodID: "s"),
+        LimitStatus(kind: .planWeek, used: 90, limit: 100, resetsAt: nil, periodID: "w"),
+    ]
+
+    @Test("Com a sessão do plano na barra, o aviso segue só a sessão")
+    func followsSession() throws {
+        let limit = try #require(MenuBarDisplay.planSessionRemaining.warningLimit(in: limits))
+        #expect(limit.kind == .planSession)
+        #expect(limit.fraction < MenuBarDisplay.warningThreshold)
+    }
+
+    @Test("Nos outros modos, o aviso segue o limite mais próximo", arguments: [
+        MenuBarDisplay.tokensToday, .costToday, .iconOnly, .nearestLimit, .nearestLimitUsed,
+    ])
+    func followsNearest(display: MenuBarDisplay) throws {
+        let limit = try #require(display.warningLimit(in: limits))
+        #expect(limit.kind == .planWeek)
+        #expect(limit.fraction >= MenuBarDisplay.warningThreshold)
+    }
+
+    @Test("Sem limites, sem aviso")
+    func noLimits() {
+        #expect(MenuBarDisplay.planSessionUsed.warningLimit(in: []) == nil)
+    }
+}

@@ -9,8 +9,9 @@ struct MenuBarLabel: View {
     var body: some View {
         let nearest = store.nearestLimit
         HStack(spacing: 4) {
-            // Em alerta (≥ 80% de algum limite) o ícone vira um aviso, visível em qualquer modo.
-            Image(systemName: (nearest?.fraction ?? 0) >= 0.8 ? "exclamationmark.triangle.fill" : "gauge.with.needle")
+            // Aviso quando o limite mostrado na barra passa de 80% (os demais aparecem no popover).
+            let warning = (display.warningLimit(in: store.limits)?.fraction ?? 0) >= MenuBarDisplay.warningThreshold
+            Image(systemName: warning ? "exclamationmark.triangle.fill" : "gauge.with.needle")
             switch display {
             case .iconOnly:
                 EmptyView()

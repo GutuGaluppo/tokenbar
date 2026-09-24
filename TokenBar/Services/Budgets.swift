@@ -85,6 +85,21 @@ struct LimitStatus: Identifiable, Equatable {
     }
 }
 
+extension MenuBarDisplay {
+    /// Limite que decide o aviso (⚠︎) no ícone: o mesmo que a barra mostra. Com a sessão do plano,
+    /// só a sessão; nos demais modos, o limite mais próximo de estourar.
+    func warningLimit(in limits: [LimitStatus]) -> LimitStatus? {
+        switch self {
+        case .planSessionUsed, .planSessionRemaining:
+            limits.first { $0.kind == .planSession }
+        case .iconOnly, .tokensToday, .costToday, .nearestLimit, .nearestLimitUsed:
+            limits.max { $0.fraction < $1.fraction }
+        }
+    }
+
+    static let warningThreshold = 0.8
+}
+
 /// Configuração lida do UserDefaults (0 = limite desligado).
 struct BudgetSettings: Equatable {
     var dailyUSD: Double
