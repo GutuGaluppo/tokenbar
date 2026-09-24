@@ -3,7 +3,8 @@ import Security
 
 /// Guarda chaves de API no Keychain do usuário (nunca em UserDefaults ou arquivos).
 enum KeychainStore {
-    private static let service = "dev.galuppo.TokenBar"
+    /// Serviço = identificador do app (definido em Config/Base.xcconfig).
+    private static let service = Bundle.main.bundleIdentifier ?? "TokenBar"
 
     static func read(_ account: String) -> String? {
         let query: [String: Any] = [

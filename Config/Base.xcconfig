@@ -1,0 +1,16 @@
+// Configuração compartilhada por todos os targets.
+// Para usar outro time de assinatura ou outro identificador, não edite este arquivo:
+// crie Config/Local.xcconfig (ignorado pelo git) com os valores abaixo sobrescritos.
+
+// Time de assinatura (Apple Developer) e prefixo dos identificadores.
+DEVELOPMENT_TEAM = NF5D39SHC8
+BUNDLE_ID_PREFIX = dev.galuppo
+
+// App Group compartilhado entre o app e o widget. Precisa começar com o Team ID.
+APP_GROUP_ID = $(DEVELOPMENT_TEAM).$(BUNDLE_ID_PREFIX).TokenBar
+
+// Versão exibida (MARKETING_VERSION) e número do build.
+MARKETING_VERSION = 0.1.0
+CURRENT_PROJECT_VERSION = 1
+
+#include? "Local.xcconfig"

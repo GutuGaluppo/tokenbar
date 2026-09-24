@@ -81,9 +81,7 @@ TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do
 ## Compilar e instalar
 
 1. Clone o repositório e abra `TokenBar.xcodeproj`.
-2. Ajuste a assinatura para o **seu** time (o projeto vem configurado com o time do autor):
-   - Em *Signing & Capabilities* dos targets **TokenBar** e **TokenBarWidget**, escolha seu time.
-   - Troque o App Group `NF5D39SHC8.dev.galuppo.TokenBar` pelo seu Team ID em `Entitlements/*.entitlements` e em `Shared/WidgetSnapshot.swift`.
+2. Ajuste a assinatura para o **seu** time (o projeto vem configurado com o time do autor): copie `Config/Local.xcconfig.example` para `Config/Local.xcconfig` e preencha `DEVELOPMENT_TEAM` e `BUNDLE_ID_PREFIX`. Esse arquivo não vai para o git e sobrescreve [`Config/Base.xcconfig`](Config/Base.xcconfig) — identificadores, App Group e entitlements se ajustam sozinhos.
 3. Para desenvolver, rode o esquema **TokenBar** (⌘R).
 4. Para instalar em `/Applications`:
 
@@ -157,6 +155,7 @@ flowchart LR
 | `TokenBar/UI` | Popover, painel e telas |
 | `Shared` | Código usado pelo app e pelo widget |
 | `TokenBarWidget` | Extensão do widget |
+| `Config` | `Base.xcconfig` (time, identificadores, App Group, versão) e Info.plist do app |
 | `TokenBarTests` | Testes (Swift Testing) |
 | `scripts` | `install.sh` e `set-icon.swift` (aplica uma arte ao AppIcon) |
 

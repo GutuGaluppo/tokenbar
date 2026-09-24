@@ -18,11 +18,13 @@ struct WidgetSnapshot: Codable, Equatable {
     /// O primeiro é o destaque (sessão do plano Claude, quando disponível).
     var limits: [Limit]
 
-    static let appGroup = "NF5D39SHC8.dev.galuppo.TokenBar"
+    /// Vem do Info.plist (APP_GROUP_ID em Config/Base.xcconfig), igual no app e no widget.
+    static let appGroup = Bundle.main.object(forInfoDictionaryKey: "TokenBarAppGroup") as? String ?? ""
     static let widgetKind = "TokenBarUsage"
 
     static var fileURL: URL? {
-        FileManager.default
+        guard !appGroup.isEmpty else { return nil }
+        return FileManager.default
             .containerURL(forSecurityApplicationGroupIdentifier: appGroup)?
             .appending(path: "widget-snapshot.json")
     }
