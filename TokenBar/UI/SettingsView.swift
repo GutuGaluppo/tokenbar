@@ -7,6 +7,15 @@ struct SettingsView: View {
     @Environment(UsageStore.self) private var store
     @Environment(AppNavigation.self) private var navigation
     @Environment(ClaudePlanUsage.self) private var planUsage
+    @Environment(PriceUpdater.self) private var priceUpdater
+
+    private var priceSourceText: String {
+        switch priceUpdater.source {
+        case .user: "Personalizada (prices.json), de \(priceUpdater.asOf)"
+        case .remote: "Atualizada do repositório, de \(priceUpdater.asOf)"
+        case .bundled: "Embutida no app, de \(priceUpdater.asOf)"
+        }
+    }
     @Environment(\.modelContext) private var modelContext
     @AppStorage(PreferenceKey.menuBarDisplay) private var menuBarDisplay: MenuBarDisplay = .tokensToday
     @AppStorage(PreferenceKey.showDockIconWhenWindowOpen) private var showDockIcon = false
@@ -82,15 +91,30 @@ struct SettingsView: View {
             }
 
             Section("Preços") {
-                LabeledContent("Tabela") {
-                    Text("Anthropic, \(PriceTable.load().asOf) · OpenAI usa o custo oficial da API").foregroundStyle(.secondary)
+                LabeledContent("Tabela em uso") {
+                    Text(priceSourceText).foregroundStyle(.secondary)
+                }
+                LabeledContent("Atualização") {
+                    HStack {
+                        if let lastCheck = priceUpdater.lastCheck {
+                            Text("verificada " + lastCheck.formatted(.relative(presentation: .named)))
+                                .foregroundStyle(.secondary)
+                        }
+                        Button(priceUpdater.isChecking ? "Verificando…" : "Verificar agora") {
+                            Task { await priceUpdater.check() }
+                        }
+                        .disabled(priceUpdater.isChecking)
+                    }
+                }
+                if let error = priceUpdater.lastError {
+                    Text(error).font(.caption).foregroundStyle(.orange)
                 }
                 LabeledContent("Personalizar") {
                     Button("Mostrar pasta") {
                         NSWorkspace.shared.activateFileViewerSelecting([Persistence.directory])
                     }
                 }
-                Text("Para editar preços, salve um prices.json nessa pasta (mesmo formato do arquivo embutido) e clique em Reimportar histórico.")
+                Text("O app baixa a tabela publicada no repositório uma vez por dia e recalcula os custos quando ela muda. Um prices.json seu nessa pasta sempre prevalece (depois, use Reimportar histórico).")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

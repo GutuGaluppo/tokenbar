@@ -9,6 +9,9 @@ BUNDLE_ID_PREFIX = dev.galuppo
 // App Group compartilhado entre o app e o widget. Precisa começar com o Team ID.
 APP_GROUP_ID = $(DEVELOPMENT_TEAM).$(BUNDLE_ID_PREFIX).TokenBar
 
+// Tabela de preços publicada; o app verifica uma vez por dia.
+PRICES_URL = https:/$()/raw.githubusercontent.com/GutuGaluppo/tokenbar/main/TokenBar/Resources/prices.json
+
 // Versão exibida (MARKETING_VERSION) e número do build.
 MARKETING_VERSION = 0.1.0
 CURRENT_PROJECT_VERSION = 1

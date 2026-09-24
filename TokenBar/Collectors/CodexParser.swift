@@ -11,7 +11,7 @@ struct CodexParser: JSONLLogParser {
         var originator: String?
     }
 
-    let prices: PriceTable
+    var prices: PriceTable
     let roots: [URL]
     private let decoder = JSONDecoder()
     private let markers = ["\"token_count\"", "\"turn_context\"", "\"session_meta\""].map { Data($0.utf8) }

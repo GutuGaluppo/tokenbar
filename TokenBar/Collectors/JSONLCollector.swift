@@ -40,6 +40,7 @@ protocol JSONLLogParser {
     associatedtype FileState: Codable
 
     var roots: [URL] { get }
+    var prices: PriceTable { get set }
     func initialState() -> FileState
     func parse(_ line: Data.SubSequence, state: inout FileState) -> (usage: ParsedUsage?, limits: LocalPlanLimits?)
 }
@@ -59,7 +60,7 @@ actor JSONLCollector<Parser: JSONLLogParser> {
     private static var chunkSize: Int { 4 * 1024 * 1024 }
     private static var flushThreshold: Int { 2_000 }
 
-    private let parser: Parser
+    private var parser: Parser
     private let ingestor: UsageIngestor
     private let cursorsURL: URL
     private var cursors: [String: Cursor]
@@ -74,6 +75,10 @@ actor JSONLCollector<Parser: JSONLLogParser> {
         } else {
             cursors = [:]
         }
+    }
+
+    func setPrices(_ prices: PriceTable) {
+        parser.prices = prices
     }
 
     func reset() {

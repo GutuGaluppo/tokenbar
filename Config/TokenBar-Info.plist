@@ -4,5 +4,7 @@
 <dict>
 	<key>TokenBarAppGroup</key>
 	<string>$(APP_GROUP_ID)</string>
+	<key>TokenBarPricesURL</key>
+	<string>$(PRICES_URL)</string>
 </dict>
 </plist>

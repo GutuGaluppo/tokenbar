@@ -5,7 +5,7 @@ import Foundation
 struct ClaudeCodeParser: JSONLLogParser {
     struct FileState: Codable {}
 
-    let prices: PriceTable
+    var prices: PriceTable
     let roots: [URL]
     private let decoder = JSONDecoder()
     private let usageMarker = Data("\"usage\"".utf8)

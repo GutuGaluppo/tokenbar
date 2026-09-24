@@ -24,7 +24,6 @@ final class RemoteSourcesManager {
     private(set) var states: [RemoteProviderKind: SourceState] = [:]
 
     @ObservationIgnored private let ingestor: UsageIngestor
-    @ObservationIgnored private let prices = PriceTable.load()
     @ObservationIgnored private var timer: Timer?
     @ObservationIgnored private var inFlight: Set<RemoteProviderKind> = []
     private static let log = Logger(subsystem: "dev.galuppo.TokenBar", category: "RemoteSources")
@@ -105,7 +104,7 @@ final class RemoteSourcesManager {
 
         let calendar = Calendar(identifier: .gregorian)
         let start = calendar.dateInterval(of: .hour, for: since)?.start ?? since
-        let events = try await kind.makeConnector(prices: prices).fetch(from: start, to: .now, apiKey: apiKey)
+        let events = try await kind.makeConnector(prices: .load()).fetch(from: start, to: .now, apiKey: apiKey)
         try await ingestor.upsert(events)
 
         let now = Date.now

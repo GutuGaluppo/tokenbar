@@ -81,3 +81,44 @@ struct FormattingTests {
         #expect(over.remainingFraction == 0)
     }
 }
+
+@Suite("Origem da tabela de preços")
+struct PriceSelectionTests {
+    private func table(_ asOf: String, input: Double = 2) -> PriceTable {
+        PriceTable(asOf: asOf, cacheWrite5mMultiplier: 1.25, cacheWrite1hMultiplier: 2, models: [
+            ModelPrice(match: "claude-sonnet-5", provider: .anthropic, input: input, output: 10, cacheRead: 0.2, fastMultiplier: nil),
+        ])
+    }
+
+    @Test("prices.json do usuário sempre vence")
+    func userWins() {
+        let result = PriceTable.select(user: table("2020-01-01"), remote: table("2030-01-01"), bundled: table("2026-06-24"))
+        #expect(result.source == .user)
+    }
+
+    @Test("Remota só vence se for mais recente que a embutida")
+    func newestWins() {
+        #expect(PriceTable.select(user: nil, remote: table("2026-09-01"), bundled: table("2026-06-24")).source == .remote)
+        #expect(PriceTable.select(user: nil, remote: table("2026-06-24"), bundled: table("2026-06-24")).source == .bundled)
+        // Remota antiga (app atualizado com tabela nova embutida) não volta a valer.
+        #expect(PriceTable.select(user: nil, remote: table("2026-01-01"), bundled: table("2026-06-24")).source == .bundled)
+    }
+
+    @Test("Tabela embutida no app é válida")
+    func bundledIsValid() {
+        #expect(Fixtures.prices.isValid)
+    }
+
+    @Test("Tabela remota inválida é recusada", arguments: [
+        PriceTable(asOf: "2026-09-01", cacheWrite5mMultiplier: 1.25, cacheWrite1hMultiplier: 2, models: []),
+        PriceTable(asOf: "x", cacheWrite5mMultiplier: 1.25, cacheWrite1hMultiplier: 2, models: [
+            ModelPrice(match: "a", provider: .anthropic, input: 1, output: 1, cacheRead: 1, fastMultiplier: nil)]),
+        PriceTable(asOf: "2026-09-01", cacheWrite5mMultiplier: 1.25, cacheWrite1hMultiplier: 2, models: [
+            ModelPrice(match: "a", provider: .anthropic, input: -1, output: 1, cacheRead: 1, fastMultiplier: nil)]),
+        PriceTable(asOf: "2026-09-01", cacheWrite5mMultiplier: 50, cacheWrite1hMultiplier: 2, models: [
+            ModelPrice(match: "a", provider: .anthropic, input: 1, output: 1, cacheRead: 1, fastMultiplier: nil)]),
+    ])
+    func invalidTables(table: PriceTable) {
+        #expect(!table.isValid)
+    }
+}

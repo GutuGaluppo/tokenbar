@@ -1,6 +1,6 @@
 import Foundation
 
-struct ModelPrice: Codable, Sendable {
+struct ModelPrice: Codable, Sendable, Equatable {
     let match: String
     let provider: Provider
     let input: Double       // US$ / 1M tokens
@@ -19,25 +19,55 @@ struct TokenCounts: Sendable {
     var cacheWrite: Int { cacheWrite5m + cacheWrite1h }
 }
 
-/// Tabela de preços por modelo. Usa o JSON do bundle, ou o do usuário em
-/// `~/Library/Application Support/TokenBar/prices.json` quando existir.
-struct PriceTable: Codable, Sendable {
+/// De onde veio a tabela de preços em uso.
+enum PriceSource: Equatable, Sendable {
+    case user        // prices.json do usuário (sempre vence)
+    case remote      // baixada do repositório e guardada em cache
+    case bundled     // embutida no app
+}
+
+/// Tabela de preços por modelo. Ordem: `prices.json` do usuário; senão, a mais recente (`asOf`)
+/// entre a baixada do repositório e a embutida no app.
+struct PriceTable: Codable, Sendable, Equatable {
     let asOf: String
     let cacheWrite5mMultiplier: Double
     let cacheWrite1hMultiplier: Double
     let models: [ModelPrice]
 
     static var userOverrideURL: URL { Persistence.directory.appending(path: "prices.json") }
+    static var remoteCacheURL: URL { Persistence.directory.appending(path: "prices-remote.json") }
+    static var bundledURL: URL? { Bundle.main.url(forResource: "prices", withExtension: "json") }
 
-    static func load() -> PriceTable {
-        let candidates = [userOverrideURL, Bundle.main.url(forResource: "prices", withExtension: "json")].compactMap { $0 }
-        for url in candidates {
-            if let data = try? Data(contentsOf: url),
-               let table = try? JSONDecoder().decode(PriceTable.self, from: data) {
-                return table
-            }
+    static let empty = PriceTable(asOf: "-", cacheWrite5mMultiplier: 1.25, cacheWrite1hMultiplier: 2, models: [])
+
+    static func load() -> PriceTable { loadWithSource().table }
+
+    static func loadWithSource() -> (table: PriceTable, source: PriceSource) {
+        select(user: read(userOverrideURL), remote: read(remoteCacheURL), bundled: bundledURL.flatMap(read))
+    }
+
+    /// Regra de escolha, separada para ser testável.
+    static func select(user: PriceTable?, remote: PriceTable?, bundled: PriceTable?) -> (table: PriceTable, source: PriceSource) {
+        if let user { return (user, .user) }
+        if let remote, remote.asOf > (bundled?.asOf ?? "") { return (remote, .remote) }
+        if let bundled { return (bundled, .bundled) }
+        if let remote { return (remote, .remote) }
+        return (empty, .bundled)
+    }
+
+    static func read(_ url: URL) -> PriceTable? {
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return try? JSONDecoder().decode(PriceTable.self, from: data)
+    }
+
+    /// Checagem de sanidade antes de aceitar uma tabela baixada da rede.
+    var isValid: Bool {
+        guard !models.isEmpty, asOf.count >= 10,
+              (1...3).contains(cacheWrite5mMultiplier), (1...4).contains(cacheWrite1hMultiplier) else { return false }
+        return models.allSatisfy { price in
+            !price.match.isEmpty && price.input >= 0 && price.output >= 0 && price.cacheRead >= 0
+                && price.input < 1_000 && price.output < 1_000 && price.cacheRead < 1_000
         }
-        return PriceTable(asOf: "-", cacheWrite5mMultiplier: 1.25, cacheWrite1hMultiplier: 2, models: [])
     }
 
     /// Casa pelo prefixo mais longo, então `claude-opus-5-5` não cai em `claude-opus-5`.

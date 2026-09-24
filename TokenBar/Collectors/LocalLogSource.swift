@@ -31,6 +31,7 @@ final class LocalLogSource: Identifiable {
 
     @ObservationIgnored private let scanner: (@escaping @Sendable (Double) -> Void) async throws -> LocalScanSummary
     @ObservationIgnored private let resetter: () async -> Void
+    @ObservationIgnored private let repricer: (PriceTable) async -> Void
     @ObservationIgnored private let ingestor: UsageIngestor
     @ObservationIgnored private var watcher: FileWatcher?
     @ObservationIgnored private var timer: Timer?
@@ -50,6 +51,7 @@ final class LocalLogSource: Identifiable {
         let collector = JSONLCollector(parser: parser, ingestor: ingestor, cursorsURL: Self.cursorsURL(id))
         scanner = { progress in try await collector.scan(progress: progress) }
         resetter = { await collector.reset() }
+        repricer = { await collector.setPrices($0) }
         if let data = UserDefaults.standard.data(forKey: Self.limitsKey(id)) {
             planLimits = try? JSONDecoder().decode(LocalPlanLimits.self, from: data)
         }
@@ -141,6 +143,15 @@ final class LocalLogSource: Identifiable {
         onPlanLimitsChange?()
     }
     #endif
+
+    /// Preços mudaram: relê o histórico para recalcular os custos.
+    func reprice(_ prices: PriceTable) {
+        guard !roots.isEmpty else { return }
+        Task {
+            await repricer(prices)
+            reimport()
+        }
+    }
 
     /// Apaga os eventos desta fonte e lê todo o histórico de novo.
     func reimport() {

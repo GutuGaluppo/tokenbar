@@ -126,7 +126,11 @@ O painel e uma prévia do popover abrem como janelas.
 
 Os custos são **equivalentes a preços de API**. Em planos de assinatura (Pro/Max, ChatGPT Plus) esse valor não é cobrado — serve para comparar e priorizar.
 
-A tabela fica em [`TokenBar/Resources/prices.json`](TokenBar/Resources/prices.json) (preços da API Anthropic por milhão de tokens, com escrita de cache a 1,25× / 2× e leitura de cache). Para personalizar, salve um `prices.json` no mesmo formato em `~/Library/Application Support/TokenBar/` e use **Reimportar histórico** em Ajustes. Modelos sem preço (como os do Codex) aparecem com custo US$ 0.
+A tabela fica em [`TokenBar/Resources/prices.json`](TokenBar/Resources/prices.json) (preços da API Anthropic por milhão de tokens, com escrita de cache a 1,25× / 2× e leitura de cache).
+
+- **Atualização automática:** uma vez por dia o app baixa esse arquivo do repositório (`PRICES_URL` em [`Config/Base.xcconfig`](Config/Base.xcconfig)). Se for válido e mais recente (`asOf`) que o embutido, passa a valer e os custos dos logs locais são recalculados. Para atualizar os preços de todos, basta editar o arquivo no repositório e subir o `asOf`.
+- **Personalização:** um `prices.json` no mesmo formato em `~/Library/Application Support/TokenBar/` sempre prevalece; depois use **Reimportar histórico** em Ajustes.
+- Modelos sem preço (como os do Codex) aparecem com custo US$ 0.
 
 ## Como funciona
 
