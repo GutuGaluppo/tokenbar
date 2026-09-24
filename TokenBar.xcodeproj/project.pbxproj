@@ -11,6 +11,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7B0A00000000000000000020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0A0000000000000000000A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B0A00000000000000000006;
+			remoteInfo = TokenBar;
+		};
 		7B0A0000000000000000001D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B0A0000000000000000000A /* Project object */;
@@ -35,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B0A00000000000000000021 /* TokenBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TokenBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0A00000000000000000001 /* TokenBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TokenBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0A00000000000000000010 /* TokenBarWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TokenBarWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -50,6 +58,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7B0A00000000000000000022 /* TokenBarTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TokenBarTests;
+			sourceTree = "<group>";
+		};
 		7B0A00000000000000000011 /* TokenBarWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -71,6 +84,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7B0A00000000000000000023 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B0A00000000000000000019 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,6 +114,7 @@
 				7B0A00000000000000000002 /* TokenBar */,
 				7B0A00000000000000000012 /* Shared */,
 				7B0A00000000000000000011 /* TokenBarWidget */,
+				7B0A00000000000000000022 /* TokenBarTests */,
 				7B0A00000000000000000005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +124,7 @@
 			children = (
 				7B0A00000000000000000001 /* TokenBar.app */,
 				7B0A00000000000000000010 /* TokenBarWidget.appex */,
+				7B0A00000000000000000021 /* TokenBarTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +132,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7B0A00000000000000000024 /* TokenBarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B0A00000000000000000025 /* Build configuration list for PBXNativeTarget "TokenBarTests" */;
+			buildPhases = (
+				7B0A00000000000000000028 /* Sources */,
+				7B0A00000000000000000023 /* Frameworks */,
+				7B0A00000000000000000029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7B0A0000000000000000002A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7B0A00000000000000000022 /* TokenBarTests */,
+			);
+			name = TokenBarTests;
+			packageProductDependencies = (
+			);
+			productName = TokenBarTests;
+			productReference = 7B0A00000000000000000021 /* TokenBarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7B0A00000000000000000013 /* TokenBarWidget */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B0A00000000000000000014 /* Build configuration list for PBXNativeTarget "TokenBarWidget" */;
@@ -174,6 +219,10 @@
 					7B0A00000000000000000013 = {
 						CreatedOnToolsVersion = 26.0;
 					};
+					7B0A00000000000000000024 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = 7B0A00000000000000000006;
+					};
 				};
 			};
 			buildConfigurationList = 7B0A0000000000000000000B /* Build configuration list for PBXProject "TokenBar" */;
@@ -193,11 +242,19 @@
 			targets = (
 				7B0A00000000000000000006 /* TokenBar */,
 				7B0A00000000000000000013 /* TokenBarWidget */,
+				7B0A00000000000000000024 /* TokenBarTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7B0A00000000000000000029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B0A0000000000000000001A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,6 +272,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7B0A00000000000000000028 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B0A00000000000000000017 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +296,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7B0A0000000000000000002A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B0A00000000000000000006 /* TokenBar */;
+			targetProxy = 7B0A00000000000000000020 /* PBXContainerItemProxy */;
+		};
 		7B0A0000000000000000001E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B0A00000000000000000013 /* TokenBarWidget */;
@@ -453,9 +522,56 @@
 			};
 			name = Release;
 		};
+		7B0A00000000000000000026 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = NF5D39SHC8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.galuppo.TokenBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TokenBar.app/Contents/MacOS/TokenBar";
+			};
+			name = Debug;
+		};
+		7B0A00000000000000000027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = NF5D39SHC8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.galuppo.TokenBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TokenBar.app/Contents/MacOS/TokenBar";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B0A00000000000000000025 /* Build configuration list for PBXNativeTarget "TokenBarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B0A00000000000000000026 /* Debug */,
+				7B0A00000000000000000027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7B0A00000000000000000014 /* Build configuration list for PBXNativeTarget "TokenBarWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

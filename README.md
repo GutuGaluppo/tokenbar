@@ -8,6 +8,10 @@
   Consumo de tokens de IA na barra de menus do macOS — quanto você usou, quanto resta dos seus limites e onde dá para economizar.
 </p>
 
+<p align="center">
+  <a href="https://github.com/GutuGaluppo/tokenbar/actions/workflows/ci.yml"><img src="https://github.com/GutuGaluppo/tokenbar/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+</p>
+
 ---
 
 TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do **Claude Code**, do **Codex** e, opcionalmente, das **APIs da Anthropic e da OpenAI**, e mostra tudo num só lugar — a um clique, sem abrir painéis de cada provedor. Fechar a janela não encerra o app: o ícone continua ativo.
@@ -89,6 +93,16 @@ scripts/install.sh
 
 O script compila em Release, substitui `/Applications/TokenBar.app` e abre o app. Rode de novo sempre que atualizar o código.
 
+### Testes
+
+Os testes usam Swift Testing e rodam dentro do app, isolado: banco em memória, sem ler logs, APIs ou o plano e sem gravar preferências.
+
+```bash
+xcodebuild test -project TokenBar.xcodeproj -scheme TokenBar -destination 'platform=macOS'
+```
+
+Cobrem os parsers do Claude Code e do Codex, a leitura incremental (deduplicação, linhas incompletas, arquivo substituído), a tabela de preços, o nome do projeto pela raiz git, as dicas e a economia realizada. A cada push, o [GitHub Actions](.github/workflows/ci.yml) roda os testes e compila em Release (macOS 26, Xcode 26.6).
+
 ### Modo de demonstração
 
 Builds de desenvolvimento têm um modo com dados fictícios, usado para as capturas acima. Ele usa um banco separado (`~/Library/Application Support/TokenBar-Demo`), não lê logs nem APIs e não altera o widget nem as preferências:
@@ -143,6 +157,7 @@ flowchart LR
 | `TokenBar/UI` | Popover, painel e telas |
 | `Shared` | Código usado pelo app e pelo widget |
 | `TokenBarWidget` | Extensão do widget |
+| `TokenBarTests` | Testes (Swift Testing) |
 | `scripts` | `install.sh` e `set-icon.swift` (aplica uma arte ao AppIcon) |
 
 ## Limitações conhecidas
