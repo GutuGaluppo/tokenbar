@@ -8,17 +8,32 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --ground: #F2F4F7;
+    --ground: #EEF1F8;
+    --haze-a: #B9CCFF;
+    --haze-b: #D9CCF6;
     --surface: #FFFFFF;
-    --raised: #E8ECF2;
+    --raised: #E6EBF4;
     --ink: #0D1A2B;
     --muted: #56627A;
-    --line: #DAE0E8;
-    --accent: #2F6BFF;
+    --line: #D6DDE9;
+    --accent: #2F63F0;
     --accent-ink: #FFFFFF;
-    --warn: #FF8A1F;
     --ok: #1FA866;
-    --cyan: #33B6EC;
+    --warn: #FF8A1F;
+    /* Faces isométricas */
+    --iso-top-a: #FFFFFF;
+    --iso-top-b: #EEF2FA;
+    --iso-left: #D3DCEB;
+    --iso-right: #E6ECF5;
+    --iso-edge: #C2CDE0;
+    --iso-blue-a: #5A8DFF;
+    --iso-blue-b: #2F63F0;
+    --iso-blue-left: #1E48C2;
+    --iso-blue-right: #2A57DA;
+    --trace: #B3C2DD;
+    --pad: #9FB2D6;
+    --float: #2F63F0;
+    --float-muted: #6E7D99;
     --shot-shadow: 0 30px 60px -28px rgba(13, 26, 43, .45), 0 2px 6px rgba(13, 26, 43, .08);
     --display: "Schibsted Grotesk", "Avenir Next", "Helvetica Neue", system-ui, sans-serif;
     --body: "Figtree", "Avenir Next", system-ui, -apple-system, sans-serif;
@@ -27,39 +42,71 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;
-      --ground: #0A111D;
-      --surface: #111B2C;
+      --ground: #0A1020;
+      --haze-a: #1D3470;
+      --haze-b: #33275C;
+      --surface: #111A2E;
       --raised: #17233A;
       --ink: #E7EDF7;
       --muted: #93A0B6;
       --line: #22304A;
       --accent: #5B8CFF;
       --accent-ink: #06101F;
+      --iso-top-a: #34466C;
+      --iso-top-b: #283859;
+      --iso-left: #151F37;
+      --iso-right: #1D2A47;
+      --iso-edge: #43557E;
+      --iso-blue-a: #6B98FF;
+      --iso-blue-b: #3C6BF0;
+      --iso-blue-left: #1C3B9C;
+      --iso-blue-right: #2750C4;
+      --trace: #2B3C60;
+      --pad: #3F5585;
+      --float: #7FA4FF;
+      --float-muted: #7E8BA5;
       --shot-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .06);
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --ground: #0A111D;
-    --surface: #111B2C;
+    --ground: #0A1020;
+    --haze-a: #1D3470;
+    --haze-b: #33275C;
+    --surface: #111A2E;
     --raised: #17233A;
     --ink: #E7EDF7;
     --muted: #93A0B6;
     --line: #22304A;
     --accent: #5B8CFF;
     --accent-ink: #06101F;
+    --iso-top-a: #34466C;
+    --iso-top-b: #283859;
+    --iso-left: #151F37;
+    --iso-right: #1D2A47;
+    --iso-edge: #43557E;
+    --iso-blue-a: #6B98FF;
+    --iso-blue-b: #3C6BF0;
+    --iso-blue-left: #1C3B9C;
+    --iso-blue-right: #2750C4;
+    --trace: #2B3C60;
+    --pad: #3F5585;
+    --float: #7FA4FF;
+    --float-muted: #7E8BA5;
     --shot-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .06);
   }
 
   * { box-sizing: border-box; }
+  html { overflow-x: clip; }
   body {
+    margin: 0;
     background: var(--ground);
     color: var(--ink);
     font: 400 17px/1.6 var(--body);
-    padding-inline: 20px;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
-  .wrap { max-width: 1160px; margin-inline: auto; }
+  .wrap { max-width: 1160px; margin-inline: auto; padding-inline: 20px; }
   a { color: var(--accent); }
   a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
   h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
@@ -67,18 +114,34 @@
   h3 { font-size: 21px; font-weight: 700; line-height: 1.25; }
   p { margin: 0; }
   .lede { color: var(--muted); font-size: 19px; max-width: 60ch; }
-  .eyebrow {
-    font: 500 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .14em; color: var(--muted);
-  }
+  .eyebrow { font: 500 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
   .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-  section { padding-block: 88px 0; }
+  main, footer, .top { position: relative; z-index: 1; }
+  section { padding-block: 96px 0; }
   section > .wrap > header { display: grid; gap: 14px; margin-bottom: 36px; }
+
+  /* Pontos flutuantes: números e gráficos que mudam com a rolagem */
+  .floaters { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .floater {
+    position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 7px;
+    font: 500 11px/1 var(--mono); color: var(--float-muted); font-variant-numeric: tabular-nums;
+    will-change: transform; white-space: nowrap;
+  }
+  .floater .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--float); box-shadow: 0 0 0 4px color-mix(in srgb, var(--float) 16%, transparent); flex: none; }
+  .floater b { font-weight: 500; color: var(--ink); opacity: .75; }
+  .floater svg { display: block; overflow: visible; }
+  .floater.bare .dot { width: 5px; height: 5px; box-shadow: none; opacity: .5; }
+  .floater .chip {
+    display: flex; align-items: center; gap: 7px; padding: 6px 9px; border-radius: 8px;
+    background: color-mix(in srgb, var(--surface) 72%, transparent); border: 1px solid var(--line);
+    backdrop-filter: blur(6px);
+  }
 
   /* Topo */
   .top {
     position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-    margin-inline: -20px; padding: 12px 20px;
-    background: color-mix(in srgb, var(--ground) 86%, transparent);
+    padding-block: 12px;
+    background: color-mix(in srgb, var(--ground) 80%, transparent);
     backdrop-filter: saturate(1.4) blur(14px);
     border-bottom: 1px solid var(--line);
   }
@@ -89,120 +152,191 @@
   .top nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
   .top nav a:hover { color: var(--ink); }
   .langs { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
-  .langs button {
-    font: 500 12px/1 var(--mono); letter-spacing: .06em; border: 0; background: none; color: var(--muted);
-    padding: 7px 10px; border-radius: 999px; cursor: pointer;
-  }
+  .langs button { font: 500 12px/1 var(--mono); letter-spacing: .06em; border: 0; background: none; color: var(--muted); padding: 7px 10px; border-radius: 999px; cursor: pointer; }
   .langs button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
   @media (max-width: 860px) { .top nav { display: none; } .langs { margin-left: auto; } }
 
   /* Hero */
-  .hero { padding-block: 64px 0; }
-  .hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-  .hero h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; line-height: 1; letter-spacing: -0.035em; }
+  .hero { position: relative; padding-block: 56px 24px; isolation: isolate; }
+  .hero::before {
+    content: ""; position: absolute; inset: -80px 0 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60% 70% at 78% 40%, color-mix(in srgb, var(--haze-a) 70%, transparent), transparent 70%),
+      radial-gradient(45% 55% at 95% 85%, color-mix(in srgb, var(--haze-b) 70%, transparent), transparent 70%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent);
+    mask-image: linear-gradient(to bottom, #000 65%, transparent);
+  }
+  .hero .wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: 32px; align-items: center; }
+  .hero h1 { font-size: clamp(40px, 6vw, 70px); font-weight: 800; line-height: 1; letter-spacing: -0.035em; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero .copy { display: grid; gap: 24px; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 12px;
-    font: 600 16px/1 var(--body); text-decoration: none; border: 1px solid transparent;
-  }
-  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font: 600 16px/1 var(--body); text-decoration: none; border: 1px solid transparent; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 24px -12px var(--accent); }
   .btn.ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
   .meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: 14px; }
   .meta span { display: inline-flex; align-items: center; gap: 6px; }
   .meta span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
 
-  /* Instrumento: barra de menus + mostrador */
-  .instrument { position: relative; display: grid; gap: 18px; justify-items: center; }
-  .menubar {
-    width: 100%; max-width: 440px; display: flex; justify-content: flex-end; align-items: center; gap: 18px;
-    padding: 7px 14px; border-radius: 10px; background: var(--raised); color: var(--ink);
-    font: 500 14px/1 var(--body);
+  .stage { position: relative; }
+  .stage > svg { display: block; width: 100%; height: auto; }
+  .iso-top { fill: url(#gTop); }
+  .iso-l { fill: var(--iso-left); }
+  .iso-r { fill: var(--iso-right); }
+  .iso-edge { stroke: var(--iso-edge); stroke-width: .8; stroke-linejoin: round; }
+  .iso-btop { fill: url(#gBlue); }
+  .iso-bl { fill: var(--iso-blue-left); }
+  .iso-br { fill: var(--iso-blue-right); }
+  .trace { fill: none; stroke: var(--trace); stroke-width: 1.3; stroke-linejoin: round; }
+  .pad { fill: var(--pad); }
+  .pulse { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 5 95; animation: pulse var(--d, 5s) linear infinite; animation-delay: var(--delay, 0s); opacity: .9; }
+  @keyframes pulse { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+  .glow { fill: var(--accent); filter: blur(16px); opacity: .55; animation: breathe 4s ease-in-out infinite; }
+  @keyframes breathe { 50% { opacity: .3; } }
+
+  .readout {
+    position: absolute; left: 0; bottom: 2%; width: min(270px, 58%);
+    display: grid; gap: 8px; padding: 14px 16px; border-radius: 14px;
+    background: color-mix(in srgb, var(--surface) 86%, transparent); border: 1px solid var(--line);
+    backdrop-filter: blur(10px); box-shadow: 0 20px 40px -24px rgba(13, 26, 43, .5);
   }
-  .menubar .item { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; background: color-mix(in srgb, var(--accent) 14%, transparent); }
-  .menubar .dim { color: var(--muted); }
-  .dial { width: min(100%, 440px); aspect-ratio: 400 / 360; }
-  .dial text { font-family: var(--mono); fill: var(--muted); font-size: 12px; }
-  .dial .readout { font-family: var(--display); font-weight: 800; fill: var(--ink); font-size: 60px; letter-spacing: -0.03em; }
-  .dial .sub { fill: var(--muted); font-family: var(--body); font-size: 14px; }
-  .dial .arc-track { stroke: var(--line); }
-  .dial .needle { transform-origin: 200px 190px; transition: transform 1.6s cubic-bezier(.2, .8, .2, 1); }
-  .dial .fill { transition: stroke-dashoffset 1.6s cubic-bezier(.2, .8, .2, 1); }
-  .dial .hub { fill: var(--ink); }
+  .readout .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .readout .label { font: 600 13px/1.2 var(--body); display: inline-flex; gap: 7px; align-items: center; }
+  .readout strong { font: 800 26px/1 var(--display); letter-spacing: -0.02em; }
+  .readout .bar { height: 6px; border-radius: 3px; background: var(--raised); overflow: hidden; }
+  .readout .bar i { display: block; height: 100%; width: 78%; border-radius: inherit; background: var(--accent); transition: width 1.4s cubic-bezier(.2, .8, .2, 1); }
+  .readout small { font: 400 12px/1.3 var(--mono); color: var(--muted); }
 
   /* Números reais */
-  .proof { padding-block: 72px 0; }
-  .proof .wrap {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-    border-block: 1px solid var(--line);
+  .proof { padding-block: 48px 0; }
+  .proof .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    background: color-mix(in srgb, var(--surface) 70%, transparent); backdrop-filter: blur(8px);
   }
-  .proof div { padding: 22px 20px; display: grid; gap: 6px; }
-  .proof div + div { border-left: 1px solid var(--line); }
+  .proof .grid > div { padding: 22px 20px; display: grid; gap: 6px; }
+  .proof .grid > div + div { border-left: 1px solid var(--line); }
   .proof strong { font: 800 30px/1 var(--display); letter-spacing: -0.02em; }
   .proof span { color: var(--muted); font-size: 14px; line-height: 1.4; }
-  .proof small { grid-column: 1 / -1; color: var(--muted); font-size: 13px; padding: 10px 20px 14px; border-top: 1px solid var(--line); }
+  .proof small { display: block; color: var(--muted); font-size: 13px; padding: 12px 4px 0; }
   @media (max-width: 860px) {
-    .proof .wrap { grid-template-columns: 1fr 1fr; }
-    .proof div:nth-child(3) { border-left: 0; }
-    .proof div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .proof .grid { grid-template-columns: 1fr 1fr; }
+    .proof .grid > div:nth-child(3) { border-left: 0; }
+    .proof .grid > div:nth-child(n+3) { border-top: 1px solid var(--line); }
   }
+
+  /* Como funciona: seção técnica escura */
+  .system {
+    --sys-bg: #1B1716; --sys-card: #221D1B; --sys-line: #3A332F; --sys-ink: #D8CFB2; --sys-muted: #978E7C; --sys-dot: #3B3431; --sys-accent: #F47A4E;
+    margin-top: 96px; padding-block: 96px; background: var(--sys-bg); color: var(--sys-ink);
+  }
+  .system h2 { font: 500 clamp(32px, 5vw, 60px)/1.05 var(--mono); letter-spacing: -0.02em; }
+  .system .lede { color: var(--sys-muted); font: 400 16px/1.7 var(--mono); max-width: 58ch; }
+  .system .eyebrow { color: var(--sys-accent); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .card { border: 1px solid var(--sys-line); background: var(--sys-card); display: grid; grid-template-rows: auto 1fr; }
+  .card .art {
+    position: relative; aspect-ratio: 16 / 9; border-bottom: 1px solid var(--sys-line);
+    background-color: var(--sys-bg);
+    background-image: radial-gradient(var(--sys-dot) 1px, transparent 1.3px);
+    background-size: 14px 14px; background-position: 7px 7px;
+  }
+  .card .art::before { content: ""; position: absolute; left: 20px; top: 20px; width: 10px; height: 10px; background: var(--sys-accent); }
+  .card .art span { position: absolute; right: 18px; top: 16px; font: 400 14px/1 var(--mono); color: var(--sys-muted); }
+  .card .art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .card .art svg * { vector-effect: non-scaling-stroke; }
+  .card .body { padding: 26px 24px 30px; display: grid; gap: 14px; align-content: start; }
+  .card h3 { font: 500 21px/1.25 var(--mono); letter-spacing: -0.01em; }
+  .card p { font: 400 14px/1.75 var(--mono); color: var(--sys-muted); }
+  .wire { fill: var(--sys-card); stroke: var(--sys-ink); stroke-width: 1.1; stroke-linejoin: round; }
+  .wire-line { fill: none; stroke: var(--sys-ink); stroke-width: 1.1; }
+  .wire-dash { fill: none; stroke: var(--sys-ink); stroke-width: 1.1; stroke-dasharray: 3 4; opacity: .7; }
+  .card .art .draw { stroke-dasharray: 600; stroke-dashoffset: 600; transition: stroke-dashoffset 1.8s ease; }
+  .card.seen .art .draw { stroke-dashoffset: 0; }
+  @media (max-width: 860px) { .cards { grid-template-columns: 1fr; } }
 
   /* Capturas */
   .shot { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: var(--shot-shadow); background: #1d232b; }
-  .popover-shot { max-width: 300px; border-radius: 16px; }
   .note { color: var(--muted); font-size: 14px; }
 
-  /* Tour */
-  .tour figure { margin: 0; display: grid; gap: 14px; max-width: 1000px; }
+  /* Moldura isométrica das capturas: aro branco em camadas, como os módulos das ilustrações */
+  .bezel {
+    position: relative; padding: 14px; border-radius: 24px;
+    background: linear-gradient(160deg, var(--iso-top-a), var(--iso-top-b));
+    box-shadow: 0 1px 0 var(--iso-edge) inset, 0 12px 0 -2px var(--iso-left), 0 40px 70px -30px rgba(20, 40, 100, .45);
+  }
+  .bezel::after { content: ""; position: absolute; inset: 6px; border-radius: 19px; border: 1px solid var(--iso-edge); pointer-events: none; opacity: .7; }
+  .bezel .shot { box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); border-radius: 12px; }
+
+  .tour figure { margin: 0; display: grid; gap: 18px; max-width: 1000px; }
 
   /* Galeria */
-  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
-  .tabs button {
-    font: 600 15px/1 var(--body); padding: 11px 16px; border-radius: 10px; cursor: pointer;
-    border: 1px solid var(--line); background: var(--surface); color: var(--muted);
-  }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .tabs button { font: 600 15px/1 var(--body); padding: 11px 16px; border-radius: 10px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
   .tabs button[aria-selected="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
-  .panel { display: grid; grid-template-columns: 320px 1fr; gap: 36px; align-items: start; }
+  .panel { display: grid; grid-template-columns: 320px 1fr; gap: 40px; align-items: start; }
   .panel .text { display: grid; gap: 12px; padding-top: 8px; }
   .panel .text p { color: var(--muted); }
-  .panel ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); display: grid; gap: 6px; font-size: 16px; }
+  .panel ul { margin: 6px 0 0; padding: 0; list-style: none; color: var(--muted); display: grid; gap: 10px; font-size: 16px; }
+  .panel li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; }
+  .panel li::before { content: ""; width: 8px; height: 8px; margin-top: 8px; background: var(--accent); transform: rotate(45deg); }
   @media (max-width: 860px) { .panel { grid-template-columns: 1fr; } }
 
   /* Antes/depois */
-  .compare { position: relative; border-radius: 14px; overflow: hidden; box-shadow: var(--shot-shadow); background: #1d232b; }
+  .compare { position: relative; border-radius: 12px; overflow: hidden; background: #1d232b; }
   .compare img { display: block; width: 100%; height: auto; }
   .compare .after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--split, 50%)); }
   .compare .handle { position: absolute; top: 0; bottom: 0; left: var(--split, 50%); width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none; }
-  .compare .handle::after {
-    content: "⟷"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 38px; height: 38px; border-radius: 50%; background: #fff; color: #0D1A2B;
-    display: grid; place-items: center; font-size: 18px; box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
-  }
-  .compare .tag {
-    position: absolute; top: 14px; font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
-    padding: 7px 10px; border-radius: 6px; background: rgba(10, 17, 29, .78); color: #fff;
-  }
+  .compare .handle::after { content: "⟷"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 38px; height: 38px; border-radius: 50%; background: #fff; color: #0D1A2B; display: grid; place-items: center; font-size: 18px; box-shadow: 0 4px 14px rgba(0, 0, 0, .35); }
+  .compare .tag { position: absolute; top: 14px; font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 7px 10px; border-radius: 6px; background: rgba(10, 17, 29, .78); color: #fff; }
   .compare .tag.before { left: 14px; }
   .compare .tag.after-tag { right: 14px; background: rgba(31, 168, 102, .9); }
   .compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
   .results { display: grid; grid-template-columns: 1fr 280px; gap: 36px; align-items: start; }
   .results aside { display: grid; gap: 18px; }
-  .delta { display: grid; gap: 4px; padding: 16px 18px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+  .delta { display: grid; gap: 4px; padding: 18px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
   .delta strong { font: 800 34px/1 var(--display); color: var(--ok); letter-spacing: -0.02em; }
   .delta span { color: var(--muted); font-size: 14px; }
   @media (max-width: 860px) { .results { grid-template-columns: 1fr; } }
 
-  /* Fontes */
+  /* Fontes: hub isométrico sobre azul */
+  .hub {
+    --hub-ink: #FFFFFF; --hub-muted: #BCD0FF;
+    margin-top: 96px; padding-block: 96px; color: var(--hub-ink);
+    background:
+      repeating-radial-gradient(ellipse at 50% 55%, transparent 0 140px, rgba(255, 255, 255, .06) 141px, transparent 142px),
+      radial-gradient(80% 70% at 50% 45%, #2A63E6, #1745BA 60%, #10318C);
+  }
+  .hub .eyebrow { color: var(--hub-muted); }
+  .hub .lede { color: var(--hub-muted); }
+  .hub-stage { max-width: 900px; margin: 0 auto 40px; }
+  .hub-stage svg { display: block; width: 100%; height: auto; }
+  .hub-stage text { font: 500 12.5px var(--mono); fill: #FFFFFF; letter-spacing: .02em; }
+  .hub-stage .tag-bg { fill: rgba(8, 24, 80, .42); stroke: rgba(255, 255, 255, .25); }
+  .hub .pulse { stroke: #FFFFFF; }
+  .h-top { fill: url(#hTop); }
+  .h-l { fill: #BCCBE8; }
+  .h-r { fill: #D8E2F4; }
+  .h-btop { fill: url(#hBlue); }
+  .h-bl { fill: #173DA6; }
+  .h-br { fill: #2250C9; }
+  .h-edge { stroke: rgba(255, 255, 255, .6); stroke-width: .8; stroke-linejoin: round; }
+  .h-wire { fill: none; stroke: rgba(255, 255, 255, .5); stroke-width: 1.3; }
+  .h-shadow { fill: rgba(4, 18, 70, .38); filter: blur(12px); }
   .sources-layout { display: grid; grid-template-columns: 1fr 300px; gap: 36px; align-items: start; }
   .popover-figure { margin: 0; display: grid; gap: 12px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 80px); }
+  .popover-figure .note { color: var(--hub-muted); }
+  .popover-shot { max-width: 300px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0, 10, 50, .7); }
   @media (max-width: 860px) { .sources-layout { grid-template-columns: 1fr; } .popover-figure { position: static; justify-items: center; } }
-  .sources { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-  .sources div { background: var(--surface); padding: 20px; display: grid; gap: 6px; align-content: start; }
+  .sources { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sources div {
+    padding: 18px 20px; display: grid; gap: 6px; align-content: start; border-radius: 14px;
+    background: rgba(255, 255, 255, .09); border: 1px solid rgba(255, 255, 255, .18);
+    backdrop-filter: blur(6px);
+  }
   .sources b { font: 700 17px/1.2 var(--display); }
-  .sources span { color: var(--muted); font-size: 14px; line-height: 1.45; }
-  .sources i { font: 500 11px/1 var(--mono); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-
+  .sources span { color: var(--hub-muted); font-size: 14px; line-height: 1.45; }
+  .sources i { font: 500 11px/1 var(--mono); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: #FFD0B8; }
   @media (max-width: 480px) { .sources { grid-template-columns: 1fr; } }
 
   /* Privacidade + instalação */
@@ -213,41 +347,70 @@
   .checks b { color: var(--ink); font-weight: 600; }
   .steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; counter-reset: step; }
   .steps li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; color: var(--muted); counter-increment: step; }
-  .steps li::before {
-    content: counter(step); font: 500 13px/28px var(--mono); text-align: center; width: 28px; height: 28px;
-    border-radius: 50%; border: 1px solid var(--line); color: var(--ink);
-  }
+  .steps li::before { content: counter(step); font: 500 13px/28px var(--mono); text-align: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
   .code { position: relative; margin-top: 8px; }
-  .code pre {
-    margin: 0; padding: 14px 16px; border-radius: 10px; background: #0D1A2B; color: #DDE6F5;
-    font: 400 13.5px/1.6 var(--mono); overflow-x: auto;
-  }
-  .code button {
-    position: absolute; top: 8px; right: 8px; font: 500 12px/1 var(--body); padding: 7px 10px; border-radius: 7px;
-    border: 1px solid rgba(255, 255, 255, .2); background: rgba(255, 255, 255, .08); color: #DDE6F5; cursor: pointer;
-  }
+  .code pre { margin: 0; padding: 14px 16px; border-radius: 10px; background: #0D1A2B; color: #DDE6F5; font: 400 13.5px/1.6 var(--mono); overflow-x: auto; }
+  .code button { position: absolute; top: 8px; right: 8px; font: 500 12px/1 var(--body); padding: 7px 10px; border-radius: 7px; border: 1px solid rgba(255, 255, 255, .2); background: rgba(255, 255, 255, .08); color: #DDE6F5; cursor: pointer; }
   @media (max-width: 860px) {
     .hero .wrap, .two { grid-template-columns: 1fr; }
-    .hero .wrap { gap: 40px; }
+    .hero .wrap { gap: 12px; }
+    .readout { position: relative; left: auto; bottom: auto; width: 100%; margin-top: -8px; }
   }
+  @media (max-width: 1100px) { .floater.side-only { display: none; } }
 
   footer { padding-block: 88px 48px; }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; border-top: 1px solid var(--line); padding-top: 24px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; color: var(--muted); font-size: 14px; }
+  footer .wrap::before { content: ""; flex-basis: 100%; height: 1px; background: var(--line); margin-bottom: 12px; }
   footer a { color: var(--muted); }
 
   @media (prefers-reduced-motion: reduce) {
-    .dial .needle, .dial .fill { transition: none; }
+    .pulse, .glow { animation: none; }
+    .pulse { opacity: 0; }
+    .card .art .draw { transition: none; stroke-dashoffset: 0; }
+    .readout .bar i { transition: none; }
   }
 </style>
+
+<!-- Gradientes compartilhados pelas ilustrações isométricas -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color: var(--iso-top-a)"/>
+      <stop offset="1" style="stop-color: var(--iso-top-b)"/>
+    </linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color: var(--iso-blue-a)"/>
+      <stop offset="1" style="stop-color: var(--iso-blue-b)"/>
+    </linearGradient>
+    <linearGradient id="hTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E4ECFA"/>
+    </linearGradient>
+    <linearGradient id="hBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6D9BFF"/>
+      <stop offset="1" stop-color="#2F63F0"/>
+    </linearGradient>
+    <radialGradient id="boardFade" cx=".5" cy=".55" r=".55">
+      <stop offset=".45" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="boardMask" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="540">
+      <rect width="640" height="540" fill="url(#boardFade)"/>
+    </mask>
+  </defs>
+</svg>
+
+<div class="floaters" id="floaters" aria-hidden="true"></div>
 
 <div class="top">
   <div class="wrap">
     <a class="brand" href="#top"><img src="assets/icon.webp" alt="" width="30" height="30">TokenBar</a>
     <nav aria-label="Seções">
+      <a href="#how" data-i18n="nav.how"></a>
       <a href="#tour" data-i18n="nav.tour"></a>
       <a href="#features" data-i18n="nav.features"></a>
       <a href="#results" data-i18n="nav.results"></a>
-      <a href="#privacy" data-i18n="nav.privacy"></a>
+      <a href="#sources" data-i18n="nav.sources"></a>
       <a href="#install" data-i18n="nav.install"></a>
     </nav>
     <div class="langs" role="group" aria-label="Language">
@@ -277,44 +440,54 @@
         </div>
       </div>
 
-      <div class="instrument" aria-hidden="true">
-        <div class="menubar">
-          <span class="item">
-            <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 8 L11.2 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg>
-            <span class="num">78%</span>
-          </span>
-          <span class="dim num" data-i18n="hero.clock"></span>
-        </div>
-        <svg class="dial" viewBox="0 0 400 360">
-          <defs>
-            <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#FF8A1F"/>
-              <stop offset=".5" stop-color="#2FD08A"/>
-              <stop offset="1" stop-color="#33B6EC"/>
-            </linearGradient>
-          </defs>
-          <path class="arc-track" d="M 97.47 292.53 A 145 145 0 1 1 302.53 292.53" fill="none" stroke-width="18" stroke-linecap="round"/>
-          <path class="fill" id="dialFill" d="M 97.47 292.53 A 145 145 0 1 1 302.53 292.53" fill="none" stroke="url(#arcGrad)" stroke-width="18" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
-          <g id="ticks"></g>
-          <g class="needle" id="needle" style="transform: rotate(-135deg)">
-            <path d="M 196 190 L 200 72 L 204 190 Z" fill="var(--ink)"/>
-          </g>
-          <circle class="hub" cx="200" cy="190" r="11"/>
-          <text class="readout" x="200" y="272" text-anchor="middle">78%</text>
-          <text class="sub" x="200" y="330" text-anchor="middle" data-i18n="hero.dialSub"></text>
-          <text class="sub" x="200" y="352" text-anchor="middle" data-i18n="hero.dialReset"></text>
+      <div class="stage">
+        <svg viewBox="70 70 500 420" role="img" data-i18n-aria="hero.artAlt">
+          <g mask="url(#boardMask)" id="boardBack"></g>
+          <g id="chip"></g>
+          <g mask="url(#boardMask)" id="boardFront"></g>
         </svg>
+        <div class="readout" aria-hidden="true">
+          <div class="row">
+            <span class="label">
+              <svg width="15" height="15" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 8 L11.2 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg>
+              <span data-i18n="hero.cardTitle"></span>
+            </span>
+            <strong class="num">78%</strong>
+          </div>
+          <div class="bar"><i id="readoutBar" style="width: 0"></i></div>
+          <small data-i18n="hero.cardReset"></small>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="proof" aria-label="Números medidos">
     <div class="wrap">
-      <div><strong class="num">589 MB</strong><span data-i18n="proof.import"></span></div>
-      <div><strong class="num">0,00%</strong><span data-i18n="proof.exact"></span></div>
-      <div><strong class="num">8</strong><span data-i18n="proof.sources"></span></div>
-      <div><strong class="num">0 B</strong><span data-i18n="proof.privacy"></span></div>
+      <div class="grid">
+        <div><strong class="num">589 MB</strong><span data-i18n="proof.import"></span></div>
+        <div><strong class="num">0,00%</strong><span data-i18n="proof.exact"></span></div>
+        <div><strong class="num">8</strong><span data-i18n="proof.sources"></span></div>
+        <div><strong class="num">0 B</strong><span data-i18n="proof.privacy"></span></div>
+      </div>
       <small data-i18n="proof.note"></small>
+    </div>
+  </section>
+
+  <section class="system" id="how">
+    <div class="wrap">
+      <header>
+        <span class="eyebrow" data-i18n="how.eyebrow"></span>
+        <h2 data-i18n="how.title"></h2>
+        <p class="lede" data-i18n="how.lede"></p>
+      </header>
+      <div class="cards">
+        <article class="card"><div class="art"><span>01</span><svg viewBox="0 0 320 180" id="art1" aria-hidden="true"></svg></div>
+          <div class="body"><h3 data-i18n="how.c1"></h3><p data-i18n="how.c1b"></p></div></article>
+        <article class="card"><div class="art"><span>02</span><svg viewBox="0 0 320 180" id="art2" aria-hidden="true"></svg></div>
+          <div class="body"><h3 data-i18n="how.c2"></h3><p data-i18n="how.c2b"></p></div></article>
+        <article class="card"><div class="art"><span>03</span><svg viewBox="0 0 320 180" id="art3" aria-hidden="true"></svg></div>
+          <div class="body"><h3 data-i18n="how.c3"></h3><p data-i18n="how.c3b"></p></div></article>
+      </div>
     </div>
   </section>
 
@@ -326,10 +499,12 @@
         <p class="lede" data-i18n="tour.lede"></p>
       </header>
       <figure>
-        <picture>
-          <source type="image/webp" data-shot-srcset="tour.webp">
-          <img class="shot" data-shot="tour.gif" data-i18n-alt="tour.alt" width="960" height="716" alt="">
-        </picture>
+        <div class="bezel">
+          <picture>
+            <source type="image/webp" data-shot-srcset="tour.webp">
+            <img class="shot" data-shot="tour.gif" data-i18n-alt="tour.alt" width="960" height="716" alt="">
+          </picture>
+        </div>
         <figcaption class="note" data-i18n="demoNote"></figcaption>
       </figure>
     </div>
@@ -348,7 +523,7 @@
           <p id="panelBody"></p>
           <ul id="panelList"></ul>
         </div>
-        <img class="shot" id="panelShot" width="1400" height="1044" alt="">
+        <div class="bezel"><img class="shot" id="panelShot" width="1400" height="1044" alt=""></div>
       </div>
     </div>
   </section>
@@ -362,16 +537,17 @@
       </header>
       <div class="results">
         <div>
-          <div class="compare" id="compare">
-            <img data-shot="tips.webp" data-i18n-alt="results.beforeAlt" width="1400" height="1044" alt="">
-            <img class="after" data-shot="tips-after.webp" data-i18n-alt="results.afterAlt" width="1400" height="1044" alt="">
-            <span class="tag before" data-i18n="results.before"></span>
-            <span class="tag after-tag" data-i18n="results.after"></span>
-            <div class="handle"></div>
-            <label class="sr" for="split" hidden>Split</label>
-            <input type="range" id="split" min="0" max="100" value="50" data-i18n-aria="results.slider">
+          <div class="bezel">
+            <div class="compare" id="compare">
+              <img data-shot="tips.webp" data-i18n-alt="results.beforeAlt" width="1400" height="1044" alt="">
+              <img class="after" data-shot="tips-after.webp" data-i18n-alt="results.afterAlt" width="1400" height="1044" alt="">
+              <span class="tag before" data-i18n="results.before"></span>
+              <span class="tag after-tag" data-i18n="results.after"></span>
+              <div class="handle"></div>
+              <input type="range" id="split" min="0" max="100" value="50" data-i18n-aria="results.slider">
+            </div>
           </div>
-          <p class="note" style="margin-top: 12px" data-i18n="demoNote"></p>
+          <p class="note" style="margin-top: 14px" data-i18n="demoNote"></p>
         </div>
         <aside>
           <div class="delta"><strong class="num">−91%</strong><span data-i18n="results.d1"></span></div>
@@ -381,12 +557,16 @@
     </div>
   </section>
 
-  <section id="sources">
+  <section class="hub" id="sources">
     <div class="wrap">
       <header>
         <span class="eyebrow" data-i18n="sources.eyebrow"></span>
         <h2 data-i18n="sources.title"></h2>
+        <p class="lede" data-i18n="sources.lede"></p>
       </header>
+      <div class="hub-stage">
+        <svg viewBox="0 0 820 560" id="hubArt" role="img" data-i18n-aria="sources.artAlt"></svg>
+      </div>
       <div class="sources-layout">
         <div class="sources" id="sourceGrid"></div>
         <figure class="popover-figure">
@@ -446,7 +626,6 @@ const I18N = {
     "hero.lede": "O TokenBar lê o uso do Claude Code, do Codex e das APIs que você usa, mostra quanto resta dos seus limites e aponta onde dá para economizar — tudo no seu Mac.",
     "hero.github": "Ver no GitHub", "hero.install": "Como instalar",
     "hero.meta1": "Código aberto (MIT)", "hero.meta2": "Sem conta, sem nuvem", "hero.meta3": "Português e inglês",
-    "hero.clock": "Qui 14:02", "hero.dialSub": "restam na sessão do plano Claude", "hero.dialReset": "reinicia em 2 h 44 min",
     "proof.import": "de logs do Claude Code importados em cerca de 9 s", "proof.exact": "de diferença para um cálculo independente dos mesmos logs",
     "proof.sources": "fontes: Claude Code, Codex, plano Claude, Anthropic, OpenAI, OpenRouter, Ollama e Gemini", "proof.privacy": "de conversa guardados — só contagens de tokens",
     "proof.note": "Medido na máquina do autor durante o desenvolvimento: 10.768 respostas, 3,92 bilhões de tokens.",
@@ -469,6 +648,15 @@ const I18N = {
     "install.s2": "Clone o repositório e rode o instalador:", "install.copy": "Copiar", "install.copied": "Copiado",
     "install.s3": "Abra o TokenBar: a tela de boas-vindas mostra as fontes encontradas e sugere limites.",
     "install.note": "Uma versão assinada e notarizada para download direto está a caminho.",
+    "nav.how": "Como funciona", "nav.sources": "Fontes",
+    "hero.cardTitle": "Sessão Claude", "hero.cardReset": "restam · reinicia em 2 h 44 min · 16:46",
+    "hero.artAlt": "Chip com o ícone do TokenBar sobre uma placa de circuito", "how.eyebrow": "Como funciona",
+    "how.title": "Inteligência no nível do sistema", "how.lede": "Três camadas trabalham juntas no seu Mac: coleta, medição e economia. Nenhuma delas depende de nuvem.",
+    "how.c1": "Coleta incremental", "how.c1b": "Lê os logs do Claude Code e do Codex em fatias, só o que é novo, e as APIs que você conectar. Reler nunca conta em dobro.",
+    "how.c2": "Custo por resposta", "how.c2b": "Cada resposta vira entrada, saída e cache, com o preço do modelo. Limites do plano e orçamentos saem dessa mesma base.",
+    "how.c3": "Economia medida", "how.c3b": "Regras apontam desperdício, estimam o valor por mês e, depois de aplicadas, comparam o antes e o depois por unidade de uso.",
+    "sources.lede": "Logs locais, APIs de uso e um proxy opcional convergem para um só painel.", "sources.artAlt": "Plataforma central do TokenBar ligada a Claude Code, Codex, APIs, proxy local e custo",
+    "hub.cost": "Custo", "hub.proxy": "Ollama · Gemini",
     "footer.license": "Licença MIT", "footer.shotsNote": ""
   },
   en: {
@@ -478,7 +666,6 @@ const I18N = {
     "hero.lede": "TokenBar reads your usage from Claude Code, Codex and the APIs you use, shows how much of your limits is left and points out where you can save — all on your Mac.",
     "hero.github": "View on GitHub", "hero.install": "How to install",
     "hero.meta1": "Open source (MIT)", "hero.meta2": "No account, no cloud", "hero.meta3": "English and Portuguese",
-    "hero.clock": "Thu 2:02 PM", "hero.dialSub": "left in your Claude plan session", "hero.dialReset": "resets in 2 h 44 min",
     "proof.import": "of Claude Code logs imported in about 9 s", "proof.exact": "difference from an independent calculation over the same logs",
     "proof.sources": "sources: Claude Code, Codex, Claude plan, Anthropic, OpenAI, OpenRouter, Ollama and Gemini", "proof.privacy": "of conversation stored — token counts only",
     "proof.note": "Measured on the author's machine during development: 10,768 responses, 3.92 billion tokens.",
@@ -501,6 +688,15 @@ const I18N = {
     "install.s2": "Clone the repository and run the installer:", "install.copy": "Copy", "install.copied": "Copied",
     "install.s3": "Open TokenBar: the welcome screen shows the sources it found and suggests limits.",
     "install.note": "A signed, notarized build for direct download is on the way.",
+    "nav.how": "How it works", "nav.sources": "Sources",
+    "hero.cardTitle": "Claude session", "hero.cardReset": "left · resets in 2 h 44 min · 4:46 PM",
+    "hero.artAlt": "Chip with the TokenBar icon on a circuit board", "how.eyebrow": "How it works",
+    "how.title": "System-level intelligence", "how.lede": "Three layers work together on your Mac: collection, measurement and savings. None of them needs a cloud.",
+    "how.c1": "Incremental collection", "how.c1b": "Reads Claude Code and Codex logs in slices, only what's new, plus the APIs you connect. Re-reading never double counts.",
+    "how.c2": "Cost per response", "how.c2b": "Every response becomes input, output and cache at the model's price. Plan limits and budgets come from the same base.",
+    "how.c3": "Measured savings", "how.c3b": "Rules spot waste, estimate its monthly value and, once applied, compare before and after per unit of usage.",
+    "sources.lede": "Local logs, usage APIs and an optional proxy converge into one dashboard.", "sources.artAlt": "TokenBar's central platform connected to Claude Code, Codex, APIs, local proxy and cost",
+    "hub.cost": "Cost", "hub.proxy": "Ollama · Gemini",
     "footer.license": "MIT License", "footer.shotsNote": ""
   },
   es: {
@@ -510,7 +706,6 @@ const I18N = {
     "hero.lede": "TokenBar lee el uso de Claude Code, Codex y las API que usas, muestra cuánto te queda de tus límites y señala dónde puedes ahorrar — todo en tu Mac.",
     "hero.github": "Ver en GitHub", "hero.install": "Cómo instalar",
     "hero.meta1": "Código abierto (MIT)", "hero.meta2": "Sin cuenta, sin nube", "hero.meta3": "App en inglés y portugués",
-    "hero.clock": "jue 14:02", "hero.dialSub": "restante en la sesión del plan Claude", "hero.dialReset": "se reinicia en 2 h 44 min",
     "proof.import": "de registros de Claude Code importados en unos 9 s", "proof.exact": "de diferencia con un cálculo independiente de los mismos registros",
     "proof.sources": "fuentes: Claude Code, Codex, plan Claude, Anthropic, OpenAI, OpenRouter, Ollama y Gemini", "proof.privacy": "de conversación guardados — solo recuentos de tokens",
     "proof.note": "Medido en la máquina del autor durante el desarrollo: 10.768 respuestas, 3.920 millones de tokens.",
@@ -533,6 +728,15 @@ const I18N = {
     "install.s2": "Clona el repositorio y ejecuta el instalador:", "install.copy": "Copiar", "install.copied": "Copiado",
     "install.s3": "Abre TokenBar: la pantalla de bienvenida muestra las fuentes encontradas y sugiere límites.",
     "install.note": "Pronto habrá una versión firmada y notarizada para descarga directa.",
+    "nav.how": "Cómo funciona", "nav.sources": "Fuentes",
+    "hero.cardTitle": "Sesión Claude", "hero.cardReset": "restante · se reinicia en 2 h 44 min · 16:46",
+    "hero.artAlt": "Chip con el icono de TokenBar sobre una placa de circuito", "how.eyebrow": "Cómo funciona",
+    "how.title": "Inteligencia a nivel de sistema", "how.lede": "Tres capas trabajan juntas en tu Mac: recopilación, medición y ahorro. Ninguna depende de la nube.",
+    "how.c1": "Recopilación incremental", "how.c1b": "Lee los registros de Claude Code y Codex por partes, solo lo nuevo, y las API que conectes. Releer nunca cuenta doble.",
+    "how.c2": "Coste por respuesta", "how.c2b": "Cada respuesta se convierte en entrada, salida y caché al precio del modelo. Los límites del plan y los presupuestos salen de esa misma base.",
+    "how.c3": "Ahorro medido", "how.c3b": "Las reglas detectan desperdicio, estiman su valor mensual y, una vez aplicadas, comparan antes y después por unidad de uso.",
+    "sources.lede": "Registros locales, API de uso y un proxy opcional confluyen en un solo panel.", "sources.artAlt": "Plataforma central de TokenBar conectada a Claude Code, Codex, API, proxy local y coste",
+    "hub.cost": "Coste", "hub.proxy": "Ollama · Gemini",
     "footer.license": "Licencia MIT", "footer.shotsNote": "La app está en inglés y portugués; las capturas se muestran en inglés."
   },
   de: {
@@ -542,7 +746,6 @@ const I18N = {
     "hero.lede": "TokenBar liest deine Nutzung aus Claude Code, Codex und den APIs, die du verwendest, zeigt, wie viel von deinen Limits übrig ist, und wo du sparen kannst — alles auf deinem Mac.",
     "hero.github": "Auf GitHub ansehen", "hero.install": "Installation",
     "hero.meta1": "Open Source (MIT)", "hero.meta2": "Kein Konto, keine Cloud", "hero.meta3": "App auf Englisch und Portugiesisch",
-    "hero.clock": "Do. 14:02", "hero.dialSub": "übrig in der Sitzung deines Claude-Plans", "hero.dialReset": "setzt in 2 Std. 44 Min. zurück",
     "proof.import": "Claude-Code-Logs in etwa 9 s importiert", "proof.exact": "Abweichung von einer unabhängigen Berechnung derselben Logs",
     "proof.sources": "Quellen: Claude Code, Codex, Claude-Plan, Anthropic, OpenAI, OpenRouter, Ollama und Gemini", "proof.privacy": "Gesprächsinhalt gespeichert — nur Token-Zählungen",
     "proof.note": "Gemessen auf dem Rechner des Autors während der Entwicklung: 10.768 Antworten, 3,92 Milliarden Tokens.",
@@ -565,6 +768,15 @@ const I18N = {
     "install.s2": "Repository klonen und den Installer ausführen:", "install.copy": "Kopieren", "install.copied": "Kopiert",
     "install.s3": "TokenBar öffnen: Der Willkommensbildschirm zeigt die gefundenen Quellen und schlägt Limits vor.",
     "install.note": "Eine signierte und notarisierte Version zum direkten Download ist in Arbeit.",
+    "nav.how": "So funktioniert's", "nav.sources": "Quellen",
+    "hero.cardTitle": "Claude-Sitzung", "hero.cardReset": "übrig · setzt in 2 Std. 44 Min. zurück · 16:46",
+    "hero.artAlt": "Chip mit dem TokenBar-Symbol auf einer Platine", "how.eyebrow": "So funktioniert's",
+    "how.title": "Intelligenz auf Systemebene", "how.lede": "Drei Ebenen arbeiten auf deinem Mac zusammen: Erfassung, Messung und Ersparnis. Keine davon braucht eine Cloud.",
+    "how.c1": "Inkrementelle Erfassung", "how.c1b": "Liest Claude-Code- und Codex-Logs in Abschnitten, nur Neues, dazu die APIs, die du verbindest. Erneutes Lesen zählt nie doppelt.",
+    "how.c2": "Kosten pro Antwort", "how.c2b": "Jede Antwort wird zu Eingabe, Ausgabe und Cache zum Modellpreis. Plan-Limits und Budgets beruhen auf derselben Basis.",
+    "how.c3": "Gemessene Ersparnis", "how.c3b": "Regeln finden Verschwendung, schätzen ihren Monatswert und vergleichen nach der Umsetzung vorher und nachher pro Nutzungseinheit.",
+    "sources.lede": "Lokale Logs, Nutzungs-APIs und ein optionaler Proxy laufen in einem Dashboard zusammen.", "sources.artAlt": "Zentrale TokenBar-Plattform, verbunden mit Claude Code, Codex, APIs, lokalem Proxy und Kosten",
+    "hub.cost": "Kosten", "hub.proxy": "Ollama · Gemini",
     "footer.license": "MIT-Lizenz", "footer.shotsNote": "Die App gibt es auf Englisch und Portugiesisch; Screenshots auf Englisch."
   }
 };
@@ -618,6 +830,7 @@ const PRIVACY = {
   de: [["Kein Gesprächstext wird gespeichert.", " Logs werden zeilenweise gelesen; nur Zählungen, Modell, Zeit und Projekt landen in der Datenbank."], ["Kein Konto, kein TokenBar-Server, keine Telemetrie.", " Die einzige automatische Verbindung ist die öffentliche Preistabelle, einmal täglich."], ["Schlüssel im macOS-Schlüsselbund.", " Nur zum Lesen von Nutzungsberichten."], ["Lokaler Proxy standardmäßig aus.", " Eingeschaltet lauscht er nur auf 127.0.0.1."]]
 };
 
+
 const LANGS = ["pt", "en", "es", "de"];
 let lang = "en";
 let tab = "overview";
@@ -646,7 +859,7 @@ function applyLang(next) {
   document.querySelectorAll("[data-shot-srcset]").forEach(el => { el.srcset = shot(el.dataset.shotSrcset); });
   document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
   document.getElementById("shotsNote").hidden = !t["footer.shotsNote"];
-  renderTabs(); renderSources(); renderPrivacy();
+  renderTabs(); renderSources(); renderPrivacy(); fitHubTags();
   try { localStorage.setItem("tokenbar.lang", lang); } catch (e) {}
 }
 
@@ -679,34 +892,306 @@ function renderPrivacy() {
     .map(([strong, rest]) => `<li><span><b>${strong}</b>${rest}</span></li>`).join("");
 }
 
-// Mostrador: escala 0–100% num arco de 270°; o ponteiro marca a fração usada (22%), a leitura mostra o que resta.
-function buildDial() {
-  const ticks = document.getElementById("ticks");
-  const cx = 200, cy = 190, r = 145;
-  for (let i = 0; i <= 100; i += 5) {
-    const angle = (-225 + i * 2.7) * Math.PI / 180;
-    const major = i % 25 === 0;
-    const inner = r - (major ? 30 : 22), outer = r - 14;
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", cx + inner * Math.cos(angle)); line.setAttribute("y1", cy + inner * Math.sin(angle));
-    line.setAttribute("x2", cx + outer * Math.cos(angle)); line.setAttribute("y2", cy + outer * Math.sin(angle));
-    line.setAttribute("stroke", "var(--muted)"); line.setAttribute("stroke-width", major ? 2 : 1);
-    line.setAttribute("opacity", major ? .9 : .45);
-    ticks.appendChild(line);
-    if (major) {
-      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      const lr = r - 46;
-      label.setAttribute("x", cx + lr * Math.cos(angle)); label.setAttribute("y", cy + lr * Math.sin(angle) + 4);
-      label.setAttribute("text-anchor", "middle"); label.textContent = i + "%";
-      ticks.appendChild(label);
-    }
-  }
-  const used = 22;
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    document.getElementById("dialFill").style.strokeDashoffset = String(100 - used);
-    document.getElementById("needle").style.transform = "rotate(" + (-135 + used * 2.7) + "deg)";
-  }));
+/* ---------- Isometria ---------- */
+
+// Projeção isométrica: x vai para a direita-baixo, y para a esquerda-baixo, z para cima.
+const COS = Math.cos(Math.PI / 6), SIN = 0.5;
+function iso(ox, oy, k = 1) {
+  const P = (x, y, z = 0) => [ox + (x - y) * COS * k, oy + ((x + y) * SIN - z) * k];
+  const pts = list => list.map(p => P(...p).map(n => n.toFixed(1)).join(",")).join(" ");
+  const f = n => n.toFixed(2);
+  return {
+    P,
+    poly: (list, cls) => `<polygon points="${pts(list)}" class="${cls}"/>`,
+    path: (list, cls, extra = "") => `<path d="M${list.map(p => P(...p).map(n => n.toFixed(1)).join(" ")).join(" L")}" class="${cls}" ${extra}/>`,
+    // Caixa com topo e as duas faces visíveis (+y à esquerda, +x à direita).
+    box(x, y, z, w, d, h, c) {
+      const e = c.e ? " " + c.e : "";
+      return this.poly([[x, y + d, z], [x + w, y + d, z], [x + w, y + d, z + h], [x, y + d, z + h]], c.l + e)
+        + this.poly([[x + w, y, z], [x + w, y + d, z], [x + w, y + d, z + h], [x + w, y, z + h]], c.r + e)
+        + this.poly([[x, y, z + h], [x + w, y, z + h], [x + w, y + d, z + h], [x, y + d, z + h]], c.t + e);
+    },
+    // Sistemas locais para desenhar em 2D sobre um plano: topo (u → +x, v → +y) e face frontal +y (u → +x, v para baixo).
+    top: (x, y, z) => { const [X, Y] = P(x, y, z); return `matrix(${f(COS * k)},${f(SIN * k)},${f(-COS * k)},${f(SIN * k)},${f(X)},${f(Y)})`; },
+    front: (x, y, z) => { const [X, Y] = P(x, y, z); return `matrix(${f(COS * k)},${f(SIN * k)},0,${f(k)},${f(X)},${f(Y)})`; },
+  };
 }
+
+function rng(seed) {
+  return () => {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+// Hero: chip com o ícone sobre uma placa de circuito, com pulsos correndo pelas trilhas até ele.
+function buildHero() {
+  const I = iso(320, 60);
+  const rand = rng(7);
+  const W = { t: "iso-top", l: "iso-l", r: "iso-r", e: "iso-edge" };
+  const B = { t: "iso-btop", l: "iso-bl", r: "iso-br" };
+  let back = "", front = "", pulses = "";
+
+  const sides = [[1, 0, 293], [-1, 0, 127], [0, 1, 293], [0, -1, 127]];
+  let n = 0;
+  sides.forEach(([dx, dy, edge]) => {
+    for (let i = 0; i < 6; i++) {
+      const t = 150 + i * 24 + rand() * 6;
+      const along = (a, b) => dx ? [edge + dx * a, t + b] : [t + b, edge + dy * a];
+      const out1 = 16 + rand() * 40, jog = (rand() < .5 ? -1 : 1) * (8 + rand() * 26), out2 = out1 + 40 + rand() * 90;
+      const pts = [along(0, 0), along(out1, 0), along(out1 + Math.abs(jog) * .6, jog), along(out2, jog)].map(([x, y]) => [x, y, 0]);
+      const line = I.path(pts, "trace");
+      const end = pts[pts.length - 1];
+      const pad = I.poly([[end[0] - 4, end[1] - 4, 0], [end[0] + 4, end[1] - 4, 0], [end[0] + 4, end[1] + 4, 0], [end[0] - 4, end[1] + 4, 0]], "pad");
+      const inFront = dx === 1 || dy === 1;
+      (inFront ? (s => front += s) : (s => back += s))(line + pad);
+      if (n++ % 2 === 0) {
+        pulses += I.path([...pts].reverse(), "pulse", `pathLength="100" style="--d:${(3.5 + rand() * 3).toFixed(1)}s;--delay:-${(rand() * 5).toFixed(1)}s"`);
+      }
+    }
+  });
+
+  // Componentes soltos na placa, desenhados de trás para a frente.
+  const parts = [];
+  for (let i = 0; i < 26; i++) {
+    const x = 10 + rand() * 400, y = 10 + rand() * 400;
+    if (Math.max(Math.abs(x - 210), Math.abs(y - 210)) < 120) continue;
+    const w = 8 + rand() * 22, d = 8 + rand() * 16, h = 2 + rand() * 6;
+    parts.push([x, y, w, d, h, rand() < .22]);
+  }
+  parts.sort((a, b) => (a[0] + a[1]) - (b[0] + b[1])).forEach(([x, y, w, d, h, blue]) => {
+    const s = I.box(x, y, 0, w, d, h, blue ? B : W);
+    x + y > 420 ? front += s : back += s;
+  });
+
+  // O chip: base, pinos, aro, vidro azul e o ícone projetado no topo.
+  let chip = `<polygon points="${[[135, 135], [300, 135], [300, 300], [135, 300]].map(([x, y]) => I.P(x + 10, y + 14, 0).join(",")).join(" ")}" fill="rgba(20,40,110,.28)" style="filter: blur(10px)"/>`;
+  chip += I.box(135, 135, 0, 150, 150, 22, W);
+  for (let p = 0; p < 10; p++) {
+    chip += I.box(285, 144 + p * 13.4, 1, 7, 6, 6, { t: "iso-l", l: "iso-l", r: "iso-l", e: "iso-edge" });
+    chip += I.box(144 + p * 13.4, 285, 1, 6, 7, 6, { t: "iso-l", l: "iso-l", r: "iso-l", e: "iso-edge" });
+  }
+  chip += I.box(143, 143, 22, 134, 134, 12, W);
+  chip += `<polygon class="glow" points="${[[150, 150], [270, 150], [270, 270], [150, 270]].map(([x, y]) => I.P(x, y, 36).join(",")).join(" ")}"/>`;
+  chip += I.box(154, 154, 34, 112, 112, 5, B);
+  chip += `<g transform="${I.top(166, 166, 39)}"><clipPath id="iconClip"><rect width="88" height="88" rx="20"/></clipPath>`
+    + `<image href="assets/icon.webp" width="88" height="88" clip-path="url(#iconClip)" preserveAspectRatio="xMidYMid slice"/></g>`;
+
+  document.getElementById("boardBack").innerHTML = back + pulses;
+  document.getElementById("chip").innerHTML = chip;
+  document.getElementById("boardFront").innerHTML = front;
+}
+
+// Desenhos em traço da seção técnica.
+function buildSystemArt() {
+  const W = { t: "wire draw", l: "wire draw", r: "wire draw" };
+  // 01: camadas empilhadas (logs lidos em fatias).
+  let I = iso(160, 120);
+  let s = "";
+  [0, 22, 44].forEach(z => { s += I.box(-36, -36, z, 72, 72, 10, W); });
+  s += I.path([[-36, -36, 10], [-36, -36, 22]], "wire-dash") + I.path([[-36, -36, 32], [-36, -36, 44]], "wire-dash");
+  document.getElementById("art1").innerHTML = s;
+
+  // 02: cubo com um recorte no topo (cada resposta medida por dentro).
+  I = iso(160, 136);
+  s = I.box(-38, -38, 0, 76, 76, 68, W);
+  s += I.poly([[-20, -20, 68], [20, -20, 68], [20, 20, 68], [-20, 20, 68]], "wire draw");
+  s += I.path([[-20, -20, 68], [-20, -20, 52]], "wire-line draw") + I.path([[-20, -20, 52], [20, -20, 52]], "wire-line draw") + I.path([[-20, -20, 52], [-20, 20, 52]], "wire-line draw");
+  document.getElementById("art2").innerHTML = s;
+
+  // 03: cone (o desperdício afunilado até um ponto).
+  const cx = 160, cy = 138, r = 50, h = 112;
+  const a = r * COS * Math.SQRT2, b = r * SIN * Math.SQRT2;
+  const ty = -b * b / h, tx = a * Math.sqrt(1 - (ty * ty) / (b * b));
+  const L = [cx - tx, cy + ty], R = [cx + tx, cy + ty], A = [cx, cy - h];
+  s = `<path class="wire draw" d="M${A} L${L} A${a} ${b} 0 0 0 ${R} Z"/>`
+    + `<path class="wire-dash" d="M${L} A${a} ${b} 0 0 1 ${R}"/>`
+    + `<path class="wire-dash" d="M${A} L${cx} ${cy}"/>`
+    + `<circle cx="${cx}" cy="${cy}" r="2.2" fill="#F47A4E"/>`;
+  document.getElementById("art3").innerHTML = s;
+}
+
+// Fontes: plataforma central do TokenBar ligada aos módulos de cada origem de dados.
+function buildHub() {
+  const I = iso(410, 322);
+  const W = { t: "h-top", l: "h-l", r: "h-r", e: "h-edge" };
+  const B = { t: "h-btop", l: "h-bl", r: "h-br", e: "h-edge" };
+  let s = "";
+
+  const shadow = (x, y, w, d) => `<polygon class="h-shadow" points="${[[x, y], [x + w, y], [x + w, y + d], [x, y + d]].map(([a, b]) => I.P(a + 8, b + 14, 0).join(",")).join(" ")}"/>`;
+  const plate = (cx, cy) => shadow(cx - 35, cy - 35, 70, 70) + I.box(cx - 35, cy - 35, 0, 70, 70, 12, W);
+
+  // Conectores: três fios paralelos por módulo, com pulsos indo até o centro.
+  const offs = [-14, 0, 14];
+  const routes = [
+    o => [[-100, o, 1], [-235, o, 1]],
+    o => [[o, -100, 1], [o, -235, 1]],
+    o => [[100, o, 1], [235, o, 1]],
+    o => [[o, 100, 1], [o, 235, 1]],
+    o => [[-50 + o, -100, 1], [-50 + o, -210 + o, 1], [-175, -210 + o, 1]],
+  ];
+  routes.forEach((route, i) => offs.forEach((o, j) => {
+    s += I.path(route(o), "h-wire");
+    if (j === 1) s += I.path(route(o).reverse(), "pulse", `pathLength="100" style="--d:${3 + i * .6}s;--delay:-${i * .9}s"`);
+  }));
+
+  // Topo: APIs (Anthropic, OpenAI, OpenRouter) — caixa com três encaixes.
+  s += plate(-210, -210);
+  s += I.box(-238, -238, 12, 56, 56, 22, W);
+  for (let i = 0; i < 3; i++) s += I.box(-232 + i * 17, -226, 34, 11, 32, 5, B);
+
+  // Direita-alto: Codex — torre.
+  s += plate(0, -270);
+  s += I.box(-26, -296, 12, 52, 52, 30, W) + I.box(-27, -297, 42, 54, 54, 10, B) + I.box(-26, -296, 52, 52, 52, 30, W);
+  s += `<g transform="${I.front(-16, -244, 78)}">${[0, 1, 2, 3, 4, 5].map(i => `<rect x="4" y="${i * 4}" width="24" height="1.6" fill="#8FA7D8"/>`).join("")}</g>`;
+
+  // Esquerda-alto: Claude Code — painel com gráfico.
+  s += plate(-270, 0);
+  s += I.box(-298, -6, 12, 56, 8, 64, W);
+  s += `<g transform="${I.front(-298, 2, 76)}">`
+    + [14, 22, 30, 40].map((v, i) => `<rect x="${7 + i * 7}" y="${56 - v}" width="4.5" height="${v - 4}" rx="1" fill="#2F63F0"/>`).join("")
+    + `<rect x="36" y="22" width="14" height="14" rx="3" fill="#2F63F0"/><rect x="7" y="7" width="42" height="4" rx="2" fill="#2F63F0" opacity=".85"/></g>`;
+
+  // Centro: TokenBar.
+  s += shadow(-100, -100, 200, 200);
+  s += I.box(-100, -100, 0, 200, 200, 24, B);
+  s += I.box(-88, -88, 24, 176, 176, 8, W);
+  s += I.box(-60, -60, 32, 120, 120, 34, W);
+  s += `<g transform="${I.front(-60, 60, 62)}">${[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => `<rect x="${30 + i * 5}" y="0" width="2" height="20" fill="#7E9AD6"/>`).join("")}</g>`;
+  s += I.box(-63, -63, 66, 126, 126, 14, B);
+  s += I.box(-58, -58, 80, 116, 116, 30, W);
+  s += `<g transform="${I.top(-40, -40, 110)}"><clipPath id="hubIconClip"><rect width="80" height="80" rx="18"/></clipPath>`
+    + `<image href="assets/icon.webp" width="80" height="80" clip-path="url(#hubIconClip)"/></g>`;
+
+  // Direita-baixo: custo — moeda em pé num suporte.
+  s += plate(270, 0);
+  s += I.box(242, -16, 12, 56, 32, 10, W);
+  s += `<g transform="${I.front(270, -5, 60)}"><circle r="34" fill="#173DA6"/></g>`;
+  s += `<g transform="${I.front(270, 1, 60)}"><circle r="34" fill="url(#hBlue)"/><circle r="27" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="30 12"/>`
+    + `<text text-anchor="middle" y="11" style="font: 700 30px var(--display); fill: #fff">$</text></g>`;
+
+  // Esquerda-baixo: proxy local (Ollama e Gemini) — caixa com grade de furos.
+  s += plate(0, 270);
+  s += I.box(-34, 236, 12, 68, 68, 26, B);
+  s += I.box(-30, 240, 38, 60, 60, 5, W);
+  s += `<g transform="${I.top(-30, 240, 43)}">${Array.from({ length: 36 }, (_, i) => `<circle cx="${7 + (i % 6) * 9.2}" cy="${7 + Math.floor(i / 6) * 9.2}" r="1.8" fill="#9FB4DD"/>`).join("")}</g>`;
+
+  // Etiquetas.
+  const tags = [
+    [-210, -210, "Anthropic · OpenAI · OpenRouter", null, "above"],
+    [0, -270, "Codex", null],
+    [-270, 0, "Claude Code", null],
+    [0, 0, "TokenBar", null, "center"],
+    [270, 0, "", "hub.cost"],
+    [0, 270, "Ollama · Gemini", "hub.proxy"],
+  ];
+  tags.forEach(([cx, cy, label, key, place]) => {
+    // Padrão: abaixo da placa; "center" abaixo da quina da plataforma; "above" acima do módulo.
+    const [X, Y] = place === "center" ? I.P(100, 100, 0) : place === "above" ? I.P(cx - 35, cy - 35, 34) : I.P(cx + 35, cy + 35, 0);
+    const y = place === "center" ? Y + 30 : place === "above" ? Y - 16 : Y + 24;
+    const x = place ? X : X - 30;
+    s += `<g class="hub-tag" transform="translate(${x.toFixed(1)},${y.toFixed(1)})"><rect class="tag-bg" x="0" y="-15" height="24" rx="12"/>`
+      + `<text x="0" y="1" text-anchor="middle"${key ? ` data-i18n="${key}"` : ""}>${label}</text></g>`;
+  });
+  document.getElementById("hubArt").innerHTML = s;
+}
+
+// Ajusta o fundo de cada etiqueta do hub ao texto (que muda com o idioma).
+function fitHubTags() {
+  document.querySelectorAll(".hub-tag").forEach(g => {
+    const text = g.querySelector("text"), rect = g.querySelector("rect");
+    let width = 0;
+    try { width = text.getComputedTextLength(); } catch (e) {}
+    if (!width) width = text.textContent.length * 7.6;
+    rect.setAttribute("x", (-width / 2 - 12).toFixed(1));
+    rect.setAttribute("width", (width + 24).toFixed(1));
+  });
+}
+
+/* ---------- Pontos flutuantes ---------- */
+
+// Cada ponto tem profundidade (velocidade de paralaxe) e um valor que é função da rolagem.
+const FLOATERS = [
+  { x: 3, y: .08, depth: .9, kind: "tok", label: "sonnet-5", base: 48200, side: true },
+  { x: 91, y: .16, depth: .6, kind: "pct", label: "5h", base: 62, side: true },
+  { x: 6, y: .34, depth: .45, kind: "bars", side: true },
+  { x: 88, y: .42, depth: 1, kind: "usd", label: "24h", base: 3.2, side: true },
+  { x: 2.5, y: .58, depth: .7, kind: "ring", base: 41, side: true },
+  { x: 93, y: .66, depth: .5, kind: "spark", side: true },
+  { x: 7, y: .8, depth: .85, kind: "tok", label: "cache", base: 912000, side: true },
+  { x: 90, y: .9, depth: .4, kind: "tok", label: "opus-5.5", base: 12900, side: true },
+  { x: 4, y: .96, depth: .55, kind: "usd", label: "7d", base: 21.4, side: true },
+  { x: 95, y: .28, depth: .75, kind: "pct", label: "7d", base: 36, side: true },
+  { x: 18, y: .2, depth: .3, kind: "dot" }, { x: 30, y: .62, depth: .25, kind: "dot" },
+  { x: 47, y: .12, depth: .5, kind: "dot" }, { x: 58, y: .74, depth: .35, kind: "dot" },
+  { x: 72, y: .38, depth: .6, kind: "dot" }, { x: 80, y: .86, depth: .3, kind: "dot" },
+  { x: 38, y: .92, depth: .45, kind: "dot" }, { x: 66, y: .05, depth: .4, kind: "dot" },
+];
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function compact(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "k";
+  return String(Math.round(n));
+}
+
+function buildFloaters() {
+  const layer = document.getElementById("floaters");
+  FLOATERS.forEach((f, i) => {
+    const el = document.createElement("div");
+    el.className = "floater" + (f.kind === "dot" ? " bare" : "") + (f.side ? " side-only" : "");
+    el.style.opacity = (0.35 + f.depth * 0.55).toFixed(2);
+    let inner = "";
+    if (f.kind === "bars") inner = `<svg width="54" height="26">${Array.from({ length: 7 }, (_, j) => `<rect x="${j * 8}" width="5" rx="1.5" fill="var(--float)"/>`).join("")}</svg>`;
+    else if (f.kind === "spark") inner = `<svg width="72" height="26"><polyline fill="none" stroke="var(--float)" stroke-width="1.6" stroke-linejoin="round"/></svg><b></b>`;
+    else if (f.kind === "ring") inner = `<svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--line)" stroke-width="3"/><circle cx="13" cy="13" r="10" fill="none" stroke="var(--float)" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 13 13)"/></svg><b></b>`;
+    else if (f.kind !== "dot") inner = `<b></b><span>${f.label}</span>`;
+    el.innerHTML = f.kind === "dot" ? `<span class="dot"></span>` : `<span class="dot"></span><span class="chip">${inner}</span>`;
+    layer.appendChild(el);
+    f.el = el; f.seed = i * 1.7;
+  });
+}
+
+let frame = 0;
+function updateFloaters() {
+  frame = 0;
+  const s = scrollY, vw = innerWidth, vh = innerHeight, H = vh + 160;
+  const max = Math.max(1, document.documentElement.scrollHeight - vh);
+  const p = s / max;
+  FLOATERS.forEach(f => {
+    const drift = reduceMotion ? 0 : s * f.depth * 0.55;
+    let y = (f.y * H - drift) % H; if (y < 0) y += H;
+    const x = f.x / 100 * vw + (reduceMotion ? 0 : Math.sin(s / 520 + f.seed) * 8);
+    const flip = f.x > 50 && f.kind !== "dot";
+    f.el.style.transform = `translate3d(${x.toFixed(1)}px, ${(y - 80).toFixed(1)}px, 0)` + (flip ? " translateX(-100%)" : "");
+    f.el.style.flexDirection = flip ? "row-reverse" : "row";
+
+    const wave = Math.sin(s / 640 + f.seed);
+    const b = f.el.querySelector("b");
+    if (f.kind === "tok") b.textContent = compact(f.base * (1 + p * 2.4 + wave * .18)) + " tok";
+    else if (f.kind === "usd") b.textContent = "$" + (f.base * (1 + p * 3 + wave * .12)).toFixed(2);
+    else if (f.kind === "pct") b.textContent = Math.round(Math.min(99, Math.max(1, f.base + p * 30 + wave * 12))) + "%";
+    else if (f.kind === "ring") {
+      const pct = Math.min(99, Math.max(3, f.base + p * 45 + wave * 10));
+      f.el.querySelectorAll("circle")[1].setAttribute("stroke-dasharray", pct.toFixed(1) + " 100");
+      b.textContent = Math.round(pct) + "%";
+    } else if (f.kind === "bars") {
+      f.el.querySelectorAll("rect").forEach((r, j) => {
+        const h = 5 + 21 * Math.abs(Math.sin(s / 260 + j * .8 + f.seed));
+        r.setAttribute("y", (26 - h).toFixed(1)); r.setAttribute("height", h.toFixed(1));
+      });
+    } else if (f.kind === "spark") {
+      const pts = Array.from({ length: 14 }, (_, j) => [j * 5.5, 13 - 10 * Math.sin(s / 300 + j * .55 + f.seed) * Math.cos(j * .3 + p * 4)]);
+      f.el.querySelector("polyline").setAttribute("points", pts.map(q => q.map(n => n.toFixed(1)).join(",")).join(" "));
+      b.textContent = (Math.round(s / 3) % 1000).toString().padStart(3, "0") + "/h";
+    }
+  });
+}
+function requestFloaters() { if (!frame) frame = requestAnimationFrame(updateFloaters); }
+
+/* ---------- Início ---------- */
 
 document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => applyLang(b.dataset.lang)));
 
@@ -728,6 +1213,19 @@ document.getElementById("copyBtn").addEventListener("click", async () => {
   }
 });
 
-buildDial();
+buildHero();
+buildSystemArt();
+buildHub();
+buildFloaters();
 applyLang(initialLang());
+updateFloaters();
+addEventListener("scroll", requestFloaters, { passive: true });
+addEventListener("resize", requestFloaters);
+requestAnimationFrame(() => requestAnimationFrame(() => { document.getElementById("readoutBar").style.width = "78%"; }));
+
+// Os desenhos da seção técnica se traçam quando aparecem.
+const seen = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add("seen"); seen.unobserve(e.target); }
+}), { threshold: .35 });
+document.querySelectorAll(".card").forEach(c => seen.observe(c));
 </script>
