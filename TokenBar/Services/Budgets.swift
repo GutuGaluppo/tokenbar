@@ -85,7 +85,17 @@ struct LimitStatus: Identifiable, Equatable {
 
     var resetText: String? {
         guard let resetsAt else { return nil }
-        return String(localized: "reinicia \(resetsAt.formatted(.relative(presentation: .named)))")
+        let relative = resetsAt.formatted(.relative(presentation: .named))
+        return String(localized: "reinicia \(relative) · \(Self.clockText(resetsAt))")
+    }
+
+    /// Horário do reinício: só a hora se for hoje, dia da semana + hora na próxima semana, data + hora depois.
+    static func clockText(_ date: Date, now: Date = .now, calendar: Calendar = .current) -> String {
+        let time = date.formatted(date: .omitted, time: .shortened)
+        if calendar.isDate(date, inSameDayAs: now) { return time }
+        let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: now), to: calendar.startOfDay(for: date)).day ?? 0
+        let day = days < 7 ? date.formatted(.dateTime.weekday(.abbreviated)) : date.formatted(.dateTime.day().month(.abbreviated))
+        return "\(day) \(time)"
     }
 }
 

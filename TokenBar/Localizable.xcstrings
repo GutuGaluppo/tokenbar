@@ -2891,12 +2891,12 @@
         }
       }
     },
-    "reinicia %@": {
+    "reinicia %@ · %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "resets %@"
+            "value": "resets %1$@ · %2$@"
           }
         }
       }
