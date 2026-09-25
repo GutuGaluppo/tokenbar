@@ -10,6 +10,8 @@
 
 <p align="center">
   <a href="https://github.com/GutuGaluppo/tokenbar/actions/workflows/ci.yml"><img src="https://github.com/GutuGaluppo/tokenbar/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <br>
+  <a href="https://gutugaluppo.github.io/tokenbar/"><b>Site do TokenBar</b></a>
 </p>
 
 ---
