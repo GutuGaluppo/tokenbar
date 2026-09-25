@@ -17,4 +17,11 @@ enum TokenFormat {
     static func usd(_ value: Double) -> String {
         value.formatted(.currency(code: "USD"))
     }
+
+    /// Horário de um reinício: só a hora se for hoje, dia da semana + hora na próxima semana, data + hora depois.
+    static func resetClockStyle(for date: Date, now: Date = .now, calendar: Calendar = .current) -> Date.FormatStyle {
+        if calendar.isDate(date, inSameDayAs: now) { return .dateTime.hour().minute() }
+        let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: now), to: calendar.startOfDay(for: date)).day ?? 0
+        return days < 7 ? .dateTime.weekday(.abbreviated).hour().minute() : .dateTime.day().month(.abbreviated).hour().minute()
+    }
 }

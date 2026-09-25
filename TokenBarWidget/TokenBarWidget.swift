@@ -72,9 +72,7 @@ struct UsageWidgetView: View {
                     .font(.caption.weight(.semibold))
                     .frame(maxWidth: .infinity)
                 if let resetsAt = main.resetsAt {
-                    Text(resetsAt, style: .relative)
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                    ResetLabel(date: resetsAt, showsCountdown: true)
                         .frame(maxWidth: .infinity)
                 }
             } else {
@@ -94,6 +92,9 @@ struct UsageWidgetView: View {
                 if let main = snapshot.limits.first {
                     RemainingGauge(limit: main)
                     Text(main.title).font(.caption.weight(.semibold))
+                    if let resetsAt = main.resetsAt {
+                        ResetLabel(date: resetsAt, showsCountdown: false)
+                    }
                 }
                 Spacer(minLength: 0)
                 todayLine(snapshot)
@@ -103,8 +104,11 @@ struct UsageWidgetView: View {
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(snapshot.limits.dropFirst().prefix(3)) { limit in
                     VStack(alignment: .leading, spacing: 2) {
-                        HStack {
+                        HStack(spacing: 4) {
                             Text(limit.title).font(.caption)
+                            if let resetsAt = limit.resetsAt {
+                                ResetLabel(date: resetsAt, showsCountdown: false)
+                            }
                             Spacer()
                             Text("restam \(limit.remaining.formatted(.percent.precision(.fractionLength(0))))")
                                 .font(.caption.monospacedDigit())
@@ -130,6 +134,26 @@ struct UsageWidgetView: View {
             .foregroundStyle(.secondary)
             .lineLimit(1)
             .minimumScaleFactor(0.8)
+    }
+}
+
+/// Horário do reinício, opcionalmente depois da contagem regressiva ("2 h, 14 min · 17:40").
+struct ResetLabel: View {
+    let date: Date
+    let showsCountdown: Bool
+
+    var body: some View {
+        HStack(spacing: 0) {
+            if showsCountdown {
+                Text(date, style: .relative)
+                Text(verbatim: " · ")
+            }
+            Text(date, format: TokenFormat.resetClockStyle(for: date))
+        }
+        .font(.caption2.monospacedDigit())
+        .foregroundStyle(.secondary)
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
     }
 }
 
