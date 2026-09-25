@@ -41,6 +41,9 @@ struct DashboardWindow: View {
             let target = raw == "popover" ? DemoMode.popoverWindowID : WindowID.dashboard
             NSApp.windows.first { $0.identifier?.rawValue.hasPrefix(target) == true }?.makeKeyAndOrderFront(nil)
             if let section = SidebarSection(rawValue: raw) { navigation.section = section }
+            // "period:last30" / "metric:tokensTotal" mudam a toolbar (capturas animadas).
+            if raw.hasPrefix("period:"), let preset = PeriodPreset(rawValue: String(raw.dropFirst(7))) { analytics.preset = preset }
+            if raw.hasPrefix("metric:"), let metric = UsageMetric(rawValue: String(raw.dropFirst(7))) { analytics.metric = metric }
         }
         .onChange(of: showDockIcon) { _, show in
             NSApp.setActivationPolicy(show ? .regular : .accessory)

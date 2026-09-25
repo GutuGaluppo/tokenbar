@@ -73,7 +73,11 @@ extension DemoMode {
                     : roll < 0.93 ? "claude-opus-5" : "claude-haiku-4-5"
                 let tool = isCodex ? "Codex (VS Code)" : claudeTools.randomElement(using: &generator)!
 
-                var contextSize = Int.random(in: 28_000...70_000, using: &generator)
+                // Nos últimos dias a demonstração "aplica" as dicas: sessões começam mais enxutas e são
+                // compactadas, para a tela de economia realizada ter um exemplo positivo.
+                let adoptedTips = dayOffset < 5
+                var contextSize = adoptedTips ? Int.random(in: 18_000...30_000, using: &generator)
+                                              : Int.random(in: 28_000...70_000, using: &generator)
                 let turns = Int.random(in: 12...55, using: &generator)
                 for turn in 0..<turns {
                     let timestamp = start.addingTimeInterval(Double(turn) * Double.random(in: 40...150, using: &generator))
@@ -84,7 +88,7 @@ extension DemoMode {
                     let output = longOutput ? Int.random(in: 9_000...16_000, using: &generator)
                                             : Int.random(in: 120...2_800, using: &generator)
                     let cacheRead = turn == 0 ? 0 : contextSize
-                    contextSize = min(contextSize + cacheWrite + output / 2, 420_000)
+                    contextSize = min(contextSize + cacheWrite + output / 2, adoptedTips ? 140_000 : 420_000)
 
                     let tokens = TokenCounts(input: newInput, output: output, cacheWrite1h: cacheWrite, cacheRead: cacheRead)
                     // Preço ilustrativo para o Codex (a tabela real não tem os modelos da OpenAI).
