@@ -10,8 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/GutuGaluppo/tokenbar/actions/workflows/ci.yml"><img src="https://github.com/GutuGaluppo/tokenbar/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <br>
-  <a href="https://gutugaluppo.github.io/tokenbar/"><b>Site do TokenBar</b></a>
+  <a href="https://gutugaluppo.github.io/tokenbar/"><img src="https://img.shields.io/badge/site-gutugaluppo.github.io%2Ftokenbar-2F63F0" alt="Site"></a>
 </p>
 
 ---
@@ -43,19 +42,21 @@ TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do
 
 <sub>Dados fictícios, gerados pelo modo de demonstração.</sub>
 
+Tour animado, todas as telas e a comparação antes/depois das dicas estão no **[site do TokenBar](https://gutugaluppo.github.io/tokenbar/)**, em português, inglês, espanhol e alemão.
+
 ## Funcionalidades
 
 | Área | O que mostra |
 | --- | --- |
 | **Ícone na barra** | Tokens de hoje, custo de hoje, % da sessão do plano Claude (usado ou restante) ou % do limite mais próximo. Vira um aviso a partir de 80%. |
 | **Popover** | Hoje (tokens, custo, variação vs. média de 7 dias), limites, fontes, últimas 24 h, top modelos e dica do dia. |
-| **Overview** | Período escolhido (hoje, 7/30/90 dias ou personalizado): custo, tokens, cache, respostas, gráfico por dia/hora e ranking de modelos. |
+| **Overview** | Limites com contagem regressiva e horário do reinício, e o período escolhido (hoje, 7/30/90 dias ou personalizado): custo, tokens, cache, respostas, gráfico por dia/hora e ranking de modelos. |
 | **Modelos** | Tabela ordenável por modelo: entrada, saída, cache, respostas, custo e participação. |
 | **Projetos** | Consumo por projeto (raiz do repositório git) ou por ferramenta, com os modelos de cada um. |
 | **Atividade** | Calendário de 26 semanas, mapa dia da semana × hora e horário de pico. |
 | **Dicas** | Recomendações de economia com valor estimado por mês, passos para aplicar e **economia realizada** depois de aplicadas. |
 | **Orçamentos** | Limites de custo diário/mensal, estimativa dos limites do Claude Code e alertas nativos em 50/80/95%. |
-| **Widget** | Anel com o que resta da sessão do plano, outros limites e o consumo de hoje (pequeno e médio). |
+| **Widget** | Anel com o que resta da sessão do plano, outros limites com o horário do reinício e o consumo de hoje (pequeno e médio). |
 | **Extras** | Exportação do histórico em CSV (Ajustes → Dados) e atalho global ⌥⌘T para abrir o painel (desligado por padrão). |
 | **Idiomas** | Português e inglês. Segue o idioma do macOS ou o escolhido em Ajustes → Idioma (vale ao reiniciar o app). |
 
@@ -172,6 +173,8 @@ flowchart LR
 | `Config` | `Base.xcconfig` (time, identificadores, App Group, versão) e Info.plist do app |
 | `TokenBarTests` | Testes (Swift Testing) |
 | `scripts` | `install.sh` e `set-icon.swift` (aplica uma arte ao AppIcon) |
+| `site` | Landing page estática, publicada no GitHub Pages pelo workflow `pages.yml` a cada push que altera a pasta |
+| `.github/workflows` | `ci.yml` (testes e build Release) e `pages.yml` (publica o site) |
 
 ## Limitações conhecidas
 
