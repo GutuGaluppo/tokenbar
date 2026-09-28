@@ -58,6 +58,7 @@ Tour animado, todas as telas e a comparação antes/depois das dicas estão no *
 | **Orçamentos** | Limites de custo diário/mensal, estimativa dos limites do Claude Code e alertas nativos em 50/80/95%. |
 | **Widget** | Anel com o que resta da sessão do plano, outros limites com o horário do reinício e o consumo de hoje (pequeno e médio). |
 | **Extras** | Exportação do histórico em CSV (Ajustes → Dados) e atalho global ⌥⌘T para abrir o painel (desligado por padrão). |
+| **Solução de problemas** | Estado atual de cada fonte e os problemas conhecidos, com os passos para resolver; abre sozinho o item do problema que está acontecendo. |
 | **Idiomas** | Português e inglês. Segue o idioma do macOS ou o escolhido em Ajustes → Idioma (vale ao reiniciar o app). |
 
 ### Fontes de dados
@@ -181,9 +182,28 @@ flowchart LR
 - Ollama e Gemini só são medidos quando as chamadas passam pelo proxy local (desligado por padrão); apps que falam direto com eles não aparecem.
 
 - O endpoint do plano Claude é o mesmo que o `/usage` do Claude Code consulta; não é documentado e pode mudar sem aviso.
+- A leitura do plano depende do login do `claude` de terminal ou do VS Code estar em dia; o app desktop do Claude não o renova (veja [Solução de problemas](#solução-de-problemas)).
 - Os limites de Pro/Max estimados a partir dos logs são aproximações; a leitura do plano traz os números reais.
 - A Admin API da Anthropic não existe para contas individuais, só para organizações.
 - Se o Claude Code usa uma chave de API da mesma organização, conectar também a API Anthropic conta esse consumo em dobro — use só uma das fontes.
+
+## Solução de problemas
+
+O app tem a mesma lista em **Solução de problemas**, no painel, com o estado atual de cada fonte.
+
+**Os limites do plano Claude sumiram ou aparece "login expirou".** O TokenBar lê o login que o Claude Code guarda no Keychain (`Claude Code-credentials`) e nunca o renova. Quem renova é o `claude` de terminal ou da extensão do VS Code, e só quando faz uma chamada. O app desktop do Claude usa um login próprio e não atualiza esse item: se você só usa o app desktop, o token de acesso vence em algumas horas e o login inteiro em alguns dias.
+
+1. Rode `claude` no Terminal e mande qualquer mensagem.
+2. Se ele pedir login, ou o TokenBar disser que o login venceu, digite `/login`.
+3. Em Ajustes → Plano Claude, clique em **Atualizar agora**.
+
+**O macOS pede acesso ao Keychain de novo.** É esperado. Quando o Claude Code regrava o login (depois de um `/login`, por exemplo), o macOS recria o item e descarta as autorizações anteriores, incluindo o "Sempre permitir" do TokenBar. Escolha **Sempre permitir** outra vez: "Permitir" vale só para uma leitura, e o pedido volta a cada 3 minutos.
+
+**O uso de hoje não aparece ou uma fonte parou.** Claude Code e Codex vêm dos logs em `~/.claude/projects` e `~/.codex/sessions`, que valem para o terminal, o VS Code e o app desktop, sem depender de login. "Não encontrado nesta máquina" quer dizer que a pasta não existe. Em Ajustes → Ferramentas locais, use **Atualizar agora** ou, se os números continuarem errados, **Reimportar histórico**.
+
+**O uso do Ollama ou do Gemini não aparece.** Só chamadas que passam pelo proxy local são medidas. Ligue o proxy em Ajustes e aponte os apps para ele (`OLLAMA_HOST=127.0.0.1:11435`, ou `http://127.0.0.1:11435/gemini` como endereço base no SDK do Gemini).
+
+Se nada disso resolver, abra uma [issue](https://github.com/GutuGaluppo/tokenbar/issues) com o que aparece na seção do app, sem tokens, chaves ou conteúdo de conversas.
 
 ## Roadmap
 

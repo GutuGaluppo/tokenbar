@@ -37,7 +37,7 @@ final class ClaudePlanUsage {
     /// Chamado após cada atualização (o UsageStore recalcula os limites).
     @ObservationIgnored var onUpdate: (() -> Void)?
     @ObservationIgnored private var timer: Timer?
-    @ObservationIgnored private var cachedToken: (value: String, expiresAt: Date?)?
+    @ObservationIgnored private var cachedToken: StoredToken?
     @ObservationIgnored private var inFlight = false
     private static let log = Logger(subsystem: "dev.galuppo.TokenBar", category: "PlanUsage")
     private static let pollInterval: TimeInterval = 180
@@ -82,13 +82,26 @@ final class ClaudePlanUsage {
     }
 
     private func load() async {
-        guard let token = token() else {
-            phase = .needsLogin(String(localized: "Login do Claude Code não encontrado no Keychain. Entre no Claude Code com sua conta Pro/Max."))
+        let token: StoredToken
+        switch readToken() {
+        case .found(let found):
+            token = found
+        case .notFound:
+            phase = .needsLogin(String(localized: "Login do Claude Code não encontrado no Keychain. Rode claude no Terminal e faça /login com sua conta Pro/Max."))
+            return
+        case .denied:
+            phase = .needsLogin(String(localized: "Acesso ao Keychain negado. Clique em Atualizar agora e escolha \"Sempre permitir\" no pedido do macOS."))
             return
         }
         if let expiresAt = token.expiresAt, expiresAt < .now {
             cachedToken = nil
-            phase = .needsLogin(String(localized: "O login do Claude Code expirou. Abra o Claude Code (ele renova sozinho) e tente de novo."))
+            // O app desktop do Claude usa um login próprio e não renova este item: só o claude de
+            // terminal (ou do VS Code) renova, e só ao fazer uma chamada.
+            if let refreshExpiresAt = token.refreshExpiresAt, refreshExpiresAt < .now {
+                phase = .needsLogin(String(localized: "O login do Claude Code venceu. Rode claude no Terminal e faça /login; depois clique em Atualizar agora."))
+            } else {
+                phase = .needsLogin(String(localized: "O token do Claude Code expirou. Rode claude no Terminal e mande uma mensagem para renová-lo; depois clique em Atualizar agora."))
+            }
             return
         }
 
@@ -113,7 +126,7 @@ final class ClaudePlanUsage {
                 Self.log.notice("sessão \(self.session?.utilization ?? -1, privacy: .public)% · semana \(self.week?.utilization ?? -1, privacy: .public)%")
             case 401, 403:
                 cachedToken = nil   // relê do Keychain na próxima vez (o Claude Code pode ter renovado)
-                phase = .needsLogin(String(localized: "Login do Claude Code recusado (HTTP \(status)). Abra o Claude Code para renovar."))
+                phase = .needsLogin(String(localized: "Login do Claude Code recusado (HTTP \(status)). Rode claude no Terminal e mande uma mensagem (ou faça /login)."))
             default:
                 phase = .failed("HTTP \(status)")
             }
@@ -135,8 +148,20 @@ final class ClaudePlanUsage {
 
     // MARK: - Keychain
 
-    private func token() -> (value: String, expiresAt: Date?)? {
-        if let cachedToken, cachedToken.expiresAt.map({ $0 > .now }) ?? true { return cachedToken }
+    private struct StoredToken {
+        let value: String
+        let expiresAt: Date?
+        let refreshExpiresAt: Date?
+    }
+
+    private enum TokenLookup {
+        case found(StoredToken)
+        case notFound
+        case denied   // o usuário recusou o pedido do macOS ou o acesso não pôde ser pedido
+    }
+
+    private func readToken() -> TokenLookup {
+        if let cachedToken, cachedToken.expiresAt.map({ $0 > .now }) ?? true { return .found(cachedToken) }
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: "Claude Code-credentials",
@@ -144,20 +169,30 @@ final class ClaudePlanUsage {
             kSecMatchLimit as String: kSecMatchLimitOne,
         ]
         var item: CFTypeRef?
-        guard SecItemCopyMatching(query as CFDictionary, &item) == errSecSuccess,
-              let data = item as? Data,
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        switch status {
+        case errSecSuccess: break
+        case errSecUserCanceled, errSecAuthFailed, errSecInteractionNotAllowed: return .denied
+        default: return .notFound
+        }
+        guard let data = item as? Data,
               let credentials = try? JSONDecoder().decode(Credentials.self, from: data),
               let oauth = credentials.claudeAiOauth
-        else { return nil }
-        let expires = oauth.expiresAt.map { Date(timeIntervalSince1970: $0 / 1000) }
-        cachedToken = (oauth.accessToken, expires)
-        return cachedToken
+        else { return .notFound }
+        let token = StoredToken(
+            value: oauth.accessToken,
+            expiresAt: oauth.expiresAt.map { Date(timeIntervalSince1970: $0 / 1000) },
+            refreshExpiresAt: oauth.refreshTokenExpiresAt.map { Date(timeIntervalSince1970: $0 / 1000) }
+        )
+        cachedToken = token
+        return .found(token)
     }
 
     private struct Credentials: Decodable {
         struct OAuth: Decodable {
             let accessToken: String
-            let expiresAt: Double?   // milissegundos
+            let expiresAt: Double?              // milissegundos
+            let refreshTokenExpiresAt: Double?  // milissegundos; ausente em logins mais antigos
         }
         let claudeAiOauth: OAuth?
     }

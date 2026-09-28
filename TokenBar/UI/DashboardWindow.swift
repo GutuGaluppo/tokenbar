@@ -67,6 +67,8 @@ struct DashboardWindow: View {
             TipsView()
         case .budgets:
             BudgetsView()
+        case .troubleshooting:
+            TroubleshootingView()
         }
     }
 }

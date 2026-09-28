@@ -92,7 +92,12 @@ struct SettingsView: View {
                 ))
                 if planUsage.isEnabled {
                     PlanUsageStatusRow()
-                    Button("Atualizar agora") { planUsage.refresh(force: true) }
+                    HStack {
+                        Button("Atualizar agora") { planUsage.refresh(force: true) }
+                        if planUsage.needsAttention {
+                            Button("Solução de problemas…") { navigation.section = .troubleshooting }
+                        }
+                    }
                 }
             } header: {
                 Text("Plano Claude (Pro/Max)")

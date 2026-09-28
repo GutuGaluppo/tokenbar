@@ -291,12 +291,32 @@
         }
       }
     },
+    "Abra uma issue com o que aparece no alto desta página. Não inclua tokens, chaves nem conteúdo de conversas.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open an issue with what the top of this page shows. Don’t include tokens, keys or conversation content."
+          }
+        }
+      }
+    },
     "Abrir": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Open"
+          }
+        }
+      }
+    },
+    "Abrir Ajustes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Settings"
           }
         }
       }
@@ -317,6 +337,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open dashboard"
+          }
+        }
+      }
+    },
+    "Acesso ao Keychain negado. Clique em Atualizar agora e escolha \"Sempre permitir\" no pedido do macOS.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keychain access denied. Click Refresh now and choose \"Always Allow\" in the macOS prompt."
           }
         }
       }
@@ -447,6 +477,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Applied it"
+          }
+        }
+      }
+    },
+    "Aponte seus apps para o proxy. No terminal, antes de usar o ollama:": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Point your apps to the proxy. In Terminal, before using ollama:"
           }
         }
       }
@@ -801,6 +841,16 @@
         }
       }
     },
+    "Confira o estado da fonte no alto desta página. \"Não encontrado nesta máquina\" quer dizer que a pasta não existe: a ferramenta ainda não foi usada neste Mac.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the source’s status at the top of this page. \"Not found on this Mac\" means the folder doesn’t exist: the tool hasn’t been used on this Mac yet."
+          }
+        }
+      }
+    },
     "Consumo e custo em tempo real, a um clique": {
       "localizations": {
         "en": {
@@ -817,6 +867,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Continue"
+          }
+        }
+      }
+    },
+    "Copiado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copied"
+          }
+        }
+      }
+    },
+    "Copiar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy"
           }
         }
       }
@@ -1111,6 +1181,26 @@
         }
       }
     },
+    "Em Ajustes → Ferramentas locais, clique em Atualizar agora. Se os números continuarem errados, use Reimportar histórico.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Settings → Local tools, click Refresh now. If the numbers are still wrong, use Reimport history."
+          }
+        }
+      }
+    },
+    "Em Ajustes → Proxy local, ligue o proxy e confira se ele está escutando.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Settings → Local proxy, turn the proxy on and check that it’s listening."
+          }
+        }
+      }
+    },
     "Em tarefas rotineiras, reduza o esforço (effort low/medium) antes de trocar de modelo.": {
       "localizations": {
         "en": {
@@ -1201,6 +1291,16 @@
         }
       }
     },
+    "Escolha \"Sempre permitir\" no pedido. \"Permitir\" vale só uma vez, e o pedido volta a cada leitura (a cada 3 min).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose \"Always Allow\" in the prompt. \"Allow\" only works once, and the prompt comes back on every read (every 3 min)."
+          }
+        }
+      }
+    },
     "Escrita cache": {
       "localizations": {
         "en": {
@@ -1227,6 +1327,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "This tip has no savings measurement."
+          }
+        }
+      }
+    },
+    "Estado atual": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current status"
           }
         }
       }
@@ -1481,22 +1591,22 @@
         }
       }
     },
-    "Login do Claude Code não encontrado no Keychain. Entre no Claude Code com sua conta Pro/Max.": {
+    "Login do Claude Code não encontrado no Keychain. Rode claude no Terminal e faça /login com sua conta Pro/Max.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Claude Code login not found in the Keychain. Sign in to Claude Code with your Pro/Max account."
+            "value": "Claude Code login not found in the Keychain. Run claude in Terminal and /login with your Pro/Max account."
           }
         }
       }
     },
-    "Login do Claude Code recusado (HTTP %lld). Abra o Claude Code para renovar.": {
+    "Login do Claude Code recusado (HTTP %lld). Rode claude no Terminal e mande uma mensagem (ou faça /login).": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Claude Code login rejected (HTTP %lld). Open Claude Code to renew it."
+            "value": "Claude Code login rejected (HTTP %lld). Run claude in Terminal and send a message (or /login)."
           }
         }
       }
@@ -1711,6 +1821,16 @@
         }
       }
     },
+    "Nada disso resolveu": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None of this helped"
+          }
+        }
+      }
+    },
     "Nenhum limite definido": {
       "localizations": {
         "en": {
@@ -1757,6 +1877,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "In Claude Code: type /model and choose Opus 5.5, or set \"model\": \"claude-opus-5-5\" in ~/.claude/settings.json."
+          }
+        }
+      }
+    },
+    "No Gemini, use o endereço base do proxy no SDK:": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For Gemini, use the proxy’s base URL in the SDK:"
           }
         }
       }
@@ -1831,6 +1961,26 @@
         }
       }
     },
+    "O Claude Code e o Codex são lidos dos logs em `~/.claude/projects` e `~/.codex/sessions`, que valem para o terminal, o VS Code e o app desktop. Isso não depende de login.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code and Codex are read from the logs in `~/.claude/projects` and `~/.codex/sessions`, which cover the terminal, VS Code and the desktop app. This doesn’t depend on any login."
+          }
+        }
+      }
+    },
+    "O Ollama e o Gemini só são medidos pelo proxy local: chamadas que não passam por ele não são contadas.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama and Gemini are only measured through the local proxy: calls that don’t go through it aren’t counted."
+          }
+        }
+      }
+    },
     "O Ollama não registra tokens e o Gemini não tem API de histórico de uso: o proxy fica entre seus apps e esses serviços e anota só as contagens das respostas. Escuta apenas neste Mac; o conteúdo passa direto e não é guardado.": {
       "localizations": {
         "en": {
@@ -1847,6 +1997,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Opus 5.5 defaults to medium effort (Opus 5 uses high): adjust the effort if you notice a quality difference."
+          }
+        }
+      }
+    },
+    "O TokenBar lê o login que o Claude Code guarda no Keychain e nunca o renova, para não interferir nele. Quem renova é o `claude` de terminal (ou da extensão do VS Code), e só quando faz uma chamada. O app desktop do Claude usa um login próprio e **não** renova esse item: se você só usa o app desktop, o token vence em algumas horas e o login inteiro vence em alguns dias.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TokenBar reads the login Claude Code keeps in the Keychain and never renews it, so it doesn’t interfere with it. Renewal is done by the terminal `claude` (or the VS Code extension), and only when it makes a call. The Claude desktop app uses its own login and does **not** renew this item: if you only use the desktop app, the token expires within hours and the whole login within days."
           }
         }
       }
@@ -1881,12 +2041,22 @@
         }
       }
     },
-    "O login do Claude Code expirou. Abra o Claude Code (ele renova sozinho) e tente de novo.": {
+    "O login do Claude Code venceu. Rode claude no Terminal e faça /login; depois clique em Atualizar agora.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The Claude Code login expired. Open Claude Code (it renews automatically) and try again."
+            "value": "The Claude Code login has expired. Run claude in Terminal and /login, then click Refresh now."
+          }
+        }
+      }
+    },
+    "O macOS pede acesso ao Keychain de novo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS asks for Keychain access again"
           }
         }
       }
@@ -1897,6 +2067,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "What the charts and rankings measure"
+          }
+        }
+      }
+    },
+    "O token do Claude Code expirou. Rode claude no Terminal e mande uma mensagem para renová-lo; depois clique em Atualizar agora.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Claude Code token expired. Run claude in Terminal and send a message to renew it, then click Refresh now."
+          }
+        }
+      }
+    },
+    "O uso de hoje não aparece ou uma fonte parou": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today’s usage doesn’t show or a source stopped"
+          }
+        }
+      }
+    },
+    "O uso do Ollama ou do Gemini não aparece": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ollama or Gemini usage doesn’t show"
           }
         }
       }
@@ -1957,6 +2157,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pro/Max limits aren't public. Counts input + output + cache writes (no cache reads). To calibrate: when Claude tells you you've hit the limit, use the current block value as a reference."
+          }
+        }
+      }
+    },
+    "Os limites do plano Claude sumiram ou aparece \"login expirou\"": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude plan limits disappeared or \"login expired\" shows"
           }
         }
       }
@@ -2201,6 +2411,16 @@
         }
       }
     },
+    "Problemas conhecidos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Known issues"
+          }
+        }
+      }
+    },
     "Projeto": {
       "localizations": {
         "en": {
@@ -2321,12 +2541,42 @@
         }
       }
     },
+    "Rode o Claude Code no Terminal e mande qualquer mensagem:": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run Claude Code in Terminal and send any message:"
+          }
+        }
+      }
+    },
     "Saída": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Output"
+          }
+        }
+      }
+    },
+    "Se ele pedir login, ou se a mensagem aqui disser que o login venceu, digite `/login` dentro do Claude Code.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If it asks you to log in, or the message here says the login expired, type `/login` inside Claude Code."
+          }
+        }
+      }
+    },
+    "Se você clicou em Negar, clique em Atualizar agora para o pedido aparecer outra vez.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you clicked Deny, click Refresh now to see the prompt again."
           }
         }
       }
@@ -2497,6 +2747,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "System"
+          }
+        }
+      }
+    },
+    "Solução de problemas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Troubleshooting"
+          }
+        }
+      }
+    },
+    "Solução de problemas…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Troubleshooting…"
           }
         }
       }
@@ -2747,6 +3017,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Back"
+          }
+        }
+      }
+    },
+    "Volte e clique em Atualizar agora. Se o macOS pedir acesso ao Keychain, escolha \"Sempre permitir\".": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come back and click Refresh now. If macOS asks for Keychain access, choose \"Always Allow\"."
           }
         }
       }
@@ -3017,6 +3297,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "y1"
+          }
+        }
+      }
+    },
+    "É esperado. Quando o Claude Code regrava o login (por exemplo depois de um `/login`), o macOS recria o item no Keychain e descarta as autorizações anteriores, incluindo o \"Sempre permitir\" do TokenBar.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is expected. When Claude Code rewrites its login (after a `/login`, for example), macOS recreates the Keychain item and drops earlier authorizations, including TokenBar’s \"Always Allow\"."
           }
         }
       }

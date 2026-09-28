@@ -1,7 +1,7 @@
 import Observation
 
 enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
-    case overview, models, projects, activity, tips, budgets, settings
+    case overview, models, projects, activity, tips, budgets, settings, troubleshooting
 
     var id: String { rawValue }
 
@@ -14,6 +14,7 @@ enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
         case .tips: String(localized: "Dicas")
         case .budgets: String(localized: "Orçamentos")
         case .settings: String(localized: "Ajustes")
+        case .troubleshooting: String(localized: "Solução de problemas")
         }
     }
 
@@ -31,6 +32,7 @@ enum SidebarSection: String, CaseIterable, Identifiable, Hashable {
         case .tips: "lightbulb"
         case .budgets: "dollarsign.circle"
         case .settings: "gearshape"
+        case .troubleshooting: "stethoscope"
         }
     }
 }
