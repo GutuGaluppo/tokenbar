@@ -19,10 +19,12 @@ enum Fixtures {
         timestamp: String = "2026-09-20T10:00:00.000Z",
         cwd: String = "/nonexistent-tokenbar/demo-project",
         entrypoint: String = "claude-vscode",
-        session: String = "session-1"
+        session: String = "session-1",
+        isSidechain: Bool = false
     ) -> String {
         json([
             "type": type,
+            "isSidechain": isSidechain,
             "timestamp": timestamp,
             "requestId": request,
             "sessionId": session,

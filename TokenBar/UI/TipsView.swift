@@ -3,10 +3,22 @@ import SwiftUI
 /// Seção "Dicas": recomendações ordenadas pela economia estimada.
 struct TipsView: View {
     @Environment(TipsStore.self) private var tipsStore
+    @Environment(LiveSessionsStore.self) private var live
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
+                if !live.sessions.isEmpty {
+                    Text("Agora")
+                        .font(.title3.weight(.semibold))
+                    ForEach(live.sessions) { session in
+                        LiveSessionView(session: session)
+                            .padding(14)
+                            .background(.quaternary.opacity(0.5), in: .rect(cornerRadius: 12))
+                    }
+                    Divider().padding(.vertical, 4)
+                }
+
                 header
 
                 if tipsStore.tips.isEmpty {

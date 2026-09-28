@@ -20,6 +20,11 @@ final class UsageEvent {
     var cacheWriteTokens: Int
     var cacheReadTokens: Int
     var costUSD: Double
+    /// Parte da escrita de cache com duração de 1 h (o resto dura 5 min). Define quanto tempo o cache
+    /// da sessão fica quente.
+    var cacheWrite1hTokens: Int = 0
+    /// Resposta de um subagente: divide o `session` com a conversa principal, mas tem contexto próprio.
+    var isSidechain: Bool = false
 
     init(
         externalID: String = "local:\(UUID().uuidString)",
@@ -33,7 +38,9 @@ final class UsageEvent {
         outputTokens: Int,
         cacheWriteTokens: Int = 0,
         cacheReadTokens: Int = 0,
-        costUSD: Double
+        costUSD: Double,
+        cacheWrite1hTokens: Int = 0,
+        isSidechain: Bool = false
     ) {
         self.externalID = externalID
         self.timestamp = timestamp
@@ -47,6 +54,8 @@ final class UsageEvent {
         self.cacheWriteTokens = cacheWriteTokens
         self.cacheReadTokens = cacheReadTokens
         self.costUSD = costUSD
+        self.cacheWrite1hTokens = cacheWrite1hTokens
+        self.isSidechain = isSidechain
     }
 
     var provider: Provider { Provider(rawValue: providerRaw) ?? .other }

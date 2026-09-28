@@ -113,6 +113,7 @@ extension DemoMode {
                 }
             }
         }
+        claudeCount += seedLiveSession(modelContext, prices: prices, now: now)
         try? modelContext.save()
 
         planUsage.setDemo(
@@ -127,6 +128,36 @@ extension DemoMode {
                 .init(windowMinutes: 10_080, usedPercent: 41, resetsAt: now.addingTimeInterval(4 * 86_400)),
             ]
         ))
+    }
+
+    /// Uma sessão em andamento, perto do limite de contexto, para o cartão "Agora" ter o que mostrar.
+    private static func seedLiveSession(_ modelContext: ModelContext, prices: PriceTable, now: Date) -> Int {
+        let model = "claude-opus-5-5"
+        let calls = 48
+        var context = 52_000
+        for call in 0..<calls {
+            let timestamp = now.addingTimeInterval(-Double(calls - call) * 75)
+            let output = call % 9 == 0 ? 4_200 : 900
+            let cacheWrite = call == 0 ? context : 2_600
+            let tokens = TokenCounts(input: 40, output: output, cacheWrite1h: cacheWrite, cacheRead: call == 0 ? 0 : context)
+            modelContext.insert(UsageEvent(
+                externalID: "cc:demo-live:\(call)",
+                timestamp: timestamp,
+                provider: .anthropic,
+                model: model,
+                project: "aurora-web",
+                tool: "Claude Code (CLI)",
+                session: "demo-live",
+                inputTokens: tokens.input,
+                outputTokens: output,
+                cacheWriteTokens: cacheWrite,
+                cacheReadTokens: tokens.cacheRead,
+                costUSD: prices.cost(model: model, tokens: tokens) ?? 0,
+                cacheWrite1hTokens: cacheWrite
+            ))
+            context = min(context + (call == 0 ? 0 : cacheWrite + output / 3), 172_000)
+        }
+        return calls
     }
 }
 

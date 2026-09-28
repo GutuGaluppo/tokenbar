@@ -1,6 +1,46 @@
 {
   "sourceLanguage": "pt-BR",
   "strings": {
+    " (≈ %@ em vez de %@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " (≈ %@ instead of %@)"
+          }
+        }
+      }
+    },
+    " (≈ %@ por chamada)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " (≈ %@ per call)"
+          }
+        }
+      }
+    },
+    " (≈ %@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " (≈ %@)"
+          }
+        }
+      }
+    },
+    " Reinicia às %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " Resets at %@."
+          }
+        }
+      }
+    },
     "% restante do limite mais próximo": {
       "localizations": {
         "en": {
@@ -47,6 +87,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ of %@"
+          }
+        }
+      }
+    },
+    "%@ de %@ tokens de contexto": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ of %@ context tokens"
+          }
+        }
+      }
+    },
+    "%@ de %@. Compacte, troque para um modelo menor (/model) ou encerre a tarefa.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ of %@. Compact, switch to a smaller model (/model) or wrap up the task."
           }
         }
       }
@@ -271,6 +331,16 @@
         }
       }
     },
+    "A próxima chamada regrava %@ tokens no cache%@. Se for mudar de assunto, comece com /clear.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The next call rewrites %@ tokens to the cache%@. If you are changing topics, start with /clear."
+          }
+        }
+      }
+    },
     "APIs da Anthropic e da OpenAI (chave de admin da organização) podem ser conectadas depois, em Ajustes.": {
       "localizations": {
         "en": {
@@ -427,6 +497,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alerts"
+          }
+        }
+      }
+    },
+    "Antes da primeira pergunta: prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Veja o que ocupa espaço com /context.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before your first question: system prompt, CLAUDE.md, MCP tools, skills and plugins. See what takes up space with /context."
           }
         }
       }
@@ -627,6 +707,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Welcome to TokenBar"
+          }
+        }
+      }
+    },
+    "Cache expira às %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache expires at %@"
+          }
+        }
+      }
+    },
+    "Cache expirado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache expired"
+          }
+        }
+      }
+    },
+    "Cada chamada ao modelo reenvia esse contexto%@. Compacte ao fechar uma etapa ou use /clear ao mudar de tarefa.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every model call resends this context%@. Compact when you finish a step, or use /clear when you switch tasks."
+          }
+        }
+      }
+    },
+    "Cada chamada reenvia %@ tokens: compacte para o que resta render mais.%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every call resends %@ tokens: compact to make what is left go further.%@"
           }
         }
       }
@@ -861,12 +981,32 @@
         }
       }
     },
+    "Contexto quase cheio (%@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Context almost full (%@)"
+          }
+        }
+      }
+    },
     "Continuar": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Continue"
+          }
+        }
+      }
+    },
+    "Conversa longa: %@ tokens": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Long conversation: %@ tokens"
           }
         }
       }
@@ -887,6 +1027,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copy"
+          }
+        }
+      }
+    },
+    "Copiar %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy %@"
           }
         }
       }
@@ -917,6 +1067,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cost (API equivalent)"
+          }
+        }
+      }
+    },
+    "Custo da sessão até agora, com subagentes, a preços de API": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session cost so far, subagents included, at API prices"
           }
         }
       }
@@ -1331,12 +1491,32 @@
         }
       }
     },
+    "Esta sessão já gastou %@ do orçamento do dia": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This session has used %@ of today's budget"
+          }
+        }
+      }
+    },
     "Estado atual": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Current status"
+          }
+        }
+      }
+    },
+    "Estimativa a preços de API: contexto lido do cache (quente) ou regravado nele (frio), mais a saída média das últimas chamadas.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimate at API prices: context read from the cache (warm) or rewritten to it (cold), plus the average output of recent calls."
           }
         }
       }
@@ -1477,6 +1657,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dismissed (%lld)"
+          }
+        }
+      }
+    },
+    "Ignorar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss"
+          }
+        }
+      }
+    },
+    "Ignorar nesta sessão": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss for this session"
           }
         }
       }
@@ -1957,6 +2157,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not found on this Mac"
+          }
+        }
+      }
+    },
+    "O Claude Code compacta sozinho perto do limite e pode descartar o que importa. Compacte agora, dizendo o que manter.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude Code compacts on its own near the limit and may drop what matters. Compact now and say what to keep."
           }
         }
       }
@@ -2671,6 +2881,16 @@
         }
       }
     },
+    "Sessão": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session"
+          }
+        }
+      }
+    },
     "Sessão Claude": {
       "localizations": {
         "en": {
@@ -2697,6 +2917,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude plan current session (% used)"
+          }
+        }
+      }
+    },
+    "Sessão começou com %@ tokens": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session started with %@ tokens"
+          }
+        }
+      }
+    },
+    "Sessão do plano em %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan session at %@"
           }
         }
       }
@@ -2797,6 +3037,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Table in use"
+          }
+        }
+      }
+    },
+    "Tamanho da conversa na última chamada ao modelo. A janela é estimada quando o modelo não a informa na tabela de preços.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conversation size at the last model call. The window is estimated when the price table does not list it for the model."
           }
         }
       }
@@ -3007,6 +3257,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Check now"
+          }
+        }
+      }
+    },
+    "Voltando depois disso, a próxima chamada regrava %@ tokens no cache%@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you come back after that, the next call rewrites %@ tokens to the cache%@."
           }
         }
       }
@@ -3301,6 +3561,26 @@
         }
       }
     },
+    "· cache até %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· cache until %@"
+          }
+        }
+      }
+    },
+    "· próxima chamada ≈ %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· next call ≈ %@"
+          }
+        }
+      }
+    },
     "É esperado. Quando o Claude Code regrava o login (por exemplo depois de um `/login`), o macOS recria o item no Keychain e descarta as autorizações anteriores, incluindo o \"Sempre permitir\" do TokenBar.": {
       "localizations": {
         "en": {
@@ -3377,6 +3657,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "—%"
+          }
+        }
+      }
+    },
+    "≈ %@ por chamada": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≈ %@ per call"
           }
         }
       }

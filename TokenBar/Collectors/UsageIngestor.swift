@@ -24,7 +24,9 @@ actor UsageIngestor {
                 outputTokens: item.tokens.output,
                 cacheWriteTokens: item.tokens.cacheWrite,
                 cacheReadTokens: item.tokens.cacheRead,
-                costUSD: item.costUSD.isNaN ? 0 : item.costUSD
+                costUSD: item.costUSD.isNaN ? 0 : item.costUSD,
+                cacheWrite1hTokens: item.tokens.cacheWrite1h,
+                isSidechain: item.isSidechain
             ))
         }
         try modelContext.save()

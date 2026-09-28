@@ -15,6 +15,7 @@ struct TokenBarApp: App {
     @State private var remoteSources: RemoteSourcesManager
     @State private var analytics: AnalyticsStore
     @State private var tips: TipsStore
+    @State private var live: LiveSessionsStore
     @State private var planUsage: ClaudePlanUsage
     @State private var priceUpdater: PriceUpdater
     @State private var proxy: LocalProxyManager
@@ -31,6 +32,7 @@ struct TokenBarApp: App {
         planUsage.onUpdate = { [weak store] in store?.refresh() }
         _planUsage = State(initialValue: planUsage)
         _tips = State(initialValue: TipsStore(container: container, store: store))
+        _live = State(initialValue: LiveSessionsStore(container: container, store: store))
         _analytics = State(initialValue: AnalyticsStore(container: container))
 
         let localSources = LocalSources(container: container)
@@ -76,11 +78,12 @@ struct TokenBarApp: App {
                 .environment(localSources)
                 .environment(remoteSources)
                 .environment(tips)
+                .environment(live)
                 .environment(planUsage)
                 .environment(priceUpdater)
                 .environment(proxy)
         } label: {
-            MenuBarLabel(store: store)
+            MenuBarLabel(store: store, live: live)
         }
         .menuBarExtraStyle(.window)
 
@@ -94,6 +97,7 @@ struct TokenBarApp: App {
                 .environment(localSources)
                 .environment(remoteSources)
                 .environment(tips)
+                .environment(live)
                 .environment(planUsage)
                 .environment(priceUpdater)
                 .environment(proxy)
@@ -125,6 +129,7 @@ struct TokenBarApp: App {
                 .environment(localSources)
                 .environment(remoteSources)
                 .environment(tips)
+                .environment(live)
                 .environment(planUsage)
                 .environment(priceUpdater)
                 .environment(proxy)

@@ -49,11 +49,12 @@ Tour animado, todas as telas e a comparação antes/depois das dicas estão no *
 | Área | O que mostra |
 | --- | --- |
 | **Ícone na barra** | Tokens de hoje, custo de hoje, % da sessão do plano Claude (usado ou restante) ou % do limite mais próximo. Vira um aviso a partir de 80%. |
-| **Popover** | Hoje (tokens, custo, variação vs. média de 7 dias), limites, fontes, últimas 24 h, top modelos e dica do dia. |
+| **Popover** | Hoje (tokens, custo, variação vs. média de 7 dias), **Agora** (sessões ativas e a dica mais urgente), limites, fontes, últimas 24 h, top modelos e dica do dia. |
 | **Overview** | Limites com contagem regressiva e horário do reinício, e o período escolhido (hoje, 7/30/90 dias ou personalizado): custo, tokens, cache, respostas, gráfico por dia/hora e ranking de modelos. |
 | **Modelos** | Tabela ordenável por modelo: entrada, saída, cache, respostas, custo e participação. |
 | **Projetos** | Consumo por projeto (raiz do repositório git) ou por ferramenta, com os modelos de cada um. |
 | **Atividade** | Calendário de 26 semanas, mapa dia da semana × hora e horário de pico. |
+| **Dicas ao vivo** | Para cada sessão ativa do Claude Code: tamanho do contexto, custo estimado da próxima chamada (cache quente ou frio) e o que fazer agora — compactar uma conversa longa ou quase cheia, voltar antes de o cache expirar, `/clear` depois que ele expirou, aliviar a sessão do plano ou o orçamento do dia. Um toque copia o comando (`/compact`, `/clear`, `/context`). |
 | **Dicas** | Recomendações de economia com valor estimado por mês, passos para aplicar e **economia realizada** depois de aplicadas. |
 | **Orçamentos** | Limites de custo diário/mensal, estimativa dos limites do Claude Code e alertas nativos em 50/80/95%. |
 | **Widget** | Anel com o que resta da sessão do plano, outros limites com o horário do reinício e o consumo de hoje (pequeno e médio). |
