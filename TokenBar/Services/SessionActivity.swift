@@ -31,6 +31,8 @@ struct SessionActivity: Equatable {
     /// Effort das últimas respostas, da mais antiga para a mais recente.
     var recentEfforts: [String] = []
     var lastCompaction: Date?
+    /// Janela de contexto informada pela ferramenta, quando ela informa (Codex).
+    var contextWindow: Int?
 
     static let recentResultWindow: TimeInterval = 10 * 60
     static let explorationWindow: TimeInterval = 15 * 60
@@ -85,6 +87,8 @@ struct SessionActivity: Equatable {
                     }
                     branch = newBranch
                 }
+            case let .contextWindow(tokens):
+                contextWindow = tokens
             case .compacted:
                 continue
             }

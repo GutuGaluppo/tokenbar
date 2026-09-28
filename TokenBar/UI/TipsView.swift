@@ -16,7 +16,10 @@ struct TipsView: View {
                             .padding(14)
                             .background(.quaternary.opacity(0.5), in: .rect(cornerRadius: 12))
                     }
+                    LiveSavingsLabel()
                     Divider().padding(.vertical, 4)
+                } else {
+                    LiveSavingsLabel()
                 }
 
                 header

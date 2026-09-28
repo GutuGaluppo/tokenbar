@@ -128,4 +128,5 @@ extension UsageEvent {
     var limitTokens: Int { inputTokens + outputTokens + cacheWriteTokens }
 
     var isClaudeCode: Bool { externalID.hasPrefix("cc:") }
+    var isCodex: Bool { externalID.hasPrefix("cx:") }
 }

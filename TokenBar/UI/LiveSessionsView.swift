@@ -14,6 +14,7 @@ struct LiveSessionsCard: View {
                         LiveSessionView(session: session, compact: true)
                         if session.id != live.sessions.prefix(limit).last?.id { Divider() }
                     }
+                    LiveSavingsLabel()
                 }
             }
         }
@@ -30,7 +31,17 @@ struct LiveSessionView: View {
         VStack(alignment: .leading, spacing: 8) {
             header
             contextGauge
-            costLine
+            if session.isCodex {
+                // O Codex não informa quanto o cache dura: só o custo por chamada, quando há preço.
+                if let warm = session.warmCallCostUSD {
+                    Text("≈ \(TokenFormat.usd(warm)) por chamada")
+                        .font(.caption)
+                        .monospacedDigit()
+                        .foregroundStyle(.secondary)
+                }
+            } else {
+                costLine
+            }
             ForEach(compact ? Array(session.tips.prefix(1)) : session.tips) { tip in
                 LiveTipRow(tip: tip, compact: compact) { live.dismiss(tip, in: session) }
             }
@@ -166,6 +177,78 @@ struct LiveTipRow: View {
         case .urgent: .red
         case .attention: .orange
         case .info: .blue
+        }
+    }
+}
+
+/// Economia estimada das compactações feitas depois de uma dica de contexto.
+struct LiveSavingsLabel: View {
+    @Environment(LiveSessionsStore.self) private var live
+
+    var body: some View {
+        if live.savedLast30Days >= 0.01 {
+            Label("Compactar depois das dicas economizou ≈ \(TokenFormat.usd(live.savedLast30Days)) em 30 dias", systemImage: "checkmark.seal.fill")
+                .font(.caption)
+                .foregroundStyle(.green)
+                .help("Estimativa: tokens que saíram da conversa vezes o preço da leitura de cache, em cada chamada até a compactação seguinte.")
+        }
+    }
+}
+
+/// Ajustes das dicas ao vivo: notificações e barra de status do Claude Code.
+struct LiveTipsSettings: View {
+    @AppStorage(LiveTipsNotifier.enabledKey) private var notify = false
+    @AppStorage(StatusLineBridge.enabledKey) private var statusLine = false
+    @State private var notificationsDenied = false
+    @State private var configured = StatusLineBridge.isConfigured
+    @State private var copied = false
+
+    var body: some View {
+        Section {
+            Toggle("Notificar dicas urgentes e cache prestes a expirar", isOn: $notify)
+            if notificationsDenied {
+                Text("Notificações bloqueadas. Ative em Ajustes do Sistema → Notificações → TokenBar.")
+                    .font(.callout)
+                    .foregroundStyle(.orange)
+            }
+            Toggle("Mostrar a dica na barra de status do Claude Code", isOn: $statusLine)
+            if statusLine {
+                VStack(alignment: .leading, spacing: 6) {
+                    if configured {
+                        Label("Configurado em ~/.claude/settings.json", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                    } else {
+                        Text("Cole isto em ~/.claude/settings.json (dentro das chaves principais):")
+                    }
+                    Text(verbatim: StatusLineBridge.settingsSnippet)
+                        .font(.callout.monospaced())
+                        .textSelection(.enabled)
+                    HStack {
+                        Button(copied ? "Copiado" : "Copiar configuração", systemImage: copied ? "checkmark" : "doc.on.doc") {
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setString(StatusLineBridge.settingsSnippet, forType: .string)
+                            copied = true
+                        }
+                        Button("Verificar de novo") { configured = StatusLineBridge.isConfigured }
+                    }
+                    Text("Já tem uma barra de status? Chame o script do TokenBar dentro da sua, repassando a mesma entrada.")
+                        .foregroundStyle(.secondary)
+                }
+                .font(.caption)
+            }
+        } header: {
+            Text("Dicas ao vivo")
+        } footer: {
+            Text("As dicas ao vivo olham as sessões ativas do Claude Code e do Codex. Notificações só para o que pede ação: contexto quase cheio, limite do plano quase no fim e cache prestes a expirar. O TokenBar não altera o settings.json do Claude Code: você cola a configuração.")
+        }
+        .onChange(of: notify) { _, enabled in
+            guard enabled else { return }
+            Task { notificationsDenied = !(await AlertNotifier.requestAuthorization()) }
+        }
+        .task(id: copied) {
+            guard copied else { return }
+            try? await Task.sleep(for: .seconds(2))
+            copied = false
         }
     }
 }

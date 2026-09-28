@@ -13,12 +13,15 @@ struct CodexParser: JSONLLogParser {
 
     var prices: PriceTable
     let roots: [URL]
+    /// Recebe a janela de contexto de cada sessão para as dicas ao vivo (opcional).
+    let signals: SessionSignals?
     private let decoder = JSONDecoder()
     private let markers = ["\"token_count\"", "\"turn_context\"", "\"session_meta\""].map { Data($0.utf8) }
 
-    init(prices: PriceTable, roots: [URL] = CodexParser.defaultRoots) {
+    init(prices: PriceTable, roots: [URL] = CodexParser.defaultRoots, signals: SessionSignals? = nil) {
         self.prices = prices
         self.roots = roots
+        self.signals = signals
     }
 
     static var defaultRoots: [URL] {
@@ -49,6 +52,7 @@ struct CodexParser: JSONLLogParser {
     private struct Info: Decodable {
         let total_token_usage: Usage?
         let last_token_usage: Usage?
+        let model_context_window: Int?
     }
 
     private struct Usage: Decodable {
@@ -113,6 +117,10 @@ struct CodexParser: JSONLLogParser {
         let cached = min(last.cached_input_tokens ?? 0, input)
         let tokens = TokenCounts(input: input - cached, output: last.output_tokens ?? 0, cacheRead: cached)
         guard tokens.input + tokens.output + tokens.cacheRead > 0 else { return (nil, limits) }
+
+        if let signals, let window = payload.info?.model_context_window, window > 0 {
+            signals.record([SessionSignal(session: session, timestamp: timestamp, isSidechain: false, kind: .contextWindow(window))])
+        }
 
         let model = state.model ?? "codex"
         let usage = ParsedUsage(

@@ -38,7 +38,7 @@ struct TokenBarApp: App {
         localSources.codex.onPlanLimitsChange = { [weak store] in store?.refresh() }
         store.localSources = localSources
         _localSources = State(initialValue: localSources)
-        _live = State(initialValue: LiveSessionsStore(container: container, store: store, signals: localSources.claudeCodeSignals))
+        _live = State(initialValue: LiveSessionsStore(container: container, store: store, signals: localSources.sessionSignals))
 
         let remoteSources = RemoteSourcesManager(container: container)
         store.remoteSources = remoteSources

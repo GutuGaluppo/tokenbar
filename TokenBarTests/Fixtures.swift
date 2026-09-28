@@ -60,7 +60,8 @@ enum Fixtures {
     }
 
     static func codexTokenCount(total: Int, input: Int, cached: Int, output: Int,
-                                withInfo: Bool = true, primaryUsed: Double = 17, secondaryUsed: Double = 74) -> String {
+                                withInfo: Bool = true, primaryUsed: Double = 17, secondaryUsed: Double = 74,
+                                contextWindow: Int? = nil) -> String {
         var payload: [String: Any] = [
             "type": "token_count",
             "rate_limits": [
@@ -72,6 +73,7 @@ enum Fixtures {
         payload["info"] = withInfo ? [
             "total_token_usage": ["total_tokens": total],
             "last_token_usage": ["input_tokens": input, "cached_input_tokens": cached, "output_tokens": output],
+            "model_context_window": contextWindow ?? NSNull(),
         ] as [String: Any] : NSNull()
         return json(["timestamp": "2026-09-20T10:00:05.000Z", "type": "event_msg", "payload": payload])
     }
