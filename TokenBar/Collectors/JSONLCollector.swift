@@ -19,6 +19,8 @@ struct ParsedUsage: Sendable {
     let session: String?
     let tokens: TokenCounts
     let costUSD: Double
+    /// Resposta de um subagente (Claude Code).
+    var isSidechain = false
 }
 
 /// Limites de plano gravados nos próprios logs da ferramenta (ex.: Codex).

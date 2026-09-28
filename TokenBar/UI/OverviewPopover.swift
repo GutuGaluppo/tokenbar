@@ -47,6 +47,8 @@ struct OverviewPopover: View {
 
     private var cards: some View {
         VStack(alignment: .leading, spacing: 12) {
+            LiveSessionsCard()
+
             Card(title: "Limites") {
                 if store.limits.isEmpty {
                     HStack {

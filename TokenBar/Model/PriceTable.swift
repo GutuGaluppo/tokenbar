@@ -7,6 +7,8 @@ struct ModelPrice: Codable, Sendable, Equatable {
     let output: Double
     let cacheRead: Double
     let fastMultiplier: Double?
+    /// Janela de contexto em tokens (opcional; sem ela as dicas ao vivo estimam pelo uso).
+    var contextWindow: Int? = nil
 }
 
 struct TokenCounts: Sendable {

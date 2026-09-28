@@ -28,6 +28,12 @@ struct ClaudeCodeParserTests {
         #expect(usage.provider == .anthropic)
     }
 
+    @Test("Marca respostas de subagentes")
+    func parsesSidechain() throws {
+        #expect(try #require(parse(Fixtures.claudeLine(isSidechain: true))).isSidechain)
+        #expect(try #require(parse(Fixtures.claudeLine())).isSidechain == false)
+    }
+
     @Test("Calcula o custo com a tabela de preços (Sonnet 5, cache de 1 h)")
     func computesCost() throws {
         let usage = try #require(parse(Fixtures.claudeLine(input: 1_000, output: 500, cacheWrite1h: 2_000, cacheRead: 10_000)))

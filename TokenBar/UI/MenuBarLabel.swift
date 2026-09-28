@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuBarLabel: View {
     let store: UsageStore
+    let live: LiveSessionsStore
     @AppStorage(PreferenceKey.menuBarDisplay) private var display: MenuBarDisplay = .tokensToday
     @AppStorage(PreferenceKey.showDockIconWhenWindowOpen) private var showDockIcon = false
     @Environment(\.openWindow) private var openWindow
@@ -11,7 +12,9 @@ struct MenuBarLabel: View {
         HStack(spacing: 4) {
             // Aviso quando o limite mostrado na barra passa de 80% (os demais aparecem no popover).
             let warning = (display.warningLimit(in: store.limits)?.fraction ?? 0) >= MenuBarDisplay.warningThreshold
-            Image(systemName: warning ? "exclamationmark.triangle.fill" : "gauge.with.needle")
+            // Depois dos limites, uma dica ao vivo urgente (ex.: contexto quase cheio) também marca o ícone.
+            Image(systemName: warning ? "exclamationmark.triangle.fill"
+                  : live.hasUrgentTip ? "exclamationmark.bubble.fill" : "gauge.with.needle")
             switch display {
             case .iconOnly:
                 EmptyView()

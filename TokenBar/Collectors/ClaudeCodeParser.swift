@@ -33,6 +33,7 @@ struct ClaudeCodeParser: JSONLLogParser {
         let sessionId: String?
         let cwd: String?
         let entrypoint: String?
+        let isSidechain: Bool?
         let message: Message?
 
         struct Message: Decodable {
@@ -89,7 +90,8 @@ struct ClaudeCodeParser: JSONLLogParser {
             tool: Self.toolName(for: entry.entrypoint),
             session: entry.sessionId,
             tokens: tokens,
-            costUSD: cost ?? .nan
+            costUSD: cost ?? .nan,
+            isSidechain: entry.isSidechain ?? false
         )
         return (parsed, nil)
     }
