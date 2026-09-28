@@ -88,9 +88,11 @@ struct LiveSessionsEngine {
 
     let prices: PriceTable
 
-    func sessions(from events: [LiveInput], context: LiveContext, now: Date = .now) -> [LiveSession] {
+    func sessions(from events: [LiveInput], activity: [String: SessionActivity] = [:],
+                  context: LiveContext, now: Date = .now) -> [LiveSession] {
         Dictionary(grouping: events, by: \.session)
-            .compactMap { session(id: $0.key, events: $0.value, context: context, now: now) }
+            .compactMap { session(id: $0.key, events: $0.value, activity: activity[$0.key] ?? SessionActivity(),
+                                  context: context, now: now) }
             .sorted { lhs, rhs in
                 let left = lhs.topSeverity?.rawValue ?? -1, right = rhs.topSeverity?.rawValue ?? -1
                 return left != right ? left > right : lhs.lastActivity > rhs.lastActivity
@@ -99,7 +101,8 @@ struct LiveSessionsEngine {
 
     // MARK: - Estado da sessão
 
-    private func session(id: String, events: [LiveInput], context: LiveContext, now: Date) -> LiveSession? {
+    private func session(id: String, events: [LiveInput], activity: SessionActivity,
+                         context: LiveContext, now: Date) -> LiveSession? {
         let main = events.filter { !$0.isSidechain }.sorted { $0.timestamp < $1.timestamp }
         guard let first = main.first, let last = main.last else { return nil }
 
@@ -127,7 +130,7 @@ struct LiveSessionsEngine {
             coldCallCostUSD: costs?.cold,
             tips: []
         )
-        session.tips = tips(for: session, context: context, now: now)
+        session.tips = tips(for: session, main: main, activity: activity, context: context, now: now)
         return session
     }
 
@@ -151,13 +154,23 @@ struct LiveSessionsEngine {
 
     // MARK: - Regras
 
-    private func tips(for session: LiveSession, context: LiveContext, now: Date) -> [LiveTip] {
+    private func tips(for session: LiveSession, main: [LiveInput], activity: SessionActivity,
+                      context: LiveContext, now: Date) -> [LiveTip] {
         let candidates: [LiveTip?] = [
             contextSize(session),
             cache(session, now: now),
             planSession(session, context: context),
             dailyBudget(session, context: context),
             heavyStart(session),
+            errorLoop(activity, now: now),
+            largeResult(activity),
+            modelSwitch(main, now: now),
+            opusMechanical(main),
+            branchChange(session, activity: activity),
+            repeatedReads(activity),
+            rewrites(activity),
+            exploration(activity),
+            highEffort(main, activity: activity),
         ]
         return candidates.compactMap { $0 }.sorted { $0.severity > $1.severity }
     }
@@ -242,6 +255,138 @@ struct LiveSessionsEngine {
             title: String(localized: "Esta sessão já gastou \(share) do orçamento do dia"),
             detail: String(localized: "\(TokenFormat.usd(session.costUSD)) de \(TokenFormat.usd(context.dailyBudgetUSD)). Compacte, troque para um modelo menor (/model) ou encerre a tarefa."),
             command: Self.compactCommand
+        )
+    }
+
+    // MARK: - Regras sobre o jeito de trabalhar (sinais de ferramentas)
+
+    /// Várias ferramentas falhando em sequência: cada nova tentativa paga o contexto de novo.
+    private func errorLoop(_ activity: SessionActivity, now: Date) -> LiveTip? {
+        guard activity.trailingErrors >= 4, let last = activity.lastErrorAt,
+              now.timeIntervalSince(last) <= 10 * 60 else { return nil }
+        return LiveTip(
+            id: "error-loop",
+            severity: .attention,
+            title: String(localized: "\(activity.trailingErrors) tentativas seguidas falharam"),
+            detail: String(localized: "Parece um loop. Interrompa (Esc), explique o que está errado ou volte a um ponto anterior com /rewind."),
+            command: "/rewind"
+        )
+    }
+
+    /// Um resultado de ferramenta enorme fica no contexto e é reenviado em toda chamada.
+    private func largeResult(_ activity: SessionActivity) -> LiveTip? {
+        guard let result = activity.largestRecentResult, result.tokens >= 15_000 else { return nil }
+        return LiveTip(
+            id: "large-result",
+            severity: .attention,
+            title: String(localized: "\(result.tool) trouxe ~\(TokenFormat.compact(result.tokens)) tokens"),
+            detail: String(localized: "Tudo isso agora é reenviado em cada chamada. Peça trechos: intervalo de linhas, grep, head/tail, ou limite a saída de comandos."),
+            command: nil
+        )
+    }
+
+    /// Trocar de modelo no meio de uma conversa grande invalida o cache: o contexto inteiro é regravado.
+    private func modelSwitch(_ main: [LiveInput], now: Date) -> LiveTip? {
+        guard main.count >= 2 else { return nil }
+        let last = main[main.count - 1], previous = main[main.count - 2]
+        guard last.model != previous.model, previous.context >= 50_000,
+              last.cacheRead < last.context / 10, now.timeIntervalSince(last.timestamp) <= 10 * 60 else { return nil }
+        let tokens = TokenCounts(cacheWrite5m: last.cacheWrite - last.cacheWrite1h, cacheWrite1h: last.cacheWrite1h)
+        let cost = prices.cost(model: last.model, tokens: tokens).map { String(localized: " (≈ \(TokenFormat.usd($0)))") } ?? ""
+        return LiveTip(
+            id: "model-switch",
+            severity: .info,
+            title: String(localized: "Troca de modelo regravou o cache"),
+            detail: String(localized: "Ao passar para \(last.model), \(TokenFormat.compact(last.cacheWrite)) tokens foram gravados de novo no cache\(cost). Numa conversa longa, compacte antes de trocar."),
+            command: nil
+        )
+    }
+
+    /// Opus em passos curtos e repetitivos: o Sonnet faz igual por uma fração do preço.
+    private func opusMechanical(_ main: [LiveInput]) -> LiveTip? {
+        let recent = main.suffix(12)
+        guard recent.count == 12, let model = recent.last?.model, model.hasPrefix("claude-opus"),
+              recent.allSatisfy({ $0.model == model }),
+              recent.filter({ $0.output < 1_000 }).count >= 10 else { return nil }
+        // As mesmas chamadas repreçadas no Sonnet 5.
+        var current = 0.0, sonnet = 0.0
+        for call in recent {
+            let tokens = TokenCounts(input: call.input, output: call.output, cacheWrite5m: call.cacheWrite - call.cacheWrite1h,
+                                     cacheWrite1h: call.cacheWrite1h, cacheRead: call.cacheRead)
+            guard let now = prices.cost(model: model, tokens: tokens),
+                  let alternative = prices.cost(model: "claude-sonnet-5", tokens: tokens) else { return nil }
+            current += now
+            sonnet += alternative
+        }
+        guard current > 0 else { return nil }
+        let cheaper = 1 - sonnet / current
+        guard cheaper > 0.1 else { return nil }
+        return LiveTip(
+            id: "opus-mechanical",
+            severity: .attention,
+            title: String(localized: "Etapa mecânica no Opus"),
+            detail: String(localized: "As últimas respostas foram curtas, típicas de ler, rodar e editar. No Sonnet 5 cada chamada sai ≈ \(cheaper.formatted(.percent.precision(.fractionLength(0)))) mais barata; volte ao Opus para decidir."),
+            command: "/model sonnet"
+        )
+    }
+
+    /// Mudou de branch na mesma conversa: se for outra tarefa, o contexto antigo só pesa.
+    private func branchChange(_ session: LiveSession, activity: SessionActivity) -> LiveTip? {
+        guard let change = activity.branchChange, session.context >= Self.cacheContext else { return nil }
+        return LiveTip(
+            id: "branch-change",
+            severity: .info,
+            title: String(localized: "Branch mudou para \(change.to)"),
+            detail: String(localized: "A conversa carrega \(TokenFormat.compact(session.context)) tokens de \(change.from). Se for uma tarefa nova, comece com /clear."),
+            command: "/clear"
+        )
+    }
+
+    private func repeatedReads(_ activity: SessionActivity) -> LiveTip? {
+        guard activity.maxWholeFileReads >= 3 else { return nil }
+        return LiveTip(
+            id: "repeated-reads",
+            severity: .info,
+            title: String(localized: "Um arquivo foi lido inteiro \(activity.maxWholeFileReads) vezes"),
+            detail: String(localized: "Cada leitura entra de novo no contexto. Peça para aproveitar o que já foi lido ou ler só o trecho que mudou."),
+            command: nil
+        )
+    }
+
+    private func rewrites(_ activity: SessionActivity) -> LiveTip? {
+        guard activity.maxRewrites >= 2 else { return nil }
+        return LiveTip(
+            id: "rewrites",
+            severity: .info,
+            title: String(localized: "Arquivo reescrito inteiro \(activity.maxRewrites) vezes"),
+            detail: String(localized: "A saída é a parte mais cara do token. Peça edições pontuais em vez de reescrever o arquivo todo."),
+            command: nil
+        )
+    }
+
+    private func exploration(_ activity: SessionActivity) -> LiveTip? {
+        guard activity.recentExploration >= 20 else { return nil }
+        return LiveTip(
+            id: "exploration",
+            severity: .info,
+            title: String(localized: "Muita exploração na conversa principal"),
+            detail: String(localized: "\(activity.recentExploration) leituras e buscas em 15 min, todas no contexto. Um subagente de exploração faz isso à parte e devolve só o resumo."),
+            command: nil
+        )
+    }
+
+    /// Effort alto em respostas curtas: raciocínio caro para passos simples.
+    private func highEffort(_ main: [LiveInput], activity: SessionActivity) -> LiveTip? {
+        let high: Set<String> = ["high", "xhigh", "max"]
+        let efforts = activity.recentEfforts
+        guard efforts.count >= Self.recentCalls, efforts.allSatisfy(high.contains),
+              main.suffix(Self.recentCalls).allSatisfy({ $0.output < 1_500 }) else { return nil }
+        return LiveTip(
+            id: "high-effort",
+            severity: .info,
+            title: String(localized: "Effort \(efforts.last ?? "high") em passos simples"),
+            detail: String(localized: "As últimas respostas foram curtas. Enquanto a tarefa for rotineira, baixe o effort para medium (em /model)."),
+            command: nil
         )
     }
 

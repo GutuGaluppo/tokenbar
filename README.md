@@ -54,7 +54,7 @@ Tour animado, todas as telas e a comparação antes/depois das dicas estão no *
 | **Modelos** | Tabela ordenável por modelo: entrada, saída, cache, respostas, custo e participação. |
 | **Projetos** | Consumo por projeto (raiz do repositório git) ou por ferramenta, com os modelos de cada um. |
 | **Atividade** | Calendário de 26 semanas, mapa dia da semana × hora e horário de pico. |
-| **Dicas ao vivo** | Para cada sessão ativa do Claude Code: tamanho do contexto, custo estimado da próxima chamada (cache quente ou frio) e o que fazer agora — compactar uma conversa longa ou quase cheia, voltar antes de o cache expirar, `/clear` depois que ele expirou, aliviar a sessão do plano ou o orçamento do dia. Um toque copia o comando (`/compact`, `/clear`, `/context`). |
+| **Dicas ao vivo** | Para cada sessão ativa do Claude Code: tamanho do contexto, custo estimado da próxima chamada (cache quente ou frio) e o que fazer agora — compactar uma conversa longa ou quase cheia, voltar antes de o cache expirar, `/clear` depois que ele expirou ou ao trocar de branch, aliviar a sessão do plano ou o orçamento do dia, sair de um loop de erros, pedir trechos em vez de saídas enormes, parar de reler ou reescrever arquivos inteiros, delegar exploração a um subagente, usar o Sonnet em etapas mecânicas e baixar o effort em passos simples. Um toque copia o comando (`/compact`, `/clear`, `/context`). |
 | **Dicas** | Recomendações de economia com valor estimado por mês, passos para aplicar e **economia realizada** depois de aplicadas. |
 | **Orçamentos** | Limites de custo diário/mensal, estimativa dos limites do Claude Code e alertas nativos em 50/80/95%. |
 | **Widget** | Anel com o que resta da sessão do plano, outros limites com o horário do reinício e o consumo de hoje (pequeno e médio). |
@@ -81,6 +81,7 @@ Tour animado, todas as telas e a comparação antes/depois das dicas estão no *
 - Chaves de API ficam no **Keychain** e só são usadas para ler relatórios de uso.
 - A leitura do plano Claude usa o login que o Claude Code já guarda no Keychain; o token só é lido (nunca renovado) e só é enviado para `api.anthropic.com`.
 - Nenhum conteúdo de conversa é armazenado ou enviado — os logs são lidos linha a linha, mas só as contagens de tokens, modelo, horário, projeto e ferramenta são guardados.
+- As dicas ao vivo usam também metadados das sessões recentes — nome da ferramenta chamada, tamanho do resultado, erro, branch, effort e um hash do caminho do arquivo — que ficam só na memória e somem quando a sessão termina.
 - Sem telemetria. A única conexão automática é a tabela de preços pública, uma vez por dia. Detalhes em [PRIVACY.md](PRIVACY.md).
 
 ## Requisitos

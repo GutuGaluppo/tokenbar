@@ -8,7 +8,7 @@ O TokenBar funciona inteiramente no seu Mac. Não há conta, servidor do TokenBa
 
 | Fonte | O que é lido | O que é guardado |
 | --- | --- | --- |
-| Logs do Claude Code (`~/.claude/projects`) | Os arquivos de sessão, linha a linha. Eles contêm as conversas, mas o app só interpreta os campos de consumo. | Contagens de tokens, custo calculado, modelo, horário, nome da pasta do projeto, ferramenta e identificador da sessão. **Nenhum texto de conversa.** |
+| Logs do Claude Code (`~/.claude/projects`) | Os arquivos de sessão, linha a linha. Eles contêm as conversas, mas o app só interpreta os campos de consumo. | Contagens de tokens, custo calculado, modelo, horário, nome da pasta do projeto, ferramenta, identificador da sessão e se a resposta veio de um subagente. **Nenhum texto de conversa.** Para as dicas ao vivo, guarda **só em memória** (nunca no banco nem em disco) metadados das sessões das últimas horas: nome da ferramenta chamada, tamanho estimado do resultado, se deu erro, branch git, effort, compactações e um hash do caminho dos arquivos lidos ou gravados. |
 | Logs do Codex (`~/.codex/sessions`) | Idem. | Idem, mais os percentuais de limite do plano gravados pelo Codex. |
 | Plano Claude (opcional, desligado por padrão) | O token de login que o Claude Code guarda no Keychain, somente leitura. | Os percentuais de uso do plano e os horários de reinício. O token não é copiado nem renovado. |
 | APIs de uso da Anthropic, da OpenAI e do OpenRouter (opcional) | Relatórios de uso da conta, com a chave de admin ou management key que você informar. | Contagens agregadas por hora ou dia e modelo, custo e, no OpenRouter, o saldo de créditos. |
