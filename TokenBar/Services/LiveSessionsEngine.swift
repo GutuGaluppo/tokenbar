@@ -1,6 +1,6 @@
 import Foundation
 
-/// Uma resposta do Claude Code, cópia leve de `UsageEvent` para o motor não depender do SwiftData.
+/// Uma resposta do Claude Code ou do Codex, cópia leve de `UsageEvent` para o motor não depender do SwiftData.
 struct LiveInput {
     let timestamp: Date
     let model: String
@@ -14,6 +14,7 @@ struct LiveInput {
     let cacheWrite1h: Int
     let cacheRead: Int
     let costUSD: Double
+    var isCodex = false
 
     /// Tokens enviados ao modelo nessa chamada: o tamanho da conversa naquele momento.
     var context: Int { input + cacheWrite + cacheRead }
@@ -35,9 +36,10 @@ struct LiveTip: Identifiable, Equatable {
     let command: String?
 }
 
-/// Estado de uma sessão do Claude Code em andamento e as dicas para ela.
+/// Estado de uma sessão em andamento (Claude Code ou Codex) e as dicas para ela.
 struct LiveSession: Identifiable, Equatable {
     let id: String
+    let isCodex: Bool
     let project: String?
     let tool: String?
     let model: String
@@ -58,11 +60,21 @@ struct LiveSession: Identifiable, Equatable {
     var cacheExpiresAt: Date { lastActivity.addingTimeInterval(cacheTTL) }
     var contextFraction: Double { min(Double(context) / Double(contextWindow), 1) }
     var topSeverity: LiveTip.Severity? { tips.map(\.severity).max() }
+    /// Nome da ferramenta para as mensagens.
+    var agent: String { isCodex ? "Codex" : "Claude Code" }
+
+    /// Comandos equivalentes em cada ferramenta.
+    var compactCommand: String {
+        isCodex ? "/compact" : "/compact mantenha as decisões, os arquivos alterados e os próximos passos"
+    }
+    var clearCommand: String { isCodex ? "/new" : "/clear" }
+    var contextCommand: String { isCodex ? "/status" : "/context" }
 }
 
 /// O que vale para todas as sessões: limite do plano e orçamento do dia.
 struct LiveContext {
     var planSession: LimitStatus?
+    var codexSession: LimitStatus?
     var dailyBudgetUSD = 0.0
     var todayCostUSD = 0.0
 }
@@ -106,16 +118,19 @@ struct LiveSessionsEngine {
         let main = events.filter { !$0.isSidechain }.sorted { $0.timestamp < $1.timestamp }
         guard let first = main.first, let last = main.last else { return nil }
 
-        let ttl = cacheTTL(main)
+        let isCodex = last.isCodex
+        let ttl = isCodex ? 5 * 60 : cacheTTL(main)
         guard now.timeIntervalSince(last.timestamp) < ttl + Self.idleGrace else { return nil }
 
         let largest = main.map(\.context).max() ?? 0
-        let window = prices.price(for: last.model)?.contextWindow
+        let window = prices.price(for: last.model)?.contextWindow ?? activity.contextWindow
             ?? (largest > Self.defaultContextWindow ? Self.extendedContextWindow : Self.defaultContextWindow)
-        let costs = callCosts(context: last.context, model: last.model, ttl: ttl, recent: main.suffix(Self.recentCalls))
+        let costs = callCosts(context: last.context, model: last.model, ttl: ttl, isCodex: isCodex,
+                              recent: main.suffix(Self.recentCalls))
 
         var session = LiveSession(
             id: id,
+            isCodex: isCodex,
             project: last.project,
             tool: last.tool,
             model: last.model,
@@ -141,10 +156,12 @@ struct LiveSessionsEngine {
     }
 
     /// Próxima chamada: o contexto lido do cache (quente) ou regravado nele (frio), mais a saída média.
-    private func callCosts(context: Int, model: String, ttl: TimeInterval, recent: ArraySlice<LiveInput>) -> (warm: Double, cold: Double)? {
+    private func callCosts(context: Int, model: String, ttl: TimeInterval, isCodex: Bool,
+                           recent: ArraySlice<LiveInput>) -> (warm: Double, cold: Double)? {
         guard let price = prices.price(for: model), !recent.isEmpty else { return nil }
         let averageOutput = Double(recent.reduce(0) { $0 + $1.output }) / Double(recent.count)
-        let multiplier = ttl > 5 * 60 ? prices.cacheWrite1hMultiplier : prices.cacheWrite5mMultiplier
+        // A OpenAI não cobra a escrita no cache: sem cache, a entrada sai pelo preço cheio.
+        let multiplier = isCodex ? 1 : ttl > 5 * 60 ? prices.cacheWrite1hMultiplier : prices.cacheWrite5mMultiplier
         let output = averageOutput * price.output
         return (
             warm: (Double(context) * price.cacheRead + output) / 1_000_000,
@@ -158,7 +175,8 @@ struct LiveSessionsEngine {
                       context: LiveContext, now: Date) -> [LiveTip] {
         let candidates: [LiveTip?] = [
             contextSize(session),
-            cache(session, now: now),
+            // O cache do Codex não informa quanto dura: sem dica de expiração.
+            session.isCodex ? nil : cache(session, now: now),
             planSession(session, context: context),
             dailyBudget(session, context: context),
             heavyStart(session),
@@ -175,8 +193,6 @@ struct LiveSessionsEngine {
         return candidates.compactMap { $0 }.sorted { $0.severity > $1.severity }
     }
 
-    private static let compactCommand = "/compact mantenha as decisões, os arquivos alterados e os próximos passos"
-
     /// Conversa longa reenvia tudo a cada chamada; perto do limite, a compactação automática decide sozinha o que fica.
     private func contextSize(_ session: LiveSession) -> LiveTip? {
         let percent = session.contextFraction.formatted(.percent.precision(.fractionLength(0)))
@@ -185,8 +201,8 @@ struct LiveSessionsEngine {
                 id: "context-full",
                 severity: .urgent,
                 title: String(localized: "Contexto quase cheio (\(percent))"),
-                detail: String(localized: "O Claude Code compacta sozinho perto do limite e pode descartar o que importa. Compacte agora, dizendo o que manter."),
-                command: Self.compactCommand
+                detail: String(localized: "O \(session.agent) compacta sozinho perto do limite e pode descartar o que importa. Compacte agora, antes que ele decida o que fica."),
+                command: session.compactCommand
             )
         }
         guard session.context >= Self.largeContext else { return nil }
@@ -195,8 +211,8 @@ struct LiveSessionsEngine {
             id: "context-large",
             severity: .attention,
             title: String(localized: "Conversa longa: \(TokenFormat.compact(session.context)) tokens"),
-            detail: String(localized: "Cada chamada ao modelo reenvia esse contexto\(callCost). Compacte ao fechar uma etapa ou use /clear ao mudar de tarefa."),
-            command: Self.compactCommand
+            detail: String(localized: "Cada chamada ao modelo reenvia esse contexto\(callCost). Compacte ao fechar uma etapa ou use \(session.clearCommand) ao mudar de tarefa."),
+            command: session.compactCommand
         )
     }
 
@@ -232,7 +248,7 @@ struct LiveSessionsEngine {
 
     /// Sessão do plano Claude apertando: contexto grande gasta o limite mais depressa.
     private func planSession(_ session: LiveSession, context: LiveContext) -> LiveTip? {
-        guard let plan = context.planSession, plan.fraction >= 0.8, session.context >= 50_000 else { return nil }
+        guard let plan = session.isCodex ? context.codexSession : context.planSession, plan.fraction >= 0.8, session.context >= 50_000 else { return nil }
         let percent = plan.fraction.formatted(.percent.precision(.fractionLength(0)))
         let reset = plan.resetsAt.map { String(localized: " Reinicia às \($0.formatted(date: .omitted, time: .shortened)).") } ?? ""
         return LiveTip(
@@ -240,7 +256,7 @@ struct LiveSessionsEngine {
             severity: plan.fraction >= 0.95 ? .urgent : .attention,
             title: String(localized: "Sessão do plano em \(percent)"),
             detail: String(localized: "Cada chamada reenvia \(TokenFormat.compact(session.context)) tokens: compacte para o que resta render mais.\(reset)"),
-            command: Self.compactCommand
+            command: session.compactCommand
         )
     }
 
@@ -254,7 +270,7 @@ struct LiveSessionsEngine {
             severity: .attention,
             title: String(localized: "Esta sessão já gastou \(share) do orçamento do dia"),
             detail: String(localized: "\(TokenFormat.usd(session.costUSD)) de \(TokenFormat.usd(context.dailyBudgetUSD)). Compacte, troque para um modelo menor (/model) ou encerre a tarefa."),
-            command: Self.compactCommand
+            command: session.compactCommand
         )
     }
 
@@ -338,7 +354,7 @@ struct LiveSessionsEngine {
             severity: .info,
             title: String(localized: "Branch mudou para \(change.to)"),
             detail: String(localized: "A conversa carrega \(TokenFormat.compact(session.context)) tokens de \(change.from). Se for uma tarefa nova, comece com /clear."),
-            command: "/clear"
+            command: session.clearCommand
         )
     }
 
@@ -397,8 +413,10 @@ struct LiveSessionsEngine {
             id: "heavy-start",
             severity: .info,
             title: String(localized: "Sessão começou com \(TokenFormat.compact(session.startContext)) tokens"),
-            detail: String(localized: "Antes da primeira pergunta: prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Veja o que ocupa espaço com /context."),
-            command: "/context"
+            detail: session.isCodex
+                ? String(localized: "Antes da primeira pergunta: prompt de sistema, AGENTS.md e ferramentas de MCP. Veja o uso de contexto com /status.")
+                : String(localized: "Antes da primeira pergunta: prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Veja o que ocupa espaço com /context."),
+            command: session.contextCommand
         )
     }
 }

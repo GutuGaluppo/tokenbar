@@ -41,6 +41,16 @@
         }
       }
     },
+    " · ≈ %@/chamada": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · ≈ %@/call"
+          }
+        }
+      }
+    },
     "% restante do limite mais próximo": {
       "localizations": {
         "en": {
@@ -551,6 +561,16 @@
         }
       }
     },
+    "Antes da primeira pergunta: prompt de sistema, AGENTS.md e ferramentas de MCP. Veja o uso de contexto com /status.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before your first question: system prompt, AGENTS.md and MCP tools. Check context usage with /status."
+          }
+        }
+      }
+    },
     "Antes da primeira pergunta: prompt de sistema, CLAUDE.md, ferramentas de MCP, skills e plugins. Veja o que ocupa espaço com /context.": {
       "localizations": {
         "en": {
@@ -647,6 +667,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keys are stored in the Keychain and only used to read usage reports (every 5 min). If Claude Code uses an API key from the same organization, that usage shows up in both the logs and the Anthropic API — connect only one of the sources to avoid double counting."
+          }
+        }
+      }
+    },
+    "As dicas ao vivo olham as sessões ativas do Claude Code e do Codex. Notificações só para o que pede ação: contexto quase cheio, limite do plano quase no fim e cache prestes a expirar. O TokenBar não altera o settings.json do Claude Code: você cola a configuração.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live tips watch active Claude Code and Codex sessions. Notifications only for what needs action: context almost full, plan limit nearly used up and cache about to expire. TokenBar does not change Claude Code's settings.json: you paste the configuration."
           }
         }
       }
@@ -831,12 +861,12 @@
         }
       }
     },
-    "Cada chamada ao modelo reenvia esse contexto%@. Compacte ao fechar uma etapa ou use /clear ao mudar de tarefa.": {
+    "Cada chamada ao modelo reenvia esse contexto%@. Compacte ao fechar uma etapa ou use %@ ao mudar de tarefa.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Every model call resends this context%@. Compact when you finish a step, or use /clear when you switch tasks."
+            "value": "Every model call resends this context%@. Compact when you finish a step, or use %@ when you switch tasks."
           }
         }
       }
@@ -991,6 +1021,16 @@
         }
       }
     },
+    "Cole isto em ~/.claude/settings.json (dentro das chaves principais):": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste this into ~/.claude/settings.json (inside the top-level braces):"
+          }
+        }
+      }
+    },
     "Coloque o conteúdo fixo primeiro (tools → system → mensagens) e o variável no fim.": {
       "localizations": {
         "en": {
@@ -1021,6 +1061,16 @@
         }
       }
     },
+    "Compactar depois das dicas economizou ≈ %@ em 30 dias": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compacting after tips saved ≈ %@ in 30 days"
+          }
+        }
+      }
+    },
     "Compactar ou recomeçar conversas longas": {
       "localizations": {
         "en": {
@@ -1047,6 +1097,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Connect API…"
+          }
+        }
+      }
+    },
+    "Configurado em ~/.claude/settings.json": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configured in ~/.claude/settings.json"
           }
         }
       }
@@ -1147,6 +1207,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copy %@"
+          }
+        }
+      }
+    },
+    "Copiar configuração": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy configuration"
           }
         }
       }
@@ -1387,6 +1457,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tips"
+          }
+        }
+      }
+    },
+    "Dicas ao vivo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live tips"
           }
         }
       }
@@ -1641,6 +1721,16 @@
         }
       }
     },
+    "Estimativa: tokens que saíram da conversa vezes o preço da leitura de cache, em cada chamada até a compactação seguinte.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimate: tokens removed from the conversation times the cache read price, on every call until the next compaction."
+          }
+        }
+      }
+    },
     "Estimativas a partir dos últimos %lld dias, projetadas para 30, a preços de API.": {
       "localizations": {
         "en": {
@@ -1841,6 +1931,16 @@
         }
       }
     },
+    "Já tem uma barra de status? Chame o script do TokenBar dentro da sua, repassando a mesma entrada.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already have a status line? Call the TokenBar script from yours, passing the same input."
+          }
+        }
+      }
+    },
     "Leitura cache": {
       "localizations": {
         "en": {
@@ -2037,6 +2137,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shows the same numbers as Settings → Usage and Claude Code's /usage: current session (5 h) and weekly limits. Uses the Claude Code login stored in the Keychain — macOS will ask for permission; choose \"Always Allow\". The token is only read and sent to Anthropic. Undocumented endpoint: it may stop working without notice."
+          }
+        }
+      }
+    },
+    "Mostrar a dica na barra de status do Claude Code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show the tip in the Claude Code status line"
           }
         }
       }
@@ -2261,6 +2371,16 @@
         }
       }
     },
+    "Notificar dicas urgentes e cache prestes a expirar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notify urgent tips and cache about to expire"
+          }
+        }
+      }
+    },
     "Notificações bloqueadas. Ative em Ajustes do Sistema → Notificações → TokenBar.": {
       "localizations": {
         "en": {
@@ -2301,12 +2421,12 @@
         }
       }
     },
-    "O Claude Code compacta sozinho perto do limite e pode descartar o que importa. Compacte agora, dizendo o que manter.": {
+    "O %@ compacta sozinho perto do limite e pode descartar o que importa. Compacte agora, antes que ele decida o que fica.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Claude Code compacts on its own near the limit and may drop what matters. Compact now and say what to keep."
+            "value": "%@ compacts on its own near the limit and may drop what matters. Compact now, before it decides what stays."
           }
         }
       }
@@ -3437,6 +3557,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Check now"
+          }
+        }
+      }
+    },
+    "Verificar de novo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check again"
           }
         }
       }

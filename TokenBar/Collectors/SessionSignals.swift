@@ -1,7 +1,7 @@
 import Foundation
 import Synchronization
 
-/// Um fato sobre o que acontece numa sessão do Claude Code, além dos tokens: ferramenta chamada,
+/// Um fato sobre o que acontece numa sessão do Claude Code ou do Codex, além dos tokens: ferramenta chamada,
 /// resultado, branch, compactação. Só metadados — nada do texto da conversa.
 struct SessionSignal: Sendable, Equatable {
     enum Kind: Sendable, Equatable {
@@ -14,6 +14,8 @@ struct SessionSignal: Sendable, Equatable {
         case response(messageID: String, effort: String?, branch: String?)
         /// A conversa foi compactada (`/compact` ou automática).
         case compacted
+        /// Janela de contexto informada pela própria ferramenta (Codex).
+        case contextWindow(Int)
     }
 
     let session: String

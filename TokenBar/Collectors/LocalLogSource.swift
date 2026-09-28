@@ -62,9 +62,9 @@ final class LocalLogSource: Identifiable {
                        parser: ClaudeCodeParser(prices: .load(), signals: signals), container: container)
     }
 
-    static func codex(container: ModelContainer) -> LocalLogSource {
+    static func codex(container: ModelContainer, signals: SessionSignals? = nil) -> LocalLogSource {
         LocalLogSource(id: "codex", name: "Codex", externalIDPrefix: "cx:",
-                       parser: CodexParser(prices: .load()), container: container)
+                       parser: CodexParser(prices: .load(), signals: signals), container: container)
     }
 
     nonisolated static func cursorsURL(_ id: String) -> URL {
@@ -173,16 +173,16 @@ final class LocalLogSource: Identifiable {
 final class LocalSources {
     let claudeCode: LocalLogSource
     let codex: LocalLogSource
-    /// Ferramentas, branch e compactações das sessões recentes do Claude Code (só em memória).
-    let claudeCodeSignals: SessionSignals
+    /// Ferramentas, branch, compactações e janelas de contexto das sessões recentes (só em memória).
+    let sessionSignals: SessionSignals
 
     var all: [LocalLogSource] { [claudeCode, codex] }
 
     init(container: ModelContainer) {
         let signals = SessionSignals()
-        claudeCodeSignals = signals
+        sessionSignals = signals
         claudeCode = .claudeCode(container: container, signals: signals)
-        codex = .codex(container: container)
+        codex = .codex(container: container, signals: signals)
     }
 
     func start() {

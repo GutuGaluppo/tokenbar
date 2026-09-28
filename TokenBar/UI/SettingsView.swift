@@ -111,6 +111,8 @@ struct SettingsView: View {
                 }
             }
 
+            LiveTipsSettings()
+
             Section {
                 Toggle("Ligar o proxy local", isOn: Binding(get: { proxy.isEnabled }, set: { proxy.setEnabled($0) }))
                 LabeledContent("Porta") {
