@@ -32,13 +32,13 @@ struct TokenBarApp: App {
         planUsage.onUpdate = { [weak store] in store?.refresh() }
         _planUsage = State(initialValue: planUsage)
         _tips = State(initialValue: TipsStore(container: container, store: store))
-        _live = State(initialValue: LiveSessionsStore(container: container, store: store))
         _analytics = State(initialValue: AnalyticsStore(container: container))
 
         let localSources = LocalSources(container: container)
         localSources.codex.onPlanLimitsChange = { [weak store] in store?.refresh() }
         store.localSources = localSources
         _localSources = State(initialValue: localSources)
+        _live = State(initialValue: LiveSessionsStore(container: container, store: store, signals: localSources.claudeCodeSignals))
 
         let remoteSources = RemoteSourcesManager(container: container)
         store.remoteSources = remoteSources

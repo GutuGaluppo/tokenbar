@@ -16,15 +16,17 @@ final class LiveSessionsStore {
 
     @ObservationIgnored private let container: ModelContainer
     @ObservationIgnored private let store: UsageStore
+    @ObservationIgnored private let signals: SessionSignals?
     @ObservationIgnored private var observer: NSObjectProtocol?
     @ObservationIgnored private var timer: Timer?
     @ObservationIgnored private var pending: Task<Void, Never>?
     /// Dicas ignoradas, por sessão e regra. Valem até a sessão terminar (só em memória).
     @ObservationIgnored private var dismissed: Set<String> = []
 
-    init(container: ModelContainer, store: UsageStore) {
+    init(container: ModelContainer, store: UsageStore, signals: SessionSignals? = nil) {
         self.container = container
         self.store = store
+        self.signals = signals
         observer = NotificationCenter.default.addObserver(forName: ModelContext.didSave, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated { self?.scheduleRun() }
         }
@@ -60,7 +62,10 @@ final class LiveSessionsStore {
         let context = LiveContext(planSession: store.planSession, dailyBudgetUSD: budgets.dailyUSD, todayCostUSD: store.today.costUSD)
         let engine = LiveSessionsEngine(prices: prices)
 
-        var result = engine.sessions(from: fetchActiveEvents(now: now), context: context, now: now)
+        let events = fetchActiveEvents(now: now)
+        let activity = (signals?.signals(for: Set(events.map(\.session))) ?? [:])
+            .mapValues { SessionActivity(signals: $0, now: now) }
+        var result = engine.sessions(from: events, activity: activity, context: context, now: now)
         for index in result.indices {
             let id = result[index].id
             result[index].tips.removeAll { dismissed.contains(Self.key(id, $0.id)) }

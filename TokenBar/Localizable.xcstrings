@@ -181,6 +181,16 @@
         }
       }
     },
+    "%@ trouxe ~%@ tokens": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ returned ~%@ tokens"
+          }
+        }
+      }
+    },
     "%@ usado": {
       "localizations": {
         "en": {
@@ -207,6 +217,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld active days · total %@"
+          }
+        }
+      }
+    },
+    "%lld leituras e buscas em 15 min, todas no contexto. Um subagente de exploração faz isso à parte e devolve só o resumo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld reads and searches in 15 min, all in the context. An exploration subagent does this separately and returns only a summary."
           }
         }
       }
@@ -271,6 +291,16 @@
         }
       }
     },
+    "%lld tentativas seguidas falharam": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld attempts in a row failed"
+          }
+        }
+      }
+    },
     "%lld.": {
       "localizations": {
         "en": {
@@ -331,12 +361,32 @@
         }
       }
     },
+    "A conversa carrega %@ tokens de %@. Se for uma tarefa nova, comece com /clear.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The conversation carries %@ tokens from %@. If this is a new task, start with /clear."
+          }
+        }
+      }
+    },
     "A próxima chamada regrava %@ tokens no cache%@. Se for mudar de assunto, comece com /clear.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The next call rewrites %@ tokens to the cache%@. If you are changing topics, start with /clear."
+          }
+        }
+      }
+    },
+    "A saída é a parte mais cara do token. Peça edições pontuais em vez de reescrever o arquivo todo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Output is the most expensive kind of token. Ask for targeted edits instead of rewriting the whole file."
           }
         }
       }
@@ -511,6 +561,16 @@
         }
       }
     },
+    "Ao passar para %@, %@ tokens foram gravados de novo no cache%@. Numa conversa longa, compacte antes de trocar.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switching to %@ rewrote %@ tokens to the cache%@. In a long conversation, compact before switching."
+          }
+        }
+      }
+    },
     "Apagar dados de exemplo": {
       "localizations": {
         "en": {
@@ -571,12 +631,42 @@
         }
       }
     },
+    "Arquivo reescrito inteiro %lld vezes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File rewritten in full %lld times"
+          }
+        }
+      }
+    },
     "As chaves ficam no Keychain e só são usadas para ler relatórios de uso (a cada 5 min). Se o Claude Code usa uma chave de API da mesma organização, esse consumo aparece nos logs e na API Anthropic — conecte só uma das fontes para não contar em dobro.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Keys are stored in the Keychain and only used to read usage reports (every 5 min). If Claude Code uses an API key from the same organization, that usage shows up in both the logs and the Anthropic API — connect only one of the sources to avoid double counting."
+          }
+        }
+      }
+    },
+    "As últimas respostas foram curtas, típicas de ler, rodar e editar. No Sonnet 5 cada chamada sai ≈ %@ mais barata; volte ao Opus para decidir.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recent responses were short, typical of reading, running and editing. On Sonnet 5 each call is ≈ %@ cheaper; switch back to Opus for decisions."
+          }
+        }
+      }
+    },
+    "As últimas respostas foram curtas. Enquanto a tarefa for rotineira, baixe o effort para medium (em /model).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recent responses were short. While the task is routine, lower effort to medium (in /model)."
           }
         }
       }
@@ -711,6 +801,16 @@
         }
       }
     },
+    "Branch mudou para %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Branch changed to %@"
+          }
+        }
+      }
+    },
     "Cache expira às %@": {
       "localizations": {
         "en": {
@@ -747,6 +847,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Every call resends %@ tokens: compact to make what is left go further.%@"
+          }
+        }
+      }
+    },
+    "Cada leitura entra de novo no contexto. Peça para aproveitar o que já foi lido ou ler só o trecho que mudou.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every read goes into the context again. Ask to reuse what was already read, or to read only the part that changed."
           }
         }
       }
@@ -1341,6 +1451,16 @@
         }
       }
     },
+    "Effort %@ em passos simples": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effort %@ on simple steps"
+          }
+        }
+      }
+    },
     "Em Ajustes → Ferramentas locais, clique em Atualizar agora. Se os números continuarem errados, use Reimportar histórico.": {
       "localizations": {
         "en": {
@@ -1527,6 +1647,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Estimates from the last %lld days, projected to 30, at API prices."
+          }
+        }
+      }
+    },
+    "Etapa mecânica no Opus": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mechanical step on Opus"
           }
         }
       }
@@ -1967,6 +2097,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show Dock icon while the window is open"
+          }
+        }
+      }
+    },
+    "Muita exploração na conversa principal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lots of exploring in the main conversation"
           }
         }
       }
@@ -2427,6 +2567,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dashboard by model, project and time of day"
+          }
+        }
+      }
+    },
+    "Parece um loop. Interrompa (Esc), explique o que está errado ou volte a um ponto anterior com /rewind.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Looks like a loop. Interrupt (Esc), explain what is wrong, or go back to an earlier point with /rewind."
           }
         }
       }
@@ -3161,6 +3311,16 @@
         }
       }
     },
+    "Troca de modelo regravou o cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model switch rewrote the cache"
+          }
+        }
+      }
+    },
     "Trocar Claude Opus 5 por Opus 5.5": {
       "localizations": {
         "en": {
@@ -3181,12 +3341,32 @@
         }
       }
     },
+    "Tudo isso agora é reenviado em cada chamada. Peça trechos: intervalo de linhas, grep, head/tail, ou limite a saída de comandos.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All of it is now resent on every call. Ask for excerpts: line ranges, grep, head/tail, or cap command output."
+          }
+        }
+      }
+    },
     "US$": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "US$"
+          }
+        }
+      }
+    },
+    "Um arquivo foi lido inteiro %lld vezes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A file was read in full %lld times"
           }
         }
       }

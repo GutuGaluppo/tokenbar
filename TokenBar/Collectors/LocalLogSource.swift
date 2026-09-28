@@ -57,9 +57,9 @@ final class LocalLogSource: Identifiable {
         }
     }
 
-    static func claudeCode(container: ModelContainer) -> LocalLogSource {
+    static func claudeCode(container: ModelContainer, signals: SessionSignals? = nil) -> LocalLogSource {
         LocalLogSource(id: "claude-code", name: "Claude Code", externalIDPrefix: "cc:",
-                       parser: ClaudeCodeParser(prices: .load()), container: container)
+                       parser: ClaudeCodeParser(prices: .load(), signals: signals), container: container)
     }
 
     static func codex(container: ModelContainer) -> LocalLogSource {
@@ -173,11 +173,15 @@ final class LocalLogSource: Identifiable {
 final class LocalSources {
     let claudeCode: LocalLogSource
     let codex: LocalLogSource
+    /// Ferramentas, branch e compactações das sessões recentes do Claude Code (só em memória).
+    let claudeCodeSignals: SessionSignals
 
     var all: [LocalLogSource] { [claudeCode, codex] }
 
     init(container: ModelContainer) {
-        claudeCode = .claudeCode(container: container)
+        let signals = SessionSignals()
+        claudeCodeSignals = signals
+        claudeCode = .claudeCode(container: container, signals: signals)
         codex = .codex(container: container)
     }
 
