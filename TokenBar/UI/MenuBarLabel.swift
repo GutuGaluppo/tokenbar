@@ -13,8 +13,8 @@ struct MenuBarLabel: View {
             // Aviso quando o limite mostrado na barra passa de 80% (os demais aparecem no popover).
             let warning = (display.warningLimit(in: store.limits)?.fraction ?? 0) >= MenuBarDisplay.warningThreshold
             // Depois dos limites, uma dica ao vivo urgente (ex.: contexto quase cheio) também marca o ícone.
-            Image(systemName: warning ? "exclamationmark.triangle.fill"
-                  : live.hasUrgentTip ? "exclamationmark.bubble.fill" : "gauge.with.needle")
+            Image(nsImage: Self.symbol(warning ? "exclamationmark.triangle.fill"
+                                       : live.hasUrgentTip ? "exclamationmark.bubble.fill" : "gauge.with.needle"))
             switch display {
             case .iconOnly:
                 EmptyView()
@@ -47,5 +47,18 @@ struct MenuBarLabel: View {
                 NSApp.bringToFront(showInDock: showDockIcon)
             }
         }
+    }
+
+    /// Tamanho do ícone na barra de menus: com `Image(systemName:)` o símbolo segue o tamanho do texto
+    /// (≈ 13 pt) e fica menor que os ícones do sistema, que chegam a 16 pt.
+    static let symbolPointSize: CGFloat = 16
+
+    /// Símbolo como imagem-modelo (template), para seguir a cor da barra em modo claro e escuro.
+    static func symbol(_ name: String) -> NSImage {
+        let configuration = NSImage.SymbolConfiguration(pointSize: symbolPointSize, weight: .regular)
+        let image = NSImage(systemSymbolName: name, accessibilityDescription: nil)?
+            .withSymbolConfiguration(configuration) ?? NSImage()
+        image.isTemplate = true
+        return image
     }
 }
