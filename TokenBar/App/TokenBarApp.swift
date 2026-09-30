@@ -19,6 +19,7 @@ struct TokenBarApp: App {
     @State private var planUsage: ClaudePlanUsage
     @State private var priceUpdater: PriceUpdater
     @State private var proxy: LocalProxyManager
+    @State private var customAPIs: CustomAPIStore
 
     init() {
         let container = Persistence.makeContainer()
@@ -50,6 +51,10 @@ struct TokenBarApp: App {
 
         let proxy = LocalProxyManager(container: container)
         _proxy = State(initialValue: proxy)
+        let customAPIs = CustomAPIStore()
+        proxy.customAPIs = customAPIs
+        customAPIs.onChange = { [weak proxy] in proxy?.reloadRoutes() }
+        _customAPIs = State(initialValue: customAPIs)
 
         // Em testes o app só serve de host: não lê logs, APIs nem o plano.
         if AppEnvironment.isRunningTests { return }
@@ -90,6 +95,7 @@ struct TokenBarApp: App {
         // Painel principal. Fechar (botão vermelho) só fecha a janela; o app segue na barra de menus.
         Window("TokenBar", id: WindowID.dashboard) {
             DashboardWindow()
+                .environment(customAPIs)
                 .environment(store)
                 .environment(analytics)
                 .environment(navigation)
