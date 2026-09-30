@@ -147,10 +147,11 @@ struct SettingsView: View {
                 ForEach(RemoteProviderKind.allCases) { kind in
                     RemoteSourceSettings(kind: kind)
                 }
+                CustomAPISettings()
             } header: {
                 Text("APIs de uso da organização")
             } footer: {
-                Text("As chaves ficam no Keychain e só são usadas para ler relatórios de uso (a cada 5 min). Se o Claude Code usa uma chave de API da mesma organização, esse consumo aparece nos logs e na API Anthropic — conecte só uma das fontes para não contar em dobro.")
+                Text("As chaves ficam no Keychain e só são usadas para ler relatórios de uso (a cada 5 min). Se o Claude Code usa uma chave de API da mesma organização, esse consumo aparece nos logs e na API Anthropic — conecte só uma das fontes para não contar em dobro. Outras APIs (Kimi, DeepSeek, Groq…) não têm relatório de uso: o consumo delas é medido pelo proxy local.")
             }
 
             Section("Preços") {

@@ -87,7 +87,8 @@ struct UsageExtractor {
 
 // MARK: - Servidor
 
-/// Proxy HTTP mínimo em 127.0.0.1. `/gemini/...` vai para a API do Gemini; o resto, para o Ollama.
+/// Proxy HTTP mínimo em 127.0.0.1. `/gemini/...` vai para a API do Gemini, `/<slug>/...` para cada
+/// API personalizada e o resto para o Ollama.
 /// Repassa a resposta em tempo real (chunked) e, ao fim, informa o consumo encontrado.
 final class ProxyServer: @unchecked Sendable {
     struct Route: Sendable {
@@ -95,6 +96,21 @@ final class ProxyServer: @unchecked Sendable {
         let upstream: URL
         let provider: Provider
         let tool: String
+        /// Chave guardada no Keychain para APIs personalizadas.
+        var credential: Credential? = nil
+        /// Preço próprio da API (sem ele, vale a tabela de preços).
+        var pricing: CustomPricing? = nil
+
+        /// A chave só é injetada quando o cliente se identifica com o token local do TokenBar; uma chave
+        /// do próprio cliente passa direto. Assim nenhum outro programa usa a chave guardada sem o token.
+        struct Credential: Sendable {
+            let apiKey: String
+            let localToken: String
+        }
+
+        func matches(_ path: String) -> Bool {
+            prefix.isEmpty || path == prefix || path.hasPrefix(prefix + "/") || path.hasPrefix(prefix + "?")
+        }
     }
 
     struct Recorded: Sendable {
@@ -160,8 +176,13 @@ final class ProxyServer: @unchecked Sendable {
     }
 
     private func forward(_ request: HTTPRequest, on connection: NWConnection) {
-        guard let route = routes.first(where: { request.path.hasPrefix($0.prefix) }) else {
+        guard let route = routes.first(where: { $0.matches(request.path) }) else {
             respond(connection, status: 404, body: "no route")
+            return
+        }
+        // Páginas web não usam rotas com chave guardada (um site poderia chamar 127.0.0.1).
+        if route.credential != nil, request.headers.contains(where: { $0.0.lowercased() == "origin" }) {
+            respond(connection, status: 403, body: "TokenBar proxy: browser requests are not allowed on this route")
             return
         }
         let upstreamPath = String(request.path.dropFirst(route.prefix.count))
@@ -174,6 +195,10 @@ final class ProxyServer: @unchecked Sendable {
         upstream.httpBody = request.body.isEmpty ? nil : request.body
         for (name, value) in request.headers where !Self.skippedRequestHeaders.contains(name.lowercased()) {
             upstream.addValue(value, forHTTPHeaderField: name)
+        }
+        if let credential = route.credential,
+           upstream.value(forHTTPHeaderField: "Authorization") == "Bearer \(credential.localToken)" {
+            upstream.setValue("Bearer \(credential.apiKey)", forHTTPHeaderField: "Authorization")
         }
 
         let relay = Relay(connection: connection, noBody: request.method == "HEAD") { [weak self] result in
@@ -318,11 +343,20 @@ final class LocalProxyManager {
     }
 
     nonisolated static func routes(ollama: URL = URL(string: "http://127.0.0.1:11434")!,
-                       gemini: URL = URL(string: "https://generativelanguage.googleapis.com")!) -> [ProxyServer.Route] {
-        [
+                       gemini: URL = URL(string: "https://generativelanguage.googleapis.com")!,
+                       custom: [ProxyServer.Route] = []) -> [ProxyServer.Route] {
+        custom + [
             .init(prefix: "/gemini", upstream: gemini, provider: .google, tool: "Gemini API (proxy)"),
             .init(prefix: "", upstream: ollama, provider: .local, tool: "Ollama (proxy)"),
         ]
+    }
+
+    /// APIs personalizadas (Kimi, DeepSeek…) que ganham rota no proxy.
+    @ObservationIgnored var customAPIs: CustomAPIStore?
+
+    /// A lista de APIs mudou: recria as rotas.
+    func reloadRoutes() {
+        if isEnabled, !AppEnvironment.isIsolated { launch() }
     }
 
     init(container: ModelContainer) {
@@ -349,7 +383,7 @@ final class LocalProxyManager {
         shutdown()
         let ingestor = self.ingestor
         let prices = PriceTable.load()
-        let server = ProxyServer(port: port, routes: Self.routes()) { [weak self] recorded in
+        let server = ProxyServer(port: port, routes: Self.routes(custom: customAPIs?.routes() ?? [])) { [weak self] recorded in
             let usage = Self.parsedUsage(recorded, prices: prices)
             Task { @MainActor in
                 _ = try? await ingestor.upsert([usage])
@@ -386,7 +420,8 @@ final class LocalProxyManager {
         let pathModel = recorded.path.split(separator: "/").last.map { String($0.split(separator: ":").first ?? $0) }
         let model = result.model ?? pathModel ?? "desconhecido"
         let tokens = TokenCounts(input: result.input, output: result.output, cacheRead: result.cacheRead)
-        let cost = recorded.route.provider == .local ? 0 : (prices.cost(model: model, tokens: tokens) ?? 0)
+        let cost = recorded.route.provider == .local ? 0
+            : recorded.route.pricing?.cost(tokens) ?? prices.cost(model: model, tokens: tokens) ?? 0
         return ParsedUsage(
             externalID: "\(externalIDPrefix)\(UUID().uuidString)",
             timestamp: .now,

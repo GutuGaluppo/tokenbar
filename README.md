@@ -15,7 +15,7 @@
 
 ---
 
-TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do **Claude Code**, do **Codex** e, opcionalmente, das **APIs da Anthropic, da OpenAI e do OpenRouter** e de **Ollama e Gemini** (via proxy local), e mostra tudo num só lugar — a um clique, sem abrir painéis de cada provedor. Fechar a janela não encerra o app: o ícone continua ativo.
+TokenBar é um app nativo (SwiftUI) que vive na barra de menus. Ele lê o uso do **Claude Code**, do **Codex** e, opcionalmente, das **APIs da Anthropic, da OpenAI e do OpenRouter** e de **Ollama, Gemini e qualquer API no formato da OpenAI — Kimi, DeepSeek, Groq, Mistral, xAI…** (via proxy local), e mostra tudo num só lugar — a um clique, sem abrir painéis de cada provedor. Fechar a janela não encerra o app: o ícone continua ativo.
 
 ## Capturas de tela
 
@@ -74,11 +74,12 @@ Tour animado, todas as telas e a comparação antes/depois das dicas estão no *
 | OpenRouter | `/api/v1/activity` (tokens e custo por dia e modelo) e `/api/v1/credits` (saldo, como limite) | Management key, opcional. O dia atual aparece depois que o dia UTC fecha |
 | Ollama | Proxy local: o TokenBar repassa as chamadas e lê `prompt_eval_count`/`eval_count` | Opcional: ligar o proxy e usar `OLLAMA_HOST=127.0.0.1:11435` |
 | Gemini API | Proxy local, lendo o `usageMetadata` das respostas (o Google não tem API de histórico de uso) | Opcional: ligar o proxy e usar `http://127.0.0.1:11435/gemini` como endereço base no SDK |
+| Outras APIs (Kimi, DeepSeek, Groq, Mistral, xAI, Together, Fireworks ou qualquer endereço no formato da OpenAI) | Proxy local, lendo o `usage` das respostas; custo pelo preço informado ou pela tabela | Opcional: em Ajustes → APIs de uso, escolher o provedor, colar a chave e **Autorizar** (valida com `GET /models`). Quantas quiser. No SDK, usar `http://127.0.0.1:11435/<nome>` como endereço base e o token local do TokenBar como API key |
 
 ## Privacidade
 
 - Tudo roda e fica na sua máquina: banco SwiftData em `~/Library/Application Support/TokenBar`.
-- Chaves de API ficam no **Keychain** e só são usadas para ler relatórios de uso.
+- Chaves de API ficam no **Keychain** e só são usadas para ler relatórios de uso ou, nas APIs via proxy, para repassar as chamadas que chegam com o token local do TokenBar.
 - A leitura do plano Claude usa o login que o Claude Code já guarda no Keychain; o token só é lido (nunca renovado) e só é enviado para `api.anthropic.com`.
 - Nenhum conteúdo de conversa é armazenado ou enviado — os logs são lidos linha a linha, mas só as contagens de tokens, modelo, horário, projeto e ferramenta são guardados.
 - As dicas ao vivo usam também metadados das sessões recentes — nome da ferramenta chamada, tamanho do resultado, erro, branch, effort e um hash do caminho do arquivo — que ficam só na memória e somem quando a sessão termina.

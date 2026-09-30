@@ -81,6 +81,16 @@
         }
       }
     },
+    "%@ adicionada": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ added"
+          }
+        }
+      }
+    },
     "%@ das respostas do Opus têm menos de 1k tokens de saída (%lld respostas, %@). Estimativa supõe que metade poderia rodar no Sonnet 5.": {
       "localizations": {
         "en": {
@@ -371,6 +381,16 @@
         }
       }
     },
+    "A chave é validada listando os modelos (GET /models) e fica no Keychain. Funciona com qualquer API no formato da OpenAI.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key is validated by listing models (GET /models) and stored in the Keychain. Works with any API in the OpenAI format."
+          }
+        }
+      }
+    },
     "A conversa carrega %@ tokens de %@. Se for uma tarefa nova, comece com /clear.": {
       "localizations": {
         "en": {
@@ -397,6 +417,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Output is the most expensive kind of token. Ask for targeted edits instead of rewriting the whole file."
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API key"
           }
         }
       }
@@ -661,12 +691,12 @@
         }
       }
     },
-    "As chaves ficam no Keychain e só são usadas para ler relatórios de uso (a cada 5 min). Se o Claude Code usa uma chave de API da mesma organização, esse consumo aparece nos logs e na API Anthropic — conecte só uma das fontes para não contar em dobro.": {
+    "As chaves ficam no Keychain e só são usadas para ler relatórios de uso (a cada 5 min). Se o Claude Code usa uma chave de API da mesma organização, esse consumo aparece nos logs e na API Anthropic — conecte só uma das fontes para não contar em dobro. Outras APIs (Kimi, DeepSeek, Groq…) não têm relatório de uso: o consumo delas é medido pelo proxy local.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keys are stored in the Keychain and only used to read usage reports (every 5 min). If Claude Code uses an API key from the same organization, that usage shows up in both the logs and the Anthropic API — connect only one of the sources to avoid double counting."
+            "value": "Keys are stored in the Keychain and only used to read usage reports (every 5 min). If Claude Code uses an API key from the same organization, that usage shows up in both the logs and the Anthropic API — connect only one of the sources to avoid double counting. Other APIs (Kimi, DeepSeek, Groq…) have no usage report: their usage is measured by the local proxy."
           }
         }
       }
@@ -791,6 +821,26 @@
         }
       }
     },
+    "Autorizando…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Authorizing…"
+          }
+        }
+      }
+    },
+    "Autorizar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Authorize"
+          }
+        }
+      }
+    },
     "Avisar em 50%, 80% e 95%": {
       "localizations": {
         "en": {
@@ -837,6 +887,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Branch changed to %@"
+          }
+        }
+      }
+    },
+    "Cache": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache"
           }
         }
       }
@@ -907,6 +967,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Loading…"
+          }
+        }
+      }
+    },
+    "Chave da API": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API key"
           }
         }
       }
@@ -1217,6 +1287,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copy configuration"
+          }
+        }
+      }
+    },
+    "Copiar endereço": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy address"
+          }
+        }
+      }
+    },
+    "Copiar token local": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy local token"
           }
         }
       }
@@ -1601,12 +1691,42 @@
         }
       }
     },
+    "Endereço base": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Base URL"
+          }
+        }
+      }
+    },
+    "Endereço inválido. Use https:// (ou http:// só para este Mac), como no SDK: https://api.exemplo.com/v1": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invalid address. Use https:// (or http:// only for this Mac), as in the SDK: https://api.example.com/v1"
+          }
+        }
+      }
+    },
     "Entrada": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Input"
+          }
+        }
+      }
+    },
+    "Entrada %@ · saída %@ por milhão de tokens": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Input %@ · output %@ per million tokens"
           }
         }
       }
@@ -1981,6 +2101,16 @@
         }
       }
     },
+    "Ligue o proxy local (acima) para medir o consumo destas APIs.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on the local proxy (above) to measure usage of these APIs."
+          }
+        }
+      }
+    },
     "Limite diário": {
       "localizations": {
         "en": {
@@ -2351,6 +2481,16 @@
         }
       }
     },
+    "No seu app ou SDK, use o endereço do proxy da API como base URL e, como API key, o token local abaixo — o proxy troca pela chave guardada. Se preferir, use a própria chave do provedor: ela passa direto.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In your app or SDK, use the API's proxy address as the base URL and the local token below as the API key — the proxy swaps it for the stored key. If you prefer, use the provider's own key: it is passed through."
+          }
+        }
+      }
+    },
     "Nome": {
       "localizations": {
         "en": {
@@ -2511,6 +2651,16 @@
         }
       }
     },
+    "O endereço não respondeu a /models. Confira o endereço base (geralmente termina em /v1).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The address did not answer /models. Check the base address (it usually ends in /v1)."
+          }
+        }
+      }
+    },
     "O login do Claude Code venceu. Rode claude no Terminal e faça /login; depois clique em Atualizar agora.": {
       "localizations": {
         "en": {
@@ -2527,6 +2677,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "macOS asks for Keychain access again"
+          }
+        }
+      }
+    },
+    "O provedor recusou a chave.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider rejected the key."
+          }
+        }
+      }
+    },
+    "O provedor respondeu HTTP %lld.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider answered HTTP %lld."
           }
         }
       }
@@ -2647,6 +2817,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Results arrive out of order: use custom_id to match each response."
+          }
+        }
+      }
+    },
+    "Outra (personalizada)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other (custom)"
+          }
+        }
+      }
+    },
+    "Outras APIs (via proxy)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other APIs (via proxy)"
           }
         }
       }
@@ -2871,6 +3061,16 @@
         }
       }
     },
+    "Preço por milhão de tokens (opcional)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Price per million tokens (optional)"
+          }
+        }
+      }
+    },
     "Preços": {
       "localizations": {
         "en": {
@@ -2991,6 +3191,16 @@
         }
       }
     },
+    "Remover": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove"
+          }
+        }
+      }
+    },
     "Respostas": {
       "localizations": {
         "en": {
@@ -3097,6 +3307,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "No change so far compared with the previous 14 days."
+          }
+        }
+      }
+    },
+    "Sem preço, o custo vem da tabela de preços quando o modelo está nela; senão fica em US$ 0 e só os tokens são contados.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Without a price, cost comes from the price table when the model is listed there; otherwise it stays at US$ 0 and only tokens are counted."
           }
         }
       }
@@ -3667,6 +3887,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "cache_write"
+          }
+        }
+      }
+    },
+    "ex.: Kimi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g. Kimi"
           }
         }
       }
