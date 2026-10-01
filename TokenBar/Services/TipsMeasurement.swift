@@ -44,7 +44,7 @@ extension TipsEngine {
             return TipMeasurement(waste: waste, units: Double(claudeCode.count))
 
         case "heavy-session-start":
-            let sessions = Dictionary(grouping: events.filter { $0.isClaudeCode && $0.session != nil }, by: { $0.session! })
+            let sessions = Dictionary(grouping: events.filter { $0.isClaudeCode && !$0.isSidechain && $0.session != nil }, by: { $0.session! })
             var waste = 0.0
             for (_, sessionEvents) in sessions {
                 guard let first = sessionEvents.min(by: { $0.timestamp < $1.timestamp }),

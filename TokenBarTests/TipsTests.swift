@@ -9,7 +9,7 @@ struct TipsTests {
 
     /// Resposta do Claude Code com o contexto informado (quase tudo lido do cache).
     private func claudeCode(daysAgo: Double, context: Int, model: String = "claude-sonnet-5",
-                            session: String = "s", output: Int = 500) -> TipInput {
+                            session: String = "s", output: Int = 500, sidechain: Bool = false) -> TipInput {
         let input = 1_000
         let cacheRead = max(context - input, 0)
         let tokens = TokenCounts(input: input, output: output, cacheRead: cacheRead)
@@ -17,8 +17,27 @@ struct TipsTests {
             externalID: "cc:\(UUID().uuidString)", timestamp: now.addingTimeInterval(-daysAgo * 86_400),
             model: model, tool: "Claude Code (CLI)", session: session,
             input: input, output: output, cacheWrite: 0, cacheRead: cacheRead,
-            costUSD: Fixtures.prices.cost(model: model, tokens: tokens) ?? 0
+            costUSD: Fixtures.prices.cost(model: model, tokens: tokens) ?? 0,
+            isSidechain: sidechain
         )
+    }
+
+    @Test("Subagentes não mudam a estimativa do contexto inicial pesado")
+    func heavyStartIgnoresSubagents() throws {
+        let budgets = BudgetSettings(dailyUSD: 0, monthlyUSD: 0, fiveHourTokens: 0, weeklyTokens: 0)
+        let main = (0..<6).flatMap { session in
+            (0..<10).map { turn in claudeCode(daysAgo: Double(session) + Double(turn) / 100, context: 70_000, session: "s\(session)") }
+        }
+        let subagents = (0..<6).flatMap { session in
+            (0..<20).map { turn in
+                claudeCode(daysAgo: Double(session) + Double(turn) / 200, context: 15_000, session: "s\(session)", sidechain: true)
+            }
+        }
+        func saving(_ events: [TipInput]) throws -> Double {
+            let tips = engine.tips(for: events, budgets: budgets, monthCostUSD: 0, now: now)
+            return try #require(tips.first { $0.id == "heavy-session-start" }?.monthlySavingsUSD)
+        }
+        #expect(abs(try saving(main) - saving(main + subagents)) < 1e-9)
     }
 
     @Test("Conversas longas geram a dica com economia estimada")

@@ -30,6 +30,8 @@ struct TipInput {
     let cacheWrite: Int
     let cacheRead: Int
     let costUSD: Double
+    /// Resposta de subagente: tem contexto próprio, separado da conversa principal.
+    var isSidechain = false
 
     var isClaudeCode: Bool { externalID.hasPrefix("cc:") }
     var isAnthropicAPI: Bool { externalID.hasPrefix("ant:") }
@@ -160,7 +162,8 @@ struct TipsEngine {
     /// Sessões que já começam com muito contexto: CLAUDE.md grande, muitos MCPs, skills e plugins.
     private func heavySessionStart(_ events: [TipInput]) -> Tip? {
         let baseline = 25_000
-        let bySession = Dictionary(grouping: events.filter { $0.isClaudeCode && $0.session != nil }, by: { $0.session! })
+        // Só a conversa principal: subagentes não releem o contexto inicial dela.
+        let bySession = Dictionary(grouping: events.filter { $0.isClaudeCode && !$0.isSidechain && $0.session != nil }, by: { $0.session! })
         var heavySessions = 0
         var totalStart = 0
         var saved = 0.0
