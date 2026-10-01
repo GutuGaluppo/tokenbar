@@ -303,3 +303,33 @@ struct CopyButton: View {
         }
     }
 }
+
+/// Linha compacta de uma API personalizada no cartão Fontes do popover.
+struct CustomAPIStatusRow: View {
+    @Environment(LocalProxyManager.self) private var proxy
+    let api: CustomAPI
+
+    var body: some View {
+        let listening = proxy.phase == .listening
+        HStack(spacing: 8) {
+            Circle()
+                .fill(listening ? Color.green : Color.orange)
+                .frame(width: 8, height: 8)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(api.name)
+                Text(detail(listening: listening))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+            Spacer()
+        }
+        .font(.callout)
+    }
+
+    private func detail(listening: Bool) -> String {
+        guard listening else { return String(localized: "Via proxy · proxy desligado") }
+        guard let last = proxy.lastRecordedByTool[api.tool] else { return String(localized: "Via proxy · aguardando chamadas") }
+        return String(localized: "Via proxy · última chamada \(last.formatted(.relative(presentation: .named)))")
+    }
+}

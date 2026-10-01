@@ -112,7 +112,8 @@ final class TipsStore {
         let allEvents = ((try? container.mainContext.fetch(descriptor)) ?? []).map {
             TipInput(externalID: $0.externalID, timestamp: $0.timestamp, model: $0.model, tool: $0.tool,
                      session: $0.session, input: $0.inputTokens, output: $0.outputTokens,
-                     cacheWrite: $0.cacheWriteTokens, cacheRead: $0.cacheReadTokens, costUSD: $0.costUSD)
+                     cacheWrite: $0.cacheWriteTokens, cacheRead: $0.cacheReadTokens, costUSD: $0.costUSD,
+                     isSidechain: $0.isSidechain)
         }
         let events = allEvents.filter { $0.timestamp >= window }
         let engine = TipsEngine(prices: .load())

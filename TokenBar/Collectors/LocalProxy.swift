@@ -331,6 +331,8 @@ final class LocalProxyManager {
     private(set) var phase: Phase = .off
     private(set) var recordedCount = 0
     private(set) var lastRecorded: Date?
+    /// Última chamada registrada por rota (nome da ferramenta), desde que o app abriu.
+    private(set) var lastRecordedByTool: [String: Date] = [:]
 
     @ObservationIgnored private var server: ProxyServer?
     @ObservationIgnored private let ingestor: UsageIngestor
@@ -389,6 +391,7 @@ final class LocalProxyManager {
                 _ = try? await ingestor.upsert([usage])
                 self?.recordedCount += 1
                 self?.lastRecorded = .now
+                self?.lastRecordedByTool[usage.tool ?? ""] = .now
             }
         }
         do {
