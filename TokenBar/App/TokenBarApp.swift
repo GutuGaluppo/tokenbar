@@ -78,6 +78,7 @@ struct TokenBarApp: App {
         // Ícone permanente na barra de menus. O app continua vivo mesmo sem janelas abertas.
         MenuBarExtra {
             OverviewPopover()
+                .environment(customAPIs)
                 .environment(store)
                 .environment(navigation)
                 .environment(localSources)
@@ -130,6 +131,7 @@ struct TokenBarApp: App {
         // Prévia do popover numa janela, só para capturas no modo de demonstração.
         Window("TokenBar — popover", id: DemoMode.popoverWindowID) {
             OverviewPopover()
+                .environment(customAPIs)
                 .environment(store)
                 .environment(navigation)
                 .environment(localSources)

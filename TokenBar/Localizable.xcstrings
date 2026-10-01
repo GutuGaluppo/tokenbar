@@ -3791,6 +3791,36 @@
         }
       }
     },
+    "Via proxy · aguardando chamadas": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Via proxy · waiting for calls"
+          }
+        }
+      }
+    },
+    "Via proxy · proxy desligado": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Via proxy · proxy is off"
+          }
+        }
+      }
+    },
+    "Via proxy · última chamada %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Via proxy · last call %@"
+          }
+        }
+      }
+    },
     "Voltando depois disso, a próxima chamada regrava %@ tokens no cache%@.": {
       "localizations": {
         "en": {

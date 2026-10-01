@@ -5,6 +5,7 @@ struct OverviewPopover: View {
     @Environment(UsageStore.self) private var store
     @Environment(AppNavigation.self) private var navigation
     @Environment(RemoteSourcesManager.self) private var remoteSources
+    @Environment(CustomAPIStore.self) private var customAPIs
     @Environment(TipsStore.self) private var tipsStore
     @Environment(LocalSources.self) private var localSources
     @Environment(ClaudePlanUsage.self) private var planUsage
@@ -70,6 +71,9 @@ struct OverviewPopover: View {
                 }
                 ForEach(RemoteProviderKind.allCases.filter(remoteSources.isConfigured)) { kind in
                     RemoteSourceStatusRow(kind: kind)
+                }
+                ForEach(customAPIs.apis) { api in
+                    CustomAPIStatusRow(api: api)
                 }
                 if !RemoteProviderKind.allCases.allSatisfy(remoteSources.isConfigured) {
                     Button("Conectar API…", systemImage: "plus.circle") { openDashboard(.settings) }
