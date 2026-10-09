@@ -1071,16 +1071,6 @@
         }
       }
     },
-    "Codex · 5 h": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Codex · 5 h"
-          }
-        }
-      }
-    },
     "Codex · semana": {
       "localizations": {
         "en": {
@@ -2991,46 +2981,6 @@
         }
       }
     },
-    "Plano · semana (Opus)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan · week (Opus)"
-          }
-        }
-      }
-    },
-    "Plano · semana (Sonnet)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan · week (Sonnet)"
-          }
-        }
-      }
-    },
-    "Plano · semana (todos os modelos)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan · week (all models)"
-          }
-        }
-      }
-    },
-    "Plano · sessão atual": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan · current session"
-          }
-        }
-      }
-    },
     "Por hora do dia": {
       "localizations": {
         "en": {
@@ -4247,6 +4197,56 @@
           "stringUnit": {
             "state": "translated",
             "value": "≈ %@/month"
+          }
+        }
+      }
+    },
+    "Claude · sessão atual": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude · current session"
+          }
+        }
+      }
+    },
+    "Claude · semana": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude · week"
+          }
+        }
+      }
+    },
+    "Claude · semana (Sonnet)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude · week (Sonnet)"
+          }
+        }
+      }
+    },
+    "Claude · semana (Opus)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude · week (Opus)"
+          }
+        }
+      }
+    },
+    "Codex · sessão atual": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex · current session"
           }
         }
       }
