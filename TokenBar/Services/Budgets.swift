@@ -32,6 +32,19 @@ struct LimitStatus: Identifiable, Equatable {
     let periodID: String
 
     var id: String { kind.rawValue }
+
+    /// Modelo a que o limite pertence: a cor da barra segue a cor dele nos gráficos.
+    var brand: Provider? {
+        switch kind {
+        case .planSession, .planWeek, .planWeekSonnet, .planWeekOpus: .anthropic
+        case .codexSession, .codexWeek: .openai
+        default: nil
+        }
+    }
+
+    /// Janela de 5 h (sessão atual): sai um tom mais claro que a semanal.
+    var isSession: Bool { kind == .planSession || kind == .codexSession }
+
     var fraction: Double { limit > 0 ? used / limit : 0 }
     var remainingFraction: Double { max(1 - fraction, 0) }
 
@@ -45,11 +58,11 @@ struct LimitStatus: Identifiable, Equatable {
         case .monthlyCost: String(localized: "Custo do mês")
         case .fiveHourTokens: String(localized: "Claude Code · 5 h")
         case .weeklyTokens: String(localized: "Claude Code · 7 dias")
-        case .planSession: String(localized: "Plano · sessão atual")
-        case .planWeek: String(localized: "Plano · semana (todos os modelos)")
-        case .planWeekSonnet: String(localized: "Plano · semana (Sonnet)")
-        case .planWeekOpus: String(localized: "Plano · semana (Opus)")
-        case .codexSession: String(localized: "Codex · 5 h")
+        case .planSession: String(localized: "Claude · sessão atual")
+        case .planWeek: String(localized: "Claude · semana")
+        case .planWeekSonnet: String(localized: "Claude · semana (Sonnet)")
+        case .planWeekOpus: String(localized: "Claude · semana (Opus)")
+        case .codexSession: String(localized: "Codex · sessão atual")
         case .codexWeek: String(localized: "Codex · semana")
         case .openRouterCredits: String(localized: "OpenRouter · créditos")
         }

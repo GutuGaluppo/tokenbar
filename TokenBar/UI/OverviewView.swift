@@ -4,6 +4,7 @@ import SwiftUI
 struct OverviewView: View {
     @Environment(UsageStore.self) private var store
     @Environment(AnalyticsStore.self) private var analytics
+    @Environment(AppNavigation.self) private var navigation
 
     var body: some View {
         let metric = analytics.metric
@@ -14,6 +15,10 @@ struct OverviewView: View {
                 if !store.limits.isEmpty {
                     Card(title: "Limites") { LimitsList() }
                 }
+
+                SourcesCard { navigation.section = .settings }
+
+                Card(title: "Top modelos hoje") { TopModelsList() }
 
                 HStack(alignment: .firstTextBaseline) {
                     Text("Período").font(.title3.weight(.semibold))

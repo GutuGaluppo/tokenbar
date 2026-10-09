@@ -4,10 +4,7 @@ import SwiftUI
 struct OverviewPopover: View {
     @Environment(UsageStore.self) private var store
     @Environment(AppNavigation.self) private var navigation
-    @Environment(RemoteSourcesManager.self) private var remoteSources
-    @Environment(CustomAPIStore.self) private var customAPIs
     @Environment(TipsStore.self) private var tipsStore
-    @Environment(LocalSources.self) private var localSources
     @Environment(ClaudePlanUsage.self) private var planUsage
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
@@ -48,8 +45,6 @@ struct OverviewPopover: View {
 
     private var cards: some View {
         VStack(alignment: .leading, spacing: 12) {
-            LiveSessionsCard()
-
             Card(title: "Limites") {
                 if store.limits.isEmpty {
                     HStack {
@@ -63,31 +58,7 @@ struct OverviewPopover: View {
                 } else {
                     LimitsList()
                 }
-            }
-
-            Card(title: "Fontes") {
-                ForEach(localSources.all.filter { $0.phase != .unavailable }) { source in
-                    LocalSourceStatusRow(source: source)
-                }
-                ForEach(RemoteProviderKind.allCases.filter(remoteSources.isConfigured)) { kind in
-                    RemoteSourceStatusRow(kind: kind)
-                }
-                ForEach(customAPIs.apis) { api in
-                    CustomAPIStatusRow(api: api)
-                }
-                if !RemoteProviderKind.allCases.allSatisfy(remoteSources.isConfigured) {
-                    Button("Conectar API…", systemImage: "plus.circle") { openDashboard(.settings) }
-                        .buttonStyle(.borderless)
-                        .font(.callout)
-                }
-            }
-
-            Card(title: "Últimas 24 h") {
-                Last24HoursChart()
-            }
-
-            Card(title: "Top modelos hoje") {
-                TopModelsList()
+                Last24HoursStrip()
             }
 
             if let tip = tipsStore.featured {

@@ -132,11 +132,13 @@ struct LimitsList: View {
         }
     }
 
+    /// Limites de modelo usam a cor do modelo (a sessão um pouco mais clara que a semana);
+    /// só o alerta de 95% vira vermelho, para não confundir com o laranja do Claude.
     private func tint(for limit: LimitStatus) -> Color {
-        switch limit.fraction {
-        case 0.95...: .red
-        case 0.8...: .orange
-        default: .accentColor
+        if limit.fraction >= 0.95 { return .red }
+        guard let brand = limit.brand else {
+            return limit.fraction >= 0.8 ? .orange : .accentColor
         }
+        return limit.isSession ? brand.tint.opacity(0.7) : brand.tint
     }
 }

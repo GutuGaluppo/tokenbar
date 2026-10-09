@@ -1,26 +1,5 @@
 import SwiftUI
 
-/// Cartão "Agora" do popover: as sessões ativas do Claude Code e o que fazer em cada uma.
-struct LiveSessionsCard: View {
-    @Environment(LiveSessionsStore.self) private var live
-    /// No popover cabem poucas sessões; o resto fica na seção Dicas.
-    var limit = 2
-
-    var body: some View {
-        if !live.sessions.isEmpty {
-            Card(title: "Agora") {
-                VStack(alignment: .leading, spacing: 12) {
-                    ForEach(live.sessions.prefix(limit)) { session in
-                        LiveSessionView(session: session, compact: true)
-                        if session.id != live.sessions.prefix(limit).last?.id { Divider() }
-                    }
-                    LiveSavingsLabel()
-                }
-            }
-        }
-    }
-}
-
 /// Uma sessão ativa: tamanho do contexto, custo da próxima chamada, estado do cache e dicas.
 struct LiveSessionView: View {
     @Environment(LiveSessionsStore.self) private var live

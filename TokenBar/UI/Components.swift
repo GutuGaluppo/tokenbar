@@ -73,46 +73,70 @@ struct TodayHeader: View {
     }
 }
 
-/// Barras por hora nas últimas 24 h, empilhadas por provedor.
-struct Last24HoursChart: View {
+/// Consumo das últimas 24 h em uma faixa fina, sem eixos; o total fica ao lado.
+struct Last24HoursStrip: View {
     @Environment(UsageStore.self) private var store
-    var height: CGFloat = 90
+    var height: CGFloat = 16
 
     var body: some View {
         if store.last24Hours.isEmpty {
             Text("Sem consumo nas últimas 24 h")
-                .font(.callout)
+                .font(.caption)
                 .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, minHeight: height)
         } else {
-            Chart(store.last24Hours) { bucket in
-                BarMark(
-                    x: .value("Hora", bucket.hour, unit: .hour),
-                    y: .value("Tokens", bucket.tokens)
+            let total = store.last24Hours.reduce(0) { $0 + $1.tokens }
+            HStack(spacing: 8) {
+                Text("Últimas 24 h")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Chart(store.last24Hours) { bucket in
+                    BarMark(
+                        x: .value("Hora", bucket.hour, unit: .hour),
+                        y: .value("Tokens", bucket.tokens)
+                    )
+                    .foregroundStyle(by: .value("Provedor", bucket.provider.displayName))
+                    .cornerRadius(1)
+                }
+                .chartForegroundStyleScale(
+                    domain: Provider.allCases.map(\.displayName),
+                    range: Provider.allCases.map(\.tint)
                 )
-                .foregroundStyle(by: .value("Provedor", bucket.provider.displayName))
-                .cornerRadius(2)
+                .chartXAxis(.hidden)
+                .chartYAxis(.hidden)
+                .chartLegend(.hidden)
+                .frame(height: height)
+                Text(TokenFormat.compact(total))
+                    .font(.caption)
+                    .monospacedDigit()
             }
-            .chartForegroundStyleScale(
-                domain: Provider.allCases.map(\.displayName),
-                range: Provider.allCases.map(\.tint)
-            )
-            .chartXAxis {
-                AxisMarks(values: .stride(by: .hour, count: 6)) { _ in
-                    AxisGridLine()
-                    AxisValueLabel(format: .dateTime.hour())
-                }
+        }
+    }
+}
+
+/// Fontes de dados (logs locais, APIs conectadas e personalizadas) com o estado de cada uma.
+struct SourcesCard: View {
+    @Environment(LocalSources.self) private var localSources
+    @Environment(RemoteSourcesManager.self) private var remoteSources
+    @Environment(CustomAPIStore.self) private var customAPIs
+    /// Abre os ajustes de conexão; cada janela decide como chegar até eles.
+    let onConnect: () -> Void
+
+    var body: some View {
+        Card(title: "Fontes") {
+            ForEach(localSources.all.filter { $0.phase != .unavailable }) { source in
+                LocalSourceStatusRow(source: source)
             }
-            .chartYAxis {
-                AxisMarks { value in
-                    AxisGridLine()
-                    AxisValueLabel {
-                        if let tokens = value.as(Int.self) { Text(TokenFormat.compact(tokens)) }
-                    }
-                }
+            ForEach(RemoteProviderKind.allCases.filter(remoteSources.isConfigured)) { kind in
+                RemoteSourceStatusRow(kind: kind)
             }
-            .chartLegend(.hidden)
-            .frame(height: height)
+            ForEach(customAPIs.apis) { api in
+                CustomAPIStatusRow(api: api)
+            }
+            if !RemoteProviderKind.allCases.allSatisfy(remoteSources.isConfigured) {
+                Button("Conectar API…", systemImage: "plus.circle", action: onConnect)
+                    .buttonStyle(.borderless)
+                    .font(.callout)
+            }
         }
     }
 }
